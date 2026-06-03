@@ -822,7 +822,7 @@ function Home({ go, stats, openProject, admin, repos, setRepos }) {
   return (
     <div style={s.shell}>
       <Hero go={go} stats={stats} animate={animate} />
-      <div style={{ marginTop: 20 }}><ProjectUniverse go={go} openProject={openProject} /></div><GithubGraph />
+      <div style={{ marginTop: 20 }}><ProjectUniverse go={go} openProject={openProject} /></div><GithubGraph /><MyRepos />
       <TechStack stats={stats} />
       <div style={{ height: 20 }} />
     </div>
