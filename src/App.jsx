@@ -1745,7 +1745,8 @@ export default function App() {
         {page === "commits" && <Commits stats={stats} />}
         {page === "versions" && <Versions openProject={openProject} />}
         {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} />}
-        {page === "contact" && <Contact />}         {page === "techstack" && <TechStack stats={stats} />}
+        {page === "contact" && <Contact />}
+        {page === "techstack" && <TechStack stats={stats} />}
       </main>
 
       <Footer />
