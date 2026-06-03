@@ -781,41 +781,6 @@ function GitHubGrid({ stats }) {
     </div>
   );
 }
-
-// ============ MY REPOSITORIES ============
-function MyRepos({ admin, repos, setRepos }) {
-  const [input, setInput] = useState("");
-  const add = () => { const v = input.trim(); if (v) { setRepos((p) => [...p, v]); setInput(""); } };
-  const remove = (i) => setRepos((p) => p.filter((_, idx) => idx !== i));
-  const repoName = (url) => { try { return url.replace(/\/$/, "").split("/").slice(-2).join("/"); } catch { return url; } };
-  return (
-    <div style={{ ...s.qaPanel, ...glossyJS("#6366f1") }} className="fadeup">
-      <div style={s.puHead}>
-        <div style={s.puTitle}><Icon name="git" size={18} color={C.purple} /> MY REPOSITORIES</div>
-        <span style={{ fontSize: 12.5, color: C.dim, fontWeight: 600 }}>{repos.length} repos</span>
-      </div>
-      {repos.length === 0 && !admin && <div style={s.comingSoon}><Icon name="git" size={15} /> Repositories coming soon</div>}
-      <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-        {repos.map((r, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 11, background: "rgba(10,14,30,.5)", border: "1px solid " + C.border, borderRadius: 13, padding: "11px 14px" }}>
-            <Icon name="github" size={17} color="#fff" />
-            <a href={r} target="_blank" rel="noopener noreferrer" style={{ flex: 1, fontSize: 13.5, color: "#c7d2fe", fontFamily: FM, textDecoration: "none", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{repoName(r)}</a>
-            <a href={r} target="_blank" rel="noopener noreferrer" style={{ color: C.cyan }}><Icon name="arrow" size={15} /></a>
-            {admin && <button onClick={() => remove(i)} style={{ background: "none", border: "none", color: "#fca5a5", cursor: "pointer" }}><Icon name="close" size={15} /></button>}
-          </div>
-        ))}
-      </div>
-      {admin && (
-        <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-          <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && add()}
-            placeholder="https://github.com/user/repo" style={{ ...s.linkInput, flex: 1 }} />
-          <button style={{ ...s.btnPrimary, padding: "11px 18px" }} onClick={add}>Add</button>
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ============ HOME ============
 function Home({ go, stats, openProject, admin, repos, setRepos }) {
   const [animate, setAnimate] = useState(false);
@@ -829,7 +794,6 @@ function Home({ go, stats, openProject, admin, repos, setRepos }) {
     </div>
   );
 }
-
 // ============ ROADMAP (PRIVATE) ============
 // EVENT_META: visual styling for each roadmap event kind
 const EVENT_META = {
