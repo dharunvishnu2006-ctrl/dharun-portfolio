@@ -110,8 +110,8 @@ const s = {
 
   // HERO
   hero: { position: "relative", padding: "40px 0 18px" },
-  heroTop: { display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 26, alignItems: "stretch" },
-  heroMain: { display: "grid", gridTemplateColumns: "auto 1fr", gap: 28, alignItems: "center", position: "relative" },
+  heroTop: { display: "grid", gridTemplateColumns: "2fr 0.85fr", gap: 26, alignItems: "stretch" },
+  heroMain: { display: "grid", gridTemplateColumns: "auto minmax(0,1fr)", gap: 28, alignItems: "center", position: "relative", overflow: "visible" },
 
   // animated globe behind hero
   globe: { position: "absolute", right: -40, top: "8%", width: 340, height: 340, borderRadius: "50%", pointerEvents: "none", opacity: .7,
@@ -126,16 +126,16 @@ const s = {
   sideTags: { display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", maxWidth: 280 },
   sideTag: { display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(120,150,255,.12)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "6px 13px", fontSize: 12, color: "#dbe4ff", fontWeight: 600 },
 
-  heroText: { position: "relative", zIndex: 2 },
+  heroText: { position: "relative", zIndex: 2, overflow: "visible", minWidth: 0 },
   hello: { fontFamily: FD, fontSize: 22, color: C.cyan, fontWeight: 600, marginBottom: 2, fontStyle: "italic" },
-  heroName: { fontFamily: FD, fontSize: "clamp(40px,6.5vw,72px)", fontWeight: 800, lineHeight: 0.96, letterSpacing: "-2px", margin: "6px 0", whiteSpace: "nowrap" },
+  heroName: { fontFamily: FD, fontSize: "clamp(22px,3.2vw,44px)", fontWeight: 800, lineHeight: 0.96, letterSpacing: "-1px", margin: "6px 0", fontStyle: "italic", whiteSpace: "nowrap", overflow: "visible", paddingRight: 16 },
   heroNameWhite: { ...gradText, filter: "drop-shadow(0 2px 18px rgba(120,150,255,.4))" },
   heroNameGrad: { ...gradText, filter: "drop-shadow(0 4px 24px rgba(139,92,246,.5))" },
-  rolePill: { display: "inline-flex", alignItems: "center", gap: 9, marginTop: 14, background: "rgba(12,16,40,.8)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "10px 22px", fontSize: 15, fontWeight: 800, ...gradText, boxShadow: "0 0 26px rgba(120,150,255,.25) inset", fontStyle: "italic" },
+  rolePill: { display: "inline-flex", alignItems: "center", gap: 9, marginTop: 14, background: "rgba(12,16,40,.8)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "10px 22px", fontSize: 18, fontWeight: 800, ...gradText, boxShadow: "0 0 26px rgba(120,150,255,.25) inset", fontStyle: "italic" },
   roleDot: { WebkitTextFillColor: C.magenta },
   quoteBox: { display: "flex", gap: 12, marginTop: 22, maxWidth: 460 },
   quoteMark: { fontFamily: "Georgia, serif", fontSize: 52, lineHeight: 0.8, color: C.cyan, fontWeight: 700, opacity: 0.9, marginTop: -6, textShadow: "0 0 16px rgba(34,211,238,.5)" },
-  quoteText: { fontSize: 18, ...gradText, lineHeight: 1.5, fontWeight: 600, fontStyle: "italic" },
+  quoteText: { fontSize: 22, ...gradText, lineHeight: 1.5, fontWeight: 600, fontStyle: "italic" },
   quoteAccent: { background: "linear-gradient(110deg,#fbbf24,#e040fb,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontWeight: 800, textShadow: "none" },
   heroBtns: { display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 },
   btnPrimary: { display: "inline-flex", alignItems: "center", gap: 9, background: "linear-gradient(135deg,#2563eb,#7c3aed)", color: "#fff", border: "none", padding: "13px 22px", borderRadius: 14, fontSize: 14.5, fontWeight: 700, cursor: "pointer", fontFamily: FB, boxShadow: "0 8px 28px rgba(59,130,246,.45), inset 0 1px 0 rgba(255,255,255,.25)", transition: ".2s" },
@@ -612,7 +612,7 @@ function glossyJS(hex) {
 }
 
 // ============ PROJECT UNIVERSE ============
-function GithubGraph() {   return (     <div style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>         <Icon name="github" size={16} color="#7ee787" /> GITHUB COMMIT GRAPH       </div>       <img src="https://ghchart.rshah.org/7ee787/dharunvishnu2006-ctrl" alt="GitHub Contributions" style={{ width: "100%", borderRadius: 8, display: "block" }} />     </div>   ); } function MyRepos() {   const [repos, setRepos] = React.useState([]);   React.useEffect(() => {     fetch("https://api.github.com/users/dharunvishnu2006-ctrl/repos?sort=updated&per_page=12")       .then(r => r.json()).then(data => { if (Array.isArray(data)) setRepos(data); });   }, []);   return (     <div style={{ ...glossyJS("#0d1117"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>         <Icon name="github" size={16} color={C.cyan} /> MY REPOSITORIES <span style={{ color: C.dim, fontWeight: 500, fontSize: 12 }}>({repos.length})</span>       </div>       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 10 }}>         {repos.map(r => (           <a key={r.id} href={r.html_url} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(22,27,34,.8)", border: "1px solid rgba(48,54,61,.8)", borderRadius: 12, padding: "14px 16px", textDecoration: "none", display: "block" }} className="hoverlift">             <div style={{ color: "#fff", fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{r.name}</div>             <div style={{ color: "#8b949e", fontSize: 11.5, lineHeight: 1.5 }}>{r.description || "No description"}</div>             <div style={{ display: "flex", gap: 12, marginTop: 8, fontSize: 11, color: "#8b949e" }}>               <span>⭐ {r.stargazers_count}</span>               <span>🍴 {r.forks_count}</span>               {r.language && <span style={{ color: C.cyan }}>{r.language}</span>}             </div>           </a>         ))}       </div>     </div>   ); } function ProjectUniverse({ go, openProject }) {
+function GithubGraph() {   return (     <div style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>         <Icon name="github" size={16} color="#7ee787" /> GITHUB COMMIT GRAPH       </div>       <div style={{ background: "#161b22", borderRadius: 8, padding: "8px", overflow: "hidden" }}>         <img src="https://ghchart.rshah.org/7ee787/dharunvishnu2006-ctrl" alt="GitHub Contributions" style={{ width: "100%", borderRadius: 4, display: "block", filter: "invert(0)" }} />       </div>     </div>   ); } function MyRepos() {   const [repos, setRepos] = React.useState([]);   React.useEffect(() => {     fetch("https://api.github.com/users/dharunvishnu2006-ctrl/repos?sort=updated&per_page=12")       .then(r => r.json()).then(data => { if (Array.isArray(data)) setRepos(data); });   }, []);   return (     <div style={{ ...glossyJS("#0d1117"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>         <Icon name="github" size={16} color={C.cyan} /> MY REPOSITORIES <span style={{ color: C.dim, fontWeight: 500, fontSize: 12 }}>({repos.length})</span>       </div>       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 10 }}>         {repos.map(r => (           <a key={r.id} href={r.html_url} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(22,27,34,.8)", border: "1px solid rgba(48,54,61,.8)", borderRadius: 12, padding: "14px 16px", textDecoration: "none", display: "block" }} className="hoverlift">             <div style={{ color: "#fff", fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{r.name}</div>             <div style={{ color: "#8b949e", fontSize: 11.5, lineHeight: 1.5 }}>{r.description || "No description"}</div>             <div style={{ display: "flex", gap: 12, marginTop: 8, fontSize: 11, color: "#8b949e" }}>               <span>⭐ {r.stargazers_count}</span>               <span>🍴 {r.forks_count}</span>               {r.language && <span style={{ color: C.cyan }}>{r.language}</span>}             </div>           </a>         ))}       </div>     </div>   ); } function ProjectUniverse({ go, openProject }) {
   const order = ["KING", "QUEEN", "P17", "P18", "P1", "P3"];
   const feat = order.map(code => projects.find(p => p.code === code)).filter(Boolean);
   return (
@@ -788,7 +788,7 @@ function Home({ go, stats, openProject, admin, repos, setRepos }) {
   return (
     <div style={s.shell}>
       <Hero go={go} stats={stats} animate={animate} />
-      <div style={{ marginTop: 20 }}><ProjectUniverse go={go} openProject={openProject} /></div><GithubGraph /><MyRepos />
+      <div style={{ marginTop: 20 }}><ProjectUniverse go={go} openProject={openProject} /></div><GithubGraph /><MyRepos /><div style={{ marginTop: 8 }}><TechStack stats={stats} /></div>
      
       <div style={{ height: 20 }} />
     </div>
@@ -1583,6 +1583,33 @@ function Commits({ stats }) {
   );
 }
 
+// ============ PROJECT LINKS HOOK ============
+const PROJ_LINKS_KEY = "dharun-proj-links-v1";
+function useProjectLinks() {
+  const [links, setLinksState] = useState({});
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const res = await sbGet(PROJ_LINKS_KEY);
+        if (alive && res && res.value) setLinksState(JSON.parse(res.value));
+      } catch (e) { /* no saved data yet */ }
+      if (alive) setLoaded(true);
+    })();
+    return () => { alive = false; };
+  }, []);
+  useEffect(() => {
+    if (!loaded) return;
+    (async () => {
+      try {
+        await sbSet(PROJ_LINKS_KEY, JSON.stringify(links));
+      } catch (e) { /* ignore write errors */ }
+    })();
+  }, [links, loaded]);
+  return { links, setLinks: setLinksState };
+}
+
 // ============ PROGRESS HOOK ============
 // persistent certificate links (subcourse certs + AWS certs), saved to browser storage
 const CERT_STORE_KEY = "dharun-cert-links-v1";
@@ -1657,7 +1684,7 @@ export default function App() {
   const [password, setPassword] = useState("dharun2026"); useEffect(() => { sbGet("dharun-admin-password").then(r => { if (r && r.value) setPassword(r.value); }); }, []);
   const [adminEmail] = useState("dharun.vishnu@gmail.com");
   const [activeProject, setActiveProject] = useState(null);
-  const [links, setLinks] = useState({});
+  const { links, setLinks } = useProjectLinks();
   const [repos, setRepos] = useState([]);
   const progress = useProgress();
   const done = progress.done;
