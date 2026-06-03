@@ -429,7 +429,8 @@ const NAV_PUBLIC = [
   { id: "journey", label: "Journey", icon: "pulse" },
   { id: "projects", label: "Projects", icon: "rocket" },
   { id: "versions", label: "Versions", icon: "git" },
-  { id: "certs", label: "Certificates", icon: "award" },
+ { id: "certs", label: "Certificates", icon: "award" },
+  { id: "techstack", label: "Tech Stack", icon: "layers" },
   { id: "contact", label: "Contact", icon: "mail" },
 ];
 const NAV_ROADMAP = { id: "roadmap", label: "Roadmap", icon: "layers" };
