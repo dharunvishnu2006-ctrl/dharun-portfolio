@@ -186,8 +186,8 @@ const s = {
   techTitle: { fontFamily: FD, fontSize: 13.5, fontWeight: 800, color: "#fff", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 20 },
   techRow: { display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "space-between" },
   techItem: { display: "flex", flexDirection: "column", alignItems: "center", gap: 9, flex: "1 1 auto", minWidth: 76 },
-  techBadge: { width: 52, height: 52, borderRadius: 16, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 19, transition: ".2s", position: "relative", overflow: "hidden" },
-  techName: { fontSize: 12, color: "#dbe4ff", fontWeight: 600 },
+  techBadge: { width: 60, height: 60, borderRadius: 16, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 26, transition: ".2s", position: "relative", overflow: "hidden" },
+  techName: { fontSize: 13, color: "#ffffff", fontWeight: 700 },
 
   // ROADMAP
   lockNote: { ...glossy("#fbbf24"), borderRadius: 20, padding: "40px 30px", textAlign: "center", maxWidth: 560, margin: "20px auto 0" },
