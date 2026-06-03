@@ -611,7 +611,7 @@ function glossyJS(hex) {
 }
 
 // ============ PROJECT UNIVERSE ============
-function ProjectUniverse({ go, openProject }) {
+function GithubGraph() {   return (     <div style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>         <Icon name="github" size={16} color="#7ee787" /> GITHUB COMMIT GRAPH       </div>       <img src="https://ghchart.rshah.org/7ee787/dharunvishnu2006-ctrl" alt="GitHub Contributions" style={{ width: "100%", borderRadius: 8, display: "block" }} />     </div>   ); } function ProjectUniverse({ go, openProject }) {
   const order = ["KING", "QUEEN", "P17", "P18", "P1", "P3"];
   const feat = order.map(code => projects.find(p => p.code === code)).filter(Boolean);
   return (
