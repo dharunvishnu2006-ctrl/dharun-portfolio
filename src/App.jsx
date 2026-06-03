@@ -244,7 +244,7 @@ const s = {
   detailStackRow: { display: "flex", gap: 8, flexWrap: "wrap", marginTop: 16 },
   stackChip: { fontFamily: FM, fontSize: 12, padding: "5px 12px", borderRadius: 100, background: "rgba(120,150,255,.12)", border: "1px solid " + C.border, color: "#dbe4ff", fontWeight: 500 },
   linkBtns: { display: "flex", flexDirection: "column", gap: 10, marginTop: 22 },
-  linkBtn: { display: "flex", alignItems: "center", gap: 11, padding: "13px 16px", borderRadius: 13, fontSize: 14.5, fontWeight: 700, cursor: "pointer", textDecoration: "none", border: "none", fontFamily: FB, transition: ".2s" },
+  linkBtn: { display: "flex", alignItems: "center", gap: 11, padding: "13px 16px", borderRadius: 13, fontSize: 14.5, fontWeight: 700, color: "#ffffff", cursor: "pointer", textDecoration: "none", border: "none", fontFamily: FB, transition: ".2s" },
   linkInputRow: { display: "flex", flexDirection: "column", gap: 6, marginTop: 12 },
   linkLabel: { fontSize: 12.5, color: C.dim, fontWeight: 600, display: "flex", alignItems: "center", gap: 7 },
   linkInput: { background: "rgba(5,6,15,.6)", border: "1px solid " + C.border, borderRadius: 11, padding: "11px 14px", color: "#fff", fontSize: 13.5, fontFamily: FB, outline: "none", width: "100%", boxSizing: "border-box" },
