@@ -528,11 +528,33 @@ function Hero({ go, stats, animate }) {
             </div>
           </div>
          <div style={s.heroText} data-herotext>
+  <div style={s.hello}>Hello, I'm</div>
   
-              <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
-              <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
-              <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /> Download CV</button>
-            </div>
+  {/* Name: Made slightly smaller and italicized */}
+  <h1 style={s.heroName} data-heroname>
+    <span style={{ ...s.heroNameGrad, fontSize: '0.85em', fontStyle: 'italic' }}>
+      J. DHARUN VISHNU
+    </span>
+  </h1>
+  
+  {/* BSc IT & Role: Increased font size */}
+  <div style={{ ...s.rolePill, fontSize: '1.2rem', marginBottom: '15px' }}>
+    BSc IT <span style={s.roleDot}>•</span> Aspiring AI/ML &amp; DevSecOps Architect
+  </div>
+  
+  {/* Quote Section: Increased font size */}
+  <div style={{ ...s.quoteBox, marginBottom: '20px' }} data-quotebox>
+    <span style={s.quoteMark}>“</span>
+    <div style={{ ...s.quoteText, fontSize: '1.25rem' }}>
+      Building Enterprise AI Systems <span style={s.quoteAccent}>One Layer</span> at a Time.
+    </div>
+  </div>
+
+  {/* Buttons Section (Original Lines 531-533) */}
+  <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
+  <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
+  <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /> Download CV</button>
+</div>
           </div>
         </div>
 
