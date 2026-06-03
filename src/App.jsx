@@ -1623,13 +1623,15 @@ function useCertLinks() {
 function useProgress() {
   const [done, setDone] = useState(() => new Set());
   useEffect(() => {
-  sbGet("dharun-progress-done").then(r => {
-    if (r && r.value) setDone(new Set(JSON.parse(r.value)));
-  });
-}, []);
-useEffect(() => {
-  sbSet("dharun-progress-done", JSON.stringify([...done]));
-}, [done]);
+    sbGet("dharun-progress-done").then(r => {
+      if (r && r.value) setDone(new Set(JSON.parse(r.value)));
+    });
+  }, []);
+  useEffect(() => {
+    if (done.size > 0) {
+      sbSet("dharun-progress-done", JSON.stringify([...done]));
+    }
+  }, [done]);
   const toggle = (n) => setDone((p) => { const x = new Set(p); x.has(n) ? x.delete(n) : x.add(n); return x; });
   const setLayerDone = (lid, val) => setDone((p) => {
     const x = new Set(p);
