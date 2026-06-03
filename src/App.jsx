@@ -823,7 +823,7 @@ function Home({ go, stats, openProject, admin, repos, setRepos }) {
     <div style={s.shell}>
       <Hero go={go} stats={stats} animate={animate} />
       <div style={{ marginTop: 20 }}><ProjectUniverse go={go} openProject={openProject} /></div><GithubGraph /><MyRepos />
-      <TechStack stats={stats} />
+     
       <div style={{ height: 20 }} />
     </div>
   );
@@ -1744,7 +1744,7 @@ export default function App() {
         {page === "commits" && <Commits stats={stats} />}
         {page === "versions" && <Versions openProject={openProject} />}
         {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} />}
-        {page === "contact" && <Contact />}
+        {page === "contact" && <Contact />}         {page === "techstack" && <TechStack stats={stats} />}
       </main>
 
       <Footer />
