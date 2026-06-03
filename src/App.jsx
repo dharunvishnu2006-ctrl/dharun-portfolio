@@ -232,7 +232,7 @@ const s = {
   projTag: { fontSize: 11, fontWeight: 800, padding: "3px 11px", borderRadius: 100, letterSpacing: ".3px" },
   projName: { fontFamily: FD, fontSize: 21, fontWeight: 800, color: "#fff", marginTop: 4, position: "relative", fontStyle: "italic" },
   projDesc: { fontSize: 14, color: "#dbe4ff", marginTop: 6, position: "relative", lineHeight: 1.5, fontWeight: 500 },
-  projFoot: { display: "flex", alignItems: "center", gap: 6, fontSize: 12.5, color: "#aab4dd", marginTop: 16, position: "relative", fontWeight: 600 },
+  projFoot: { display: "flex", alignItems: "center", gap: 6, fontSize: 12.5, color: "#ffffff", marginTop: 16, position: "relative", fontWeight: 600 },
 
   // project detail modal
   detailBg: { position: "fixed", inset: 0, background: "rgba(3,4,10,.82)", backdropFilter: "blur(10px)", display: "grid", placeItems: "center", zIndex: 90, padding: 20, overflowY: "auto" },
