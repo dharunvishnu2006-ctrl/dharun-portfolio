@@ -16,7 +16,7 @@ async function sbGet(key) {
 
 async function sbSet(key, value) {
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/progress`, {
+    await fetch(`${SUPABASE_URL}/rest/v1/progress?on_conflict=key`, {
       method: "POST",
       headers: {
         "apikey": SUPABASE_ANON_KEY,
