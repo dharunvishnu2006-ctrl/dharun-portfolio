@@ -527,7 +527,7 @@ function Hero({ go, stats, animate }) {
               <span style={s.sideTag}><Icon name="layers" size={13} color={C.blue} /> Cloud Builder</span>
             </div>
           </div>
-    <div style={s.heroText} data-herotext>
+          <div style={s.heroText} data-herotext>
             <div style={s.hello}>Hello, I'm</div>
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
@@ -538,6 +538,10 @@ function Hero({ go, stats, animate }) {
               <div style={s.quoteText}>Building Enterprise AI Systems <span style={s.quoteAccent}>One Layer</span> at a Time.</div>
             </div>
             <div style={s.heroBtns} data-herobtns>
+              <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
+              <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
+              <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /> Download CV</button>
+            </div>
           </div>
         </div>
 
