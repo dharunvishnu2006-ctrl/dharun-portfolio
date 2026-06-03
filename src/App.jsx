@@ -520,9 +520,9 @@ function Hero({ go, stats, animate }) {
               <img src={PROFILE_IMG} alt="J. Dharun Vishnu" style={s.photo} />
             </div>
             <div style={s.sideTags} data-sidetags>
-              <span style={s.sideTag}><Icon name="code" size={13} color={C.cyan} /> Engineer</span>
+              <span style={s.sideTag}><Icon name="code" size={13} color={C.cyan} /> AI/ML Engineer</span>
               <span style={s.sideTag}><Icon name="target" size={13} color={C.purple} /> Problem Solver</span>
-              <span style={s.sideTag}><Icon name="shield" size={13} color={C.green} /> Security</span>
+              <span style={s.sideTag}><Icon name="shield" size={13} color={C.green} /> Cyber security</span>
               <span style={s.sideTag}><Icon name="layers" size={13} color={C.blue} /> Cloud Builder</span>
             </div>
           </div>
