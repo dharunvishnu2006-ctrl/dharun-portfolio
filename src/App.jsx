@@ -128,9 +128,9 @@ const s = {
 
   heroText: { position: "relative", zIndex: 2, overflow: "visible", minWidth: 0 },
   hello: { fontFamily: FD, fontSize: 22, color: C.cyan, fontWeight: 600, marginBottom: 2, fontStyle: "italic" },
-  heroName: { fontFamily: FD, fontSize: "clamp(22px,3.2vw,44px)", fontWeight: 800, lineHeight: 0.96, letterSpacing: "-1px", margin: "6px 0", fontStyle: "italic", whiteSpace: "nowrap", overflow: "visible", paddingRight: 16 },
+  heroName: { fontFamily: FD, fontSize: "clamp(22px,3.2vw,44px)", fontWeight: 800, lineHeight: 0.96, letterSpacing: "-1px", margin: "6px 0", fontStyle: "italic", whiteSpace: "nowrap", overflow: "visible", paddingRight: "0.5em", width: "fit-content" },
   heroNameWhite: { ...gradText, filter: "drop-shadow(0 2px 18px rgba(120,150,255,.4))" },
-  heroNameGrad: { ...gradText, filter: "drop-shadow(0 4px 24px rgba(139,92,246,.5))" },
+  heroNameGrad: { ...gradText, filter: "drop-shadow(0 4px 24px rgba(139,92,246,.5))", paddingRight: "0.18em", display: "inline-block" },
   rolePill: { display: "inline-flex", alignItems: "center", gap: 9, marginTop: 14, background: "rgba(12,16,40,.8)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "10px 22px", fontSize: 18, fontWeight: 800, ...gradText, boxShadow: "0 0 26px rgba(120,150,255,.25) inset", fontStyle: "italic" },
   roleDot: { WebkitTextFillColor: C.magenta },
   quoteBox: { display: "flex", gap: 12, marginTop: 22, maxWidth: 460 },
