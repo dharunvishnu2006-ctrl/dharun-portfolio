@@ -1750,7 +1750,7 @@ export default function App() {
       <Footer />
       {activeProject && <ProjectDetail project={activeProject} onClose={() => setActiveProject(null)} admin={admin} links={links} setLinks={setLinks} maxDay={stats.maxDay} />}
       {showLogin && <LoginModal onClose={() => setShowLogin(false)} onSuccess={() => { setAdmin(true); go("roadmap"); }} password={password} adminEmail={adminEmail} />}
-      {showPw && <ChangePwModal onClose={() => setShowPw(false)} current={password} onChange={setPassword} />}
+      {showPw && <ChangePwModal onClose={() => setShowPw(false)} current={password} onChange={async (newPw) => { setPassword(newPw); await sbSet("dharun-admin-password", newPw); }} />}
       {showGuide && <GuideModal onClose={() => setShowGuide(false)} />}
     </div>
   );
