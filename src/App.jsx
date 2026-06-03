@@ -1679,7 +1679,7 @@ export default function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showPw, setShowPw] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
-  const [password, setPassword] = useState("dharun2026");
+  const [password, setPassword] = useState("dharun2026"); useEffect(() => { sbGet("dharun-admin-password").then(r => { if (r && r.value) setPassword(r.value); }); }, []);
   const [adminEmail] = useState("dharun.vishnu@gmail.com");
   const [activeProject, setActiveProject] = useState(null);
   const [links, setLinks] = useState({});
