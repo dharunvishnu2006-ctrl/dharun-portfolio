@@ -765,7 +765,7 @@ function QuickRow({ go }) {
         <div style={s.qaTitle}>QUICK ACCESS</div>
         <div style={s.qaGrid} data-qagrid>
           {items.map((it) => (
-<a key={it.label} className="qaitem" style={{ ...s.qaItem, position: "relative", zIndex: 2 }} href={it.url || "#"} target={it.url ? "_blank" : undefined} rel={it.url ? "noopener noreferrer" : undefined} onClick={(e) => { e.preventDefault(); if (it.url) { window.open(it.url, "_blank", "noopener,noreferrer"); } else if (it.page) { go(it.page); } }}>
+            <a key={it.label} className="qaitem" style={{ ...s.qaItem, position: "relative", zIndex: 2 }} href={it.url || "#"} target={it.url ? "_blank" : undefined} rel={it.url ? "noopener noreferrer" : undefined} onClick={(e) => { if (it.url) return; e.preventDefault(); if (it.page) go(it.page); }}>
               <span style={{ ...s.qaIcon, ...glossyJS(it.c === "#fff" ? "#6366f1" : it.c) }}><Icon name={it.icon} size={17} color={it.c} /></span>
               <span style={s.qaLabel}>{it.label}</span>
               <Icon name="chevron" size={15} color={C.dim2} />
