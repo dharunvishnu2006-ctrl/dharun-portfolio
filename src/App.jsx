@@ -323,6 +323,7 @@ button:hover { filter: brightness(1.12); }
 .hoverlift:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(59,130,246,.25) !important; }
 .navlink:hover { color: #fff !important; }
 .qaitem:hover { border-color: rgba(120,150,255,.5) !important; background: rgba(120,150,255,.1) !important; }
+.qaitem * { pointer-events: none; }
 .techbadge:hover { transform: translateY(-5px) scale(1.06); }
 input:focus { border-color: rgba(120,150,255,.65) !important; }
 @media (max-width: 1080px) {
