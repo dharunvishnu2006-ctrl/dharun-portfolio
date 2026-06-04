@@ -612,7 +612,121 @@ function glossyJS(hex) {
 }
 
 // ============ PROJECT UNIVERSE ============
-function GithubGraph() {   return (     <div style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>         <Icon name="github" size={16} color="#7ee787" /> GITHUB COMMIT GRAPH       </div>       <div style={{ background: "#161b22", borderRadius: 8, padding: "8px", overflow: "hidden" }}>         <img src="https://github-contributions-api.deno.dev/dharunvishnu2006-ctrl.svg?scheme=github" alt="GitHub Contributions" style={{ width: "100%", borderRadius: 4, display: "block", filter: "invert(0)" }} />       </div>     </div>   ); } function MyRepos() {   const [repos, setRepos] = React.useState([]);   React.useEffect(() => {     fetch("https://api.github.com/users/dharunvishnu2006-ctrl/repos?sort=updated&per_page=12")       .then(r => r.json()).then(data => { if (Array.isArray(data)) setRepos(data); });   }, []);   return (     <div style={{ ...glossyJS("#0d1117"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>         <Icon name="github" size={16} color={C.cyan} /> MY REPOSITORIES <span style={{ color: C.dim, fontWeight: 500, fontSize: 12 }}>({repos.length})</span>       </div>       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 10 }}>         {repos.map(r => (           <a key={r.id} href={r.html_url} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(22,27,34,.8)", border: "1px solid rgba(48,54,61,.8)", borderRadius: 12, padding: "14px 16px", textDecoration: "none", display: "block" }} className="hoverlift">             <div style={{ color: "#fff", fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{r.name}</div>             <div style={{ color: "#8b949e", fontSize: 11.5, lineHeight: 1.5 }}>{r.description || "No description"}</div>             <div style={{ display: "flex", gap: 12, marginTop: 8, fontSize: 11, color: "#8b949e" }}>               <span>⭐ {r.stargazers_count}</span>               <span>🍴 {r.forks_count}</span>               {r.language && <span style={{ color: C.cyan }}>{r.language}</span>}             </div>           </a>         ))}       </div>     </div>   ); } function ProjectUniverse({ go, openProject }) {
+function GithubGraph() {
+  const USERNAME = "dharunvishnu2006-ctrl";
+  const [data, setData] = React.useState(null);
+  const [err, setErr] = React.useState(false);
+
+  React.useEffect(() => {
+    fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`)
+      .then(r => r.json())
+      .then(d => {
+        if (d && Array.isArray(d.contributions)) setData(d.contributions);
+        else setErr(true);
+      })
+      .catch(() => setErr(true));
+  }, []);
+
+  const LEVELS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const CELL = 12, GAP = 3;
+
+  const weeks = React.useMemo(() => {
+    if (!data) return [];
+    const out = [];
+    let cur = [];
+    data.forEach(day => {
+      const dow = new Date(day.date).getDay();
+      if (dow === 0 && cur.length) { out.push(cur); cur = []; }
+      cur.push(day);
+    });
+    if (cur.length) out.push(cur);
+    return out;
+  }, [data]);
+
+  const monthLabels = React.useMemo(() => {
+    const labels = [];
+    let last = -1;
+    weeks.forEach((week, i) => {
+      if (!week[0]) return;
+      const m = new Date(week[0].date).getMonth();
+      if (m !== last) { labels.push({ index: i, label: MONTHS[m] }); last = m; }
+    });
+    return labels;
+  }, [weeks]);
+
+  return (
+    <div style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
+      <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+        <Icon name="github" size={16} color="#7ee787" /> GITHUB COMMIT GRAPH
+      </div>
+      <div style={{ background: "#0d1117", borderRadius: 8, padding: "16px", overflowX: "auto" }}>
+        {err && <div style={{ color: "#8b949e", fontSize: 13 }}>Could not load commit data right now.</div>}
+        {!err && !data && <div style={{ color: "#8b949e", fontSize: 13 }}>Loading commit graph…</div>}
+        {!err && data && (
+          <div style={{ display: "inline-flex", flexDirection: "column", gap: 6 }}>
+            <div style={{ display: "flex", marginLeft: 30, position: "relative", height: 14 }}>
+              {monthLabels.map((m, i) => (
+                <div key={i} style={{ position: "absolute", left: m.index * (CELL + GAP), fontSize: 10, color: "#8b949e" }}>{m.label}</div>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: GAP }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: GAP, marginRight: 4, width: 26 }}>
+                {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
+                  <div key={i} style={{ height: CELL, fontSize: 9, color: "#8b949e", lineHeight: `${CELL}px` }}>{d}</div>
+                ))}
+              </div>
+              {weeks.map((week, wi) => (
+                <div key={wi} style={{ display: "flex", flexDirection: "column", gap: GAP }}>
+                  {Array.from({ length: 7 }).map((_, di) => {
+                    const day = week.find(d => new Date(d.date).getDay() === di);
+                    const lvl = day ? day.level : 0;
+                    return (
+                      <div key={di}
+                        title={day ? `${day.count} commits on ${day.date}` : ""}
+                        style={{ width: CELL, height: CELL, borderRadius: 2, background: LEVELS[lvl] || LEVELS[0] }} />
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function MyRepos() {
+  const [repos, setRepos] = React.useState([]);
+  React.useEffect(() => {
+    fetch("https://api.github.com/users/dharunvishnu2006-ctrl/repos?sort=updated&per_page=12")
+      .then(r => r.json()).then(data => { if (Array.isArray(data)) setRepos(data); });
+  }, []);
+  return (
+    <div style={{ ...glossyJS("#0d1117"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
+      <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+        <Icon name="github" size={16} color={C.cyan} /> MY REPOSITORIES <span style={{ color: C.dim, fontWeight: 500, fontSize: 12 }}>({repos.length})</span>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 10 }}>
+        {repos.map(r => (
+          <a key={r.id} href={r.html_url} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(22,27,34,.8)", border: "1px solid rgba(48,54,61,.8)", borderRadius: 12, padding: "14px 16px", textDecoration: "none", display: "block" }} className="hoverlift">
+            <div style={{ color: "#fff", fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{r.name}</div>
+            <div style={{ color: "#8b949e", fontSize: 11.5, lineHeight: 1.5 }}>{r.description || "No description"}</div>
+            <div style={{ display: "flex", gap: 12, marginTop: 8, fontSize: 11, color: "#8b949e" }}>
+              <span>⭐ {r.stargazers_count}</span>
+              <span>🍴 {r.forks_count}</span>
+              {r.language && <span style={{ color: C.cyan }}>{r.language}</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProjectUniverse({ go, openProject }) {
+
   const order = ["KING", "QUEEN", "P17", "P18", "P1", "P3"];
   const feat = order.map(code => projects.find(p => p.code === code)).filter(Boolean);
   return (
