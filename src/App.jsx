@@ -575,13 +575,13 @@ function Hero({ go, stats, animate }) {
             </div>
           </div>
           <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
-            <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" onClick={(e) => e.preventDefault()}
+            <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
               style={{ ...s.dashCard, ...glossyJS("#6366f1"), flex: 1, display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
               className="hoverlift">
               <Icon name="github" size={17} color="#fff" />
               <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>GitHub</span>
             </a>
-            <a href="https://www.linkedin.com/in/dharun-vishnu/"target="_blank" onClick={(e) => e.preventDefault()}
+            <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
               style={{ ...s.dashCard, ...glossyJS(C.blue), flex: 1, display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
               className="hoverlift">
               <Icon name="linkedin" size={17} color={C.blue} />
