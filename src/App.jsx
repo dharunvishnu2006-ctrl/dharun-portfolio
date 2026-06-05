@@ -337,8 +337,10 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-globe] { display:none !important; }
 }
 @media (max-width: 1023px) {
-  [data-bottomrow] { grid-template-columns: 1fr !important; }
-  [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+  [data-bottomrow] { grid-template-columns: 1fr !important; margin-left: -26px !important; margin-right: -26px !important; gap: 0 !important; }
+  [data-graphbox] { border-radius: 0 !important; margin-top: 0 !important; }
+  [data-reposbox] { border-radius: 0 !important; margin-top: 0 !important; }
+  [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; border-radius: 0 !important; }
   [data-reposgrid] { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 860px) {
@@ -726,7 +728,7 @@ function GithubGraph() {
   }, [weeks]);
 
   return (
-    <div style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
+    <div data-graphbox style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
         <Icon name="github" size={16} color="#7ee787" /> GITHUB COMMIT GRAPH
       </div>
@@ -774,7 +776,7 @@ function MyRepos() {
       .then(r => r.json()).then(data => { if (Array.isArray(data)) setRepos(data); });
   }, []);
   return (
-    <div style={{ ...glossyJS("#0d1117"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
+    <div data-reposbox style={{ ...glossyJS("#0d1117"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
         <Icon name="github" size={16} color={C.cyan} /> MY REPOSITORIES <span style={{ color: C.dim, fontWeight: 500, fontSize: 12 }}>({repos.length})</span>
       </div>
