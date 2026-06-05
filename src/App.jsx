@@ -336,6 +336,11 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-pugrid] { grid-template-columns: 1fr 1fr !important; }
   [data-globe] { display:none !important; }
 }
+@media (max-width: 1023px) {
+  [data-bottomrow] { grid-template-columns: 1fr !important; }
+  [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+  [data-reposgrid] { grid-template-columns: 1fr !important; }
+}
 @media (max-width: 860px) {
   .navlinks { display: none !important; }
   .menubtn { display: block !important; }
@@ -725,7 +730,7 @@ function GithubGraph() {
       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
         <Icon name="github" size={16} color="#7ee787" /> GITHUB COMMIT GRAPH
       </div>
-      <div style={{ background: "#0d1117", borderRadius: 8, padding: "16px", overflowX: "auto" }}>
+      <div data-graphscroll style={{ background: "#0d1117", borderRadius: 8, padding: "16px", overflowX: "auto" }}>
         {err && <div style={{ color: "#8b949e", fontSize: 13 }}>Could not load commit data right now.</div>}
         {!err && !data && <div style={{ color: "#8b949e", fontSize: 13 }}>Loading commit graph…</div>}
         {!err && data && (
@@ -773,7 +778,7 @@ function MyRepos() {
       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
         <Icon name="github" size={16} color={C.cyan} /> MY REPOSITORIES <span style={{ color: C.dim, fontWeight: 500, fontSize: 12 }}>({repos.length})</span>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 10 }}>
+      <div data-reposgrid style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 10 }}>
         {repos.map(r => (
           <a key={r.id} href={r.html_url} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(22,27,34,.8)", border: "1px solid rgba(48,54,61,.8)", borderRadius: 12, padding: "14px 16px", textDecoration: "none", display: "block" }} className="hoverlift">
             <div style={{ color: "#fff", fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{r.name}</div>
