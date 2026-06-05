@@ -340,9 +340,13 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-herobtns] { display: none !important; }
   [data-sidetags] { display: none !important; }
   [data-heromain] { align-items: stretch !important; }
+  [data-col2box] { background: linear-gradient(150deg,#3b82f628,#3b82f60a 55%,rgba(10,14,30,.7)) !important; border: 1px solid #3b82f666 !important; box-shadow: 0 8px 30px #3b82f622,inset 0 1px 0 #3b82f633 !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
+  [data-col2divider] { display: block !important; }
+  [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; }
 }
 @media (max-width: 1023px) {
-  [data-becomingbox] { display: none !important; }
+  [data-col2divider] { display: none !important; }
+  [data-col2becoming] { display: none !important; }
   [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   [data-reposgrid] { -webkit-overflow-scrolling: touch; }
 }
@@ -553,8 +557,8 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
           </div>
 
-          {/* COL 2: Name, text, buttons (buttons hidden desktop), BECOMING box (desktop only) */}
-          <div style={{ ...s.heroText, paddingLeft: 4, display: "flex", flexDirection: "column" }} data-herotext>
+          {/* COL 2: unified box on desktop, plain stack on mobile */}
+          <div style={{ ...s.heroText, paddingLeft: 4, display: "flex", flexDirection: "column" }} data-herotext data-col2box>
             <div style={s.hello}>Hello, I'm</div>
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
@@ -569,17 +573,18 @@ function Hero({ go, stats, animate, openProject }) {
               <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
               <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /> Download CV</button>
             </div>
-            {/* BECOMING skills box — desktop only */}
-            <div data-becomingbox style={{ ...s.dash, flex: 1, marginTop: 20, padding: 18, display: "flex", flexDirection: "column" }}>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", marginBottom: 14, ...gradText }}>BECOMING →</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1, justifyContent: "space-evenly" }}>
+            {/* divider + BECOMING — desktop only */}
+            <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "14px 0 0" }} />
+            <div data-col2becoming>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "14px 0 12px", ...gradText }}>BECOMING →</div>
+              <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: 10, justifyContent: "space-evenly" }}>
                 {[
-                  { label: "AI/ML Engineer",  icon: "code",    color: C.cyan },
-                  { label: "Problem Solver",  icon: "target",  color: C.purple },
-                  { label: "Cyber Security",  icon: "shield",  color: "#ef4444" },
-                  { label: "Cloud Builder",   icon: "layers",  color: C.blue },
+                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan },
+                  { label: "Problem Solver", icon: "target", color: C.purple },
+                  { label: "Cyber Security", icon: "shield", color: "#ef4444" },
+                  { label: "Cloud Builder",  icon: "layers", color: C.blue },
                 ].map(({ label, icon, color }) => (
-                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 15, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, flexShrink: 0, ...gradText }}>
+                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 15, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, ...gradText }}>
                     <Icon name={icon} size={16} color={color} />{label}
                   </span>
                 ))}
