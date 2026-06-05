@@ -336,7 +336,13 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-pugrid] { grid-template-columns: 1fr 1fr !important; }
   [data-globe] { display:none !important; }
 }
+@media (min-width: 1024px) {
+  [data-herobtns] { display: none !important; }
+  [data-sidetags] { display: none !important; }
+  [data-heromain] { align-items: stretch !important; }
+}
 @media (max-width: 1023px) {
+  [data-becomingbox] { display: none !important; }
   [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   [data-reposgrid] { -webkit-overflow-scrolling: touch; }
 }
@@ -547,8 +553,8 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
           </div>
 
-          {/* COL 2: Name, text, buttons */}
-          <div style={{ ...s.heroText, paddingLeft: 4 }} data-herotext>
+          {/* COL 2: Name, text, buttons (buttons hidden desktop), BECOMING box (desktop only) */}
+          <div style={{ ...s.heroText, paddingLeft: 4, display: "flex", flexDirection: "column" }} data-herotext>
             <div style={s.hello}>Hello, I'm</div>
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
@@ -562,6 +568,22 @@ function Hero({ go, stats, animate, openProject }) {
               <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
               <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
               <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /> Download CV</button>
+            </div>
+            {/* BECOMING skills box — desktop only */}
+            <div data-becomingbox style={{ ...s.dash, flex: 1, marginTop: 20, padding: 18, display: "flex", flexDirection: "column" }}>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", marginBottom: 14, ...gradText }}>BECOMING →</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1, justifyContent: "space-evenly" }}>
+                {[
+                  { label: "AI/ML Engineer",  icon: "code",    color: C.cyan },
+                  { label: "Problem Solver",  icon: "target",  color: C.purple },
+                  { label: "Cyber Security",  icon: "shield",  color: "#ef4444" },
+                  { label: "Cloud Builder",   icon: "layers",  color: C.blue },
+                ].map(({ label, icon, color }) => (
+                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 15, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, flexShrink: 0, ...gradText }}>
+                    <Icon name={icon} size={16} color={color} />{label}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
