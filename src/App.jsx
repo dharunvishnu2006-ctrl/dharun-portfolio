@@ -1411,7 +1411,7 @@ function Contact() {
           <div style={s.contactTitle}>Let's Connect</div>
           <div style={s.contactSub}>Open to collaboration, internships, and AI/ML/Security conversations.</div>
           <div style={s.contactBtns}>
-            <a href="#" onClick={(e) => e.preventDefault()} style={s.btnPrimary}><Icon name="mail" size={16} /> Email Me</a>
+            <a href="mailto:dharunvishnu2006@gmail.com" style={s.btnPrimary}><Icon name="mail" size={16} /> Email Me</a>
             <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer" style={s.btnGlass}><Icon name="github" size={16} /> GitHub</a>
             <a href="https://www.linkedin.com/in/dharun-vishnu" target="_blank" rel="noopener noreferrer" style={s.btnGlass}><Icon name="linkedin" size={16} /> LinkedIn</a>
             <a href="#" onClick={(e) => e.preventDefault()} style={s.btnGlass}><Icon name="doc" size={16} /> Download CV</a>
