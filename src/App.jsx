@@ -111,7 +111,7 @@ const s = {
   // HERO
   hero: { position: "relative", padding: "40px 0 18px" },
   heroTop: { display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 16, alignItems: "stretch" },
-  heroMain: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "center", position: "relative", overflow: "visible" },
+  heroMain: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "flex-start", position: "relative", overflow: "visible" },
 
   // animated globe behind hero
   globe: { position: "absolute", right: -40, top: "8%", width: 340, height: 340, borderRadius: "50%", pointerEvents: "none", opacity: .7,
@@ -128,7 +128,7 @@ const s = {
 
   heroText: { position: "relative", zIndex: 2, overflow: "visible", minWidth: 0 },
   hello: { fontFamily: FD, fontSize: 24, color: C.cyan, fontWeight: 600, marginBottom: 2, fontStyle: "italic" },
-  heroName: { fontFamily: FD, fontSize: "clamp(24px,3.5vw,48px)", fontWeight: 800, lineHeight: 0.96, letterSpacing: "-1px", margin: "6px 0", fontStyle: "italic", whiteSpace: "nowrap", overflow: "visible", paddingRight: "0.5em", width: "fit-content" },
+  heroName: { fontFamily: FD, fontSize: "clamp(24px,3.5vw,48px)", fontWeight: 800, lineHeight: 0.96, letterSpacing: "-1px", margin: "6px 0", fontStyle: "italic", whiteSpace: "normal", overflow: "visible", paddingRight: "0.5em", width: "fit-content" },
   heroNameWhite: { ...gradText, filter: "drop-shadow(0 2px 18px rgba(120,150,255,.4))" },
   heroNameGrad: { ...gradText, filter: "drop-shadow(0 4px 24px rgba(139,92,246,.5))", paddingRight: "0.18em", display: "inline-block" },
   rolePill: { display: "inline-flex", alignItems: "center", gap: 9, marginTop: 14, background: "rgba(12,16,40,.8)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "10px 22px", fontSize: 20, fontWeight: 800, ...gradText, boxShadow: "0 0 26px rgba(120,150,255,.25) inset", fontStyle: "italic" },
@@ -510,6 +510,7 @@ function Hero({ go, stats, animate, openProject }) {
   const crt = useCountUp(stats.certs, animate);
   const commits = useCountUp(stats.commits, animate);
   const pct = useCountUp(stats.pct, animate);
+  const l1pct = useCountUp(stats.layer1Pct, animate);
   const leftCards = [
     { n: projs, l: "Major Projects", c: "#8b5cf6", page: "myprojects" },
     { n: crt, l: "Certificates", c: "#e040fb", page: "certs" },
@@ -530,16 +531,22 @@ function Hero({ go, stats, animate, openProject }) {
 
         {/* COL 1 + COL 2 wrapped in heroMain for responsive collapse */}
         <div style={s.heroMain} data-heromain className="fadeup">
-          {/* COL 1: Photo */}
-          <div style={{ ...s.photoCol }}>
+          {/* COL 1: Photo + skill tags below in 2×2 grid */}
+          <div style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8 }}>
             <div style={s.photoWrap}>
               <div style={s.photoRing} />
               <img src={PROFILE_IMG} alt="J. Dharun Vishnu" style={s.photo} />
             </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 12, width: "100%" }} data-sidetags>
+              <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="code" size={14} color={C.cyan} /> AI/ML Engineer</span>
+              <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="target" size={14} color={C.purple} /> Problem Solver</span>
+              <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="shield" size={14} color={C.green} /> Cyber security</span>
+              <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="layers" size={14} color={C.blue} /> Cloud Builder</span>
+            </div>
           </div>
 
-          {/* COL 2: Name, text, skill tags, buttons */}
-          <div style={s.heroText} data-herotext>
+          {/* COL 2: Name, text, buttons */}
+          <div style={{ ...s.heroText, paddingLeft: 4 }} data-herotext>
             <div style={s.hello}>Hello, I'm</div>
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
@@ -548,12 +555,6 @@ function Hero({ go, stats, animate, openProject }) {
             <div style={s.quoteBox} data-quotebox>
               <span style={s.quoteMark}>"</span>
               <div style={s.quoteText}>Building Enterprise AI Systems <span style={s.quoteAccent}>One Layer</span> at a Time.</div>
-            </div>
-            <div style={{ ...s.sideTags, justifyContent: "flex-start", marginTop: 18 }} data-sidetags>
-              <span style={s.sideTag}><Icon name="code" size={13} color={C.cyan} /> AI/ML Engineer</span>
-              <span style={s.sideTag}><Icon name="target" size={13} color={C.purple} /> Problem Solver</span>
-              <span style={s.sideTag}><Icon name="shield" size={13} color={C.green} /> Cyber security</span>
-              <span style={s.sideTag}><Icon name="layers" size={13} color={C.blue} /> Cloud Builder</span>
             </div>
             <div style={s.heroBtns} data-herobtns>
               <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
@@ -599,7 +600,7 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 4: Journey Dashboard */}
-        <div style={s.dash} className="fadeup">
+        <div style={{ ...s.dash, marginRight: 8 }} className="fadeup">
           <div style={s.dashHead}>
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
@@ -641,13 +642,13 @@ function Hero({ go, stats, animate, openProject }) {
               <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
             </a>
           </div>
-          {/* LAYER PROGRESS — new section */}
+          {/* LAYER PROGRESS — live from Layer 1 step completion */}
           <div style={{ marginTop: 12 }}>
             <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>LAYER PROGRESS</span>
             <div style={{ fontSize: 12, color: "#dbe4ff", fontWeight: 600, marginTop: 5, marginBottom: 6 }}>Layer 1: Python Programming</div>
             <div style={{ position: "relative", height: 20, borderRadius: 10, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden" }}>
-              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "11%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 10, animation: "pulse 2.5s ease-in-out infinite" }} />
-              <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>11%</div>
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: l1pct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 10, transition: "width .8s ease" }} />
+              <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>{l1pct}%</div>
             </div>
           </div>
           {/* MISSION PROGRESS */}
@@ -1888,7 +1889,10 @@ export default function App() {
     const totalSubCerts = (courses || []).reduce((sum, c) => sum + ((c.subs && c.subs.length) || 0), 0);
     const totalCerts = totalSubCerts + (certs ? certs.length : 0);
     const certsDone = Object.keys(certLinks || {}).length;
-    return { steps: stepCount, days: dayset.size, projects: projectsDone, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 610) * 100), maxDay };
+    const layer1Steps = steps.filter((x) => x.layer === 1);
+    const layer1Done = layer1Steps.filter((x) => done.has(x.num)).length;
+    const layer1Pct = layer1Steps.length ? Math.round((layer1Done / layer1Steps.length) * 100) : 0;
+    return { steps: stepCount, days: dayset.size, projects: projectsDone, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 610) * 100), maxDay, layer1Pct };
   }, [done, certLinks]);
 
   const go = (id) => { setPage(id); window.scrollTo({ top: 0, behavior: "smooth" }); };
