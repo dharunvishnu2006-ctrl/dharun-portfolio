@@ -525,7 +525,6 @@ function Hero({ go, stats, animate, openProject }) {
   const GROUPS = [
     { label: "FLAGSHIP", codes: ["KING", "QUEEN"] },
     { label: "MASTERPIECE", codes: ["P17", "P18"] },
-    { label: "ECOSYSTEM PROJECTS", codes: ["P1", "P3"] },
   ];
   return (
     <section style={s.hero}>
@@ -578,18 +577,18 @@ function Hero({ go, stats, animate, openProject }) {
               const grpProj = codes.map(code => projects.find(p => p.code === code)).filter(Boolean);
               return (
                 <div key={label}>
-                  <div style={{ fontFamily: FM, fontSize: 10, fontWeight: 700, color: C.dim2, letterSpacing: "1px", textTransform: "uppercase", marginBottom: 5 }}>{label}</div>
+                  <div style={{ fontFamily: FD, fontSize: 12.5, fontWeight: 800, color: "#fff", letterSpacing: ".5px", textTransform: "uppercase", textAlign: "center", marginBottom: 8, marginTop: 4 }}>{label}</div>
                   {grpProj.map(p => (
                     <div key={p.code}
-                      style={{ ...glossyJS(p.accent), display: "flex", alignItems: "center", gap: 8, borderRadius: 11, padding: "7px 9px", cursor: "pointer", marginBottom: 5, transition: ".2s" }}
+                      style={{ ...glossyJS(p.accent), display: "flex", alignItems: "center", gap: 14, borderRadius: 14, padding: "20px", cursor: "pointer", marginBottom: 8, transition: ".2s" }}
                       className="hoverlift"
                       onClick={() => openProject(p)}>
                       <div style={{ flexShrink: 0 }}>
-                        <Crest icon={p.icon} color={p.accent} emoji={p.emoji} img={crownImg(p.code)} code={p.code} size={32} iconSize={16} />
+                        <Crest icon={p.icon} color={p.accent} emoji={p.emoji} img={crownImg(p.code)} code={p.code} size={48} iconSize={24} />
                       </div>
                       <div style={{ minWidth: 0, flex: 1 }}>
-                        <div style={{ fontSize: 11.5, fontWeight: 700, color: "#fff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name.replace(/ v\d$/, "")}</div>
-                        <div style={{ fontSize: 10, color: "#dbe4ff", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginTop: 1 }}>{p.desc}</div>
+                        <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name.replace(/ v\d$/, "")}</div>
+                        <div style={{ fontSize: 14, color: "#dbe4ff", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginTop: 3 }}>{p.desc}</div>
                       </div>
                     </div>
                   ))}
