@@ -337,11 +337,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-globe] { display:none !important; }
 }
 @media (max-width: 1023px) {
-  [data-bottomrow] { grid-template-columns: 1fr !important; margin-left: -26px !important; margin-right: -26px !important; gap: 0 !important; }
-  [data-graphbox] { border-radius: 0 !important; margin-top: 0 !important; }
-  [data-reposbox] { border-radius: 0 !important; margin-top: 0 !important; }
-  [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; border-radius: 0 !important; }
-  [data-reposgrid] { grid-template-columns: 1fr !important; }
+  [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+  [data-reposgrid] { -webkit-overflow-scrolling: touch; }
 }
 @media (max-width: 860px) {
   .navlinks { display: none !important; }
@@ -355,7 +352,6 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-herobtns] { justify-content: center; }
   [data-dashgrid] { grid-template-columns: 1fr 1fr !important; }
   [data-qagrid] { grid-template-columns: 1fr !important; }
-  [data-bottomrow] { grid-template-columns: 1fr !important; }
   [data-sidetags] { justify-content: center !important; }
 }
 @media (max-width: 560px) {
@@ -780,9 +776,9 @@ function MyRepos() {
       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
         <Icon name="github" size={16} color={C.cyan} /> MY REPOSITORIES <span style={{ color: C.dim, fontWeight: 500, fontSize: 12 }}>({repos.length})</span>
       </div>
-      <div data-reposgrid style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 10 }}>
+      <div data-reposgrid style={{ display: "flex", flexDirection: "row", overflowX: "auto", gap: 16, paddingBottom: 6 }}>
         {repos.map(r => (
-          <a key={r.id} href={r.html_url} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(22,27,34,.8)", border: "1px solid rgba(48,54,61,.8)", borderRadius: 12, padding: "14px 16px", textDecoration: "none", display: "block" }} className="hoverlift">
+          <a key={r.id} href={r.html_url} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(22,27,34,.8)", border: "1px solid rgba(48,54,61,.8)", borderRadius: 12, padding: "14px 16px", textDecoration: "none", display: "block", flexShrink: 0, width: 280 }} className="hoverlift">
             <div style={{ color: "#fff", fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{r.name}</div>
             <div style={{ color: "#8b949e", fontSize: 11.5, lineHeight: 1.5 }}>{r.description || "No description"}</div>
             <div style={{ display: "flex", gap: 12, marginTop: 8, fontSize: 11, color: "#8b949e" }}>
@@ -976,8 +972,8 @@ function Home({ go, stats, openProject, admin, repos, setRepos }) {
       <Hero go={go} stats={stats} animate={animate} openProject={openProject} />
       {/* Standalone ProjectUniverse — shown on mobile/tablet only (hidden on desktop via CSS) */}
       <div style={{ marginTop: 20 }} data-pustandalone><ProjectUniverse go={go} openProject={openProject} /></div>
-      {/* Bottom row: GitHub Commit Graph + My Repositories side by side (50/50) */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 20, alignItems: "stretch" }} data-bottomrow>
+      {/* Bottom: full-width graph, then horizontal-scroll repos */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 20 }}>
         <GithubGraph />
         <MyRepos />
       </div>
