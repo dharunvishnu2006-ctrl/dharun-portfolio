@@ -93,7 +93,7 @@ const s = {
 
   // NAV
   nav: { position: "sticky", top: 0, zIndex: 60, background: "rgba(5,6,15,0.78)", backdropFilter: "blur(20px)", borderBottom: "1px solid " + C.border },
-  navInner: { maxWidth: 1320, margin: "0 auto", padding: "13px 26px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 },
+  navInner: { maxWidth: 1600, margin: "0 auto", padding: "13px 26px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 },
   logo: { fontFamily: FD, fontWeight: 800, fontSize: 27, letterSpacing: "-0.5px", fontStyle: "italic", ...gradText, paddingRight: 8, lineHeight: 1.3, display: "inline-block" },
   navLinks: { display: "flex", alignItems: "center", gap: 2 },
   navLink: { background: "none", border: "none", color: C.dim, fontFamily: FB, fontSize: 14.5, padding: "9px 15px", borderRadius: 12, cursor: "pointer", fontWeight: 600, transition: ".2s", position: "relative", display: "flex", alignItems: "center", gap: 6 },
@@ -106,12 +106,12 @@ const s = {
   mobileMenu: { padding: "8px 18px 18px", display: "flex", flexDirection: "column", gap: 3, borderTop: "1px solid " + C.border },
   mNavLink: { display: "flex", alignItems: "center", gap: 12, background: "none", border: "none", color: C.dim, fontSize: 15.5, padding: "13px 14px", borderRadius: 13, cursor: "pointer", textAlign: "left", fontFamily: FB, fontWeight: 600 },
 
-  shell: { position: "relative", zIndex: 1, maxWidth: 1320, margin: "0 auto", padding: "0 26px" },
+  shell: { position: "relative", zIndex: 1, maxWidth: 1600, margin: "0 auto", padding: "0 26px" },
 
   // HERO
   hero: { position: "relative", padding: "40px 0 18px" },
-  heroTop: { display: "grid", gridTemplateColumns: "2fr 0.85fr", gap: 26, alignItems: "stretch" },
-  heroMain: { display: "grid", gridTemplateColumns: "auto minmax(0,1fr)", gap: 28, alignItems: "center", position: "relative", overflow: "visible" },
+  heroTop: { display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 16, alignItems: "stretch" },
+  heroMain: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "center", position: "relative", overflow: "visible" },
 
   // animated globe behind hero
   globe: { position: "absolute", right: -40, top: "8%", width: 340, height: 340, borderRadius: "50%", pointerEvents: "none", opacity: .7,
@@ -120,26 +120,26 @@ const s = {
   globeRings: { position: "absolute", inset: 0, borderRadius: "50%", border: "1px solid rgba(120,180,255,.3)", animation: "spin 30s linear infinite" },
 
   photoCol: { position: "relative", display: "flex", flexDirection: "column", gap: 16, alignItems: "center", zIndex: 2 },
-  photoWrap: { position: "relative", width: 300 },
+  photoWrap: { position: "relative", width: "min(390px, 100%)" },
   photoRing: { position: "absolute", inset: "8% 8% 14% 8%", borderRadius: "50%", background: "radial-gradient(circle, rgba(59,130,246,.5), rgba(139,92,246,.3) 50%, transparent 72%)", filter: "blur(26px)", opacity: .85, animation: "pulse 4s ease-in-out infinite" },
   photo: { width: "100%", position: "relative", display: "block", filter: "drop-shadow(0 18px 50px rgba(59,130,246,.4))" },
   sideTags: { display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", maxWidth: 280 },
   sideTag: { display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(120,150,255,.12)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "6px 13px", fontSize: 12, color: "#dbe4ff", fontWeight: 600 },
 
   heroText: { position: "relative", zIndex: 2, overflow: "visible", minWidth: 0 },
-  hello: { fontFamily: FD, fontSize: 22, color: C.cyan, fontWeight: 600, marginBottom: 2, fontStyle: "italic" },
-  heroName: { fontFamily: FD, fontSize: "clamp(22px,3.2vw,44px)", fontWeight: 800, lineHeight: 0.96, letterSpacing: "-1px", margin: "6px 0", fontStyle: "italic", whiteSpace: "nowrap", overflow: "visible", paddingRight: "0.5em", width: "fit-content" },
+  hello: { fontFamily: FD, fontSize: 24, color: C.cyan, fontWeight: 600, marginBottom: 2, fontStyle: "italic" },
+  heroName: { fontFamily: FD, fontSize: "clamp(24px,3.5vw,48px)", fontWeight: 800, lineHeight: 0.96, letterSpacing: "-1px", margin: "6px 0", fontStyle: "italic", whiteSpace: "nowrap", overflow: "visible", paddingRight: "0.5em", width: "fit-content" },
   heroNameWhite: { ...gradText, filter: "drop-shadow(0 2px 18px rgba(120,150,255,.4))" },
   heroNameGrad: { ...gradText, filter: "drop-shadow(0 4px 24px rgba(139,92,246,.5))", paddingRight: "0.18em", display: "inline-block" },
-  rolePill: { display: "inline-flex", alignItems: "center", gap: 9, marginTop: 14, background: "rgba(12,16,40,.8)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "10px 22px", fontSize: 18, fontWeight: 800, ...gradText, boxShadow: "0 0 26px rgba(120,150,255,.25) inset", fontStyle: "italic" },
+  rolePill: { display: "inline-flex", alignItems: "center", gap: 9, marginTop: 14, background: "rgba(12,16,40,.8)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "10px 22px", fontSize: 20, fontWeight: 800, ...gradText, boxShadow: "0 0 26px rgba(120,150,255,.25) inset", fontStyle: "italic" },
   roleDot: { WebkitTextFillColor: C.magenta },
   quoteBox: { display: "flex", gap: 12, marginTop: 22, maxWidth: 460 },
   quoteMark: { fontFamily: "Georgia, serif", fontSize: 52, lineHeight: 0.8, color: C.cyan, fontWeight: 700, opacity: 0.9, marginTop: -6, textShadow: "0 0 16px rgba(34,211,238,.5)" },
-  quoteText: { fontSize: 22, ...gradText, lineHeight: 1.5, fontWeight: 600, fontStyle: "italic" },
+  quoteText: { fontSize: 24, ...gradText, lineHeight: 1.5, fontWeight: 600, fontStyle: "italic" },
   quoteAccent: { background: "linear-gradient(110deg,#fbbf24,#e040fb,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontWeight: 800, textShadow: "none" },
   heroBtns: { display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 },
-  btnPrimary: { display: "inline-flex", alignItems: "center", gap: 9, background: "linear-gradient(135deg,#2563eb,#7c3aed)", color: "#fff", border: "none", padding: "13px 22px", borderRadius: 14, fontSize: 14.5, fontWeight: 700, cursor: "pointer", fontFamily: FB, boxShadow: "0 8px 28px rgba(59,130,246,.45), inset 0 1px 0 rgba(255,255,255,.25)", transition: ".2s" },
-  btnGlass: { display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(120,150,255,.1)", color: "#eaf0ff", border: "1px solid " + C.borderHi, padding: "13px 22px", borderRadius: 14, fontSize: 14.5, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s" },
+  btnPrimary: { display: "inline-flex", alignItems: "center", gap: 9, background: "linear-gradient(135deg,#2563eb,#7c3aed)", color: "#fff", border: "none", padding: "13px 22px", borderRadius: 14, fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: FB, boxShadow: "0 8px 28px rgba(59,130,246,.45), inset 0 1px 0 rgba(255,255,255,.25)", transition: ".2s" },
+  btnGlass: { display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(120,150,255,.1)", color: "#eaf0ff", border: "1px solid " + C.borderHi, padding: "13px 22px", borderRadius: 14, fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s" },
 
   // DASHBOARD
   dash: { ...glossy("#3b82f6"), backdropFilter: "blur(16px)", borderRadius: 24, padding: "18px", display: "flex", flexDirection: "column" },
@@ -326,8 +326,12 @@ button:hover { filter: brightness(1.12); }
 .qaitem * { pointer-events: none; }
 .techbadge:hover { transform: translateY(-5px) scale(1.06); }
 input:focus { border-color: rgba(120,150,255,.65) !important; }
+@media (min-width: 861px) {
+  [data-pustandalone] { display: none !important; }
+}
 @media (max-width: 1080px) {
   [data-herotop] { grid-template-columns: 1fr !important; }
+  [data-herocol3] { display: none !important; }
   [data-twocol] { grid-template-columns: 1fr !important; }
   [data-pugrid] { grid-template-columns: 1fr 1fr !important; }
   [data-globe] { display:none !important; }
@@ -335,6 +339,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
 @media (max-width: 860px) {
   .navlinks { display: none !important; }
   .menubtn { display: block !important; }
+  [data-herotop] { grid-template-columns: 1fr !important; }
+  [data-herocol3] { display: none !important; }
   [data-heromain] { grid-template-columns: 1fr !important; justify-items: center; text-align: center; }
   [data-herotext] { text-align: center; }
   [data-heroname] { white-space: normal !important; }
@@ -342,6 +348,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-herobtns] { justify-content: center; }
   [data-dashgrid] { grid-template-columns: 1fr 1fr !important; }
   [data-qagrid] { grid-template-columns: 1fr !important; }
+  [data-bottomrow] { grid-template-columns: 1fr !important; }
+  [data-sidetags] { justify-content: center !important; }
 }
 @media (max-width: 560px) {
   [data-pugrid] { grid-template-columns: 1fr !important; }
@@ -495,14 +503,13 @@ function Nav({ page, go, admin, openLogin, logout }) {
 }
 
 // ============ HERO ============
-function Hero({ go, stats, animate }) {
+function Hero({ go, stats, animate, openProject }) {
   const days = useCountUp(stats.days, animate);
   const miles = useCountUp(stats.steps, animate);
   const projs = useCountUp(stats.projects, animate);
   const crt = useCountUp(stats.certs, animate);
   const commits = useCountUp(stats.commits, animate);
   const pct = useCountUp(stats.pct, animate);
-  // LEFT column = interactive (open their own pages). RIGHT column = auto from roadmap (not clickable).
   const leftCards = [
     { n: projs, l: "Major Projects", c: "#8b5cf6", page: "myprojects" },
     { n: crt, l: "Certificates", c: "#e040fb", page: "certs" },
@@ -511,23 +518,27 @@ function Hero({ go, stats, animate }) {
     { n: days, l: "Days Completed", c: "#3b82f6" },
     { n: miles, l: "Milestones", c: "#22d3ee" },
   ];
+  const GROUPS = [
+    { label: "FLAGSHIP", codes: ["KING", "QUEEN"] },
+    { label: "MASTERPIECE", codes: ["P17", "P18"] },
+    { label: "ECOSYSTEM PROJECTS", codes: ["P1", "P3"] },
+  ];
   return (
     <section style={s.hero}>
       <div style={s.globe} data-globe><div style={s.globeRings} /><div style={{ ...s.globeRings, transform: "rotate(60deg)", animationDuration: "44s" }} /></div>
       <div style={s.heroTop} data-herotop>
+
+        {/* COL 1 + COL 2 wrapped in heroMain for responsive collapse */}
         <div style={s.heroMain} data-heromain className="fadeup">
-          <div style={s.photoCol}>
+          {/* COL 1: Photo */}
+          <div style={{ ...s.photoCol }}>
             <div style={s.photoWrap}>
               <div style={s.photoRing} />
               <img src={PROFILE_IMG} alt="J. Dharun Vishnu" style={s.photo} />
             </div>
-            <div style={s.sideTags} data-sidetags>
-              <span style={s.sideTag}><Icon name="code" size={13} color={C.cyan} /> AI/ML Engineer</span>
-              <span style={s.sideTag}><Icon name="target" size={13} color={C.purple} /> Problem Solver</span>
-              <span style={s.sideTag}><Icon name="shield" size={13} color={C.green} /> Cyber security</span>
-              <span style={s.sideTag}><Icon name="layers" size={13} color={C.blue} /> Cloud Builder</span>
-            </div>
           </div>
+
+          {/* COL 2: Name, text, skill tags, buttons */}
           <div style={s.heroText} data-herotext>
             <div style={s.hello}>Hello, I'm</div>
             <h1 style={s.heroName} data-heroname>
@@ -538,6 +549,12 @@ function Hero({ go, stats, animate }) {
               <span style={s.quoteMark}>"</span>
               <div style={s.quoteText}>Building Enterprise AI Systems <span style={s.quoteAccent}>One Layer</span> at a Time.</div>
             </div>
+            <div style={{ ...s.sideTags, justifyContent: "flex-start", marginTop: 18 }} data-sidetags>
+              <span style={s.sideTag}><Icon name="code" size={13} color={C.cyan} /> AI/ML Engineer</span>
+              <span style={s.sideTag}><Icon name="target" size={13} color={C.purple} /> Problem Solver</span>
+              <span style={s.sideTag}><Icon name="shield" size={13} color={C.green} /> Cyber security</span>
+              <span style={s.sideTag}><Icon name="layers" size={13} color={C.blue} /> Cloud Builder</span>
+            </div>
             <div style={s.heroBtns} data-herobtns>
               <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
               <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
@@ -546,6 +563,42 @@ function Hero({ go, stats, animate }) {
           </div>
         </div>
 
+        {/* COL 3: Project Universe — desktop only */}
+        <div style={{ ...s.dash, padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="fadeup">
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexShrink: 0 }}>
+            <Icon name="rocket" size={14} color={C.cyan} />
+            <span style={{ fontFamily: FD, fontSize: 12.5, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>PROJECT UNIVERSE</span>
+          </div>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+            {GROUPS.map(({ label, codes }) => {
+              const grpProj = codes.map(code => projects.find(p => p.code === code)).filter(Boolean);
+              return (
+                <div key={label}>
+                  <div style={{ fontFamily: FM, fontSize: 10, fontWeight: 700, color: C.dim2, letterSpacing: "1px", textTransform: "uppercase", marginBottom: 5 }}>{label}</div>
+                  {grpProj.map(p => (
+                    <div key={p.code}
+                      style={{ ...glossyJS(p.accent), display: "flex", alignItems: "center", gap: 8, borderRadius: 11, padding: "7px 9px", cursor: "pointer", marginBottom: 5, transition: ".2s" }}
+                      className="hoverlift"
+                      onClick={() => openProject(p)}>
+                      <div style={{ flexShrink: 0 }}>
+                        <Crest icon={p.icon} color={p.accent} emoji={p.emoji} img={crownImg(p.code)} code={p.code} size={32} iconSize={16} />
+                      </div>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div style={{ fontSize: 11.5, fontWeight: 700, color: "#fff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name.replace(/ v\d$/, "")}</div>
+                        <div style={{ fontSize: 10, color: "#dbe4ff", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginTop: 1 }}>{p.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+          <button style={{ ...s.puLink, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 8, width: "100%", padding: "8px 10px", borderRadius: 10, background: "rgba(120,150,255,.1)", border: "1px solid " + C.border, flexShrink: 0 }} onClick={() => go("projects")}>
+            View All Projects <Icon name="arrow" size={13} />
+          </button>
+        </div>
+
+        {/* COL 4: Journey Dashboard */}
         <div style={s.dash} className="fadeup">
           <div style={s.dashHead}>
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
@@ -588,6 +641,16 @@ function Hero({ go, stats, animate }) {
               <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
             </a>
           </div>
+          {/* LAYER PROGRESS — new section */}
+          <div style={{ marginTop: 12 }}>
+            <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>LAYER PROGRESS</span>
+            <div style={{ fontSize: 12, color: "#dbe4ff", fontWeight: 600, marginTop: 5, marginBottom: 6 }}>Layer 1: Python Programming</div>
+            <div style={{ position: "relative", height: 20, borderRadius: 10, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden" }}>
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "11%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 10, animation: "pulse 2.5s ease-in-out infinite" }} />
+              <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>11%</div>
+            </div>
+          </div>
+          {/* MISSION PROGRESS */}
           <div style={{ marginTop: 12 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
               <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>MISSION PROGRESS</span>
@@ -902,8 +965,16 @@ function Home({ go, stats, openProject, admin, repos, setRepos }) {
   useEffect(() => { const t = setTimeout(() => setAnimate(true), 250); return () => clearTimeout(t); }, []);
   return (
     <div style={s.shell}>
-      <Hero go={go} stats={stats} animate={animate} />
-      <div style={{ marginTop: 20 }}><ProjectUniverse go={go} openProject={openProject} /></div><GithubGraph /><MyRepos /><div style={{ marginTop: 8 }}><TechStack stats={stats} /></div>
+      <Hero go={go} stats={stats} animate={animate} openProject={openProject} />
+      {/* Standalone ProjectUniverse — shown on mobile/tablet only (hidden on desktop via CSS) */}
+      <div style={{ marginTop: 20 }} data-pustandalone><ProjectUniverse go={go} openProject={openProject} /></div>
+      {/* Bottom row: GitHub Commit Graph + My Repositories side by side (50/50) */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 20, alignItems: "stretch" }} data-bottomrow>
+        <GithubGraph />
+        <MyRepos />
+      </div>
+      {/* Target Tech Stack — full width */}
+      <div style={{ marginTop: 8 }}><TechStack stats={stats} /></div>
      
       <div style={{ height: 20 }} />
     </div>
