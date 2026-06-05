@@ -344,8 +344,10 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-col2box] { background: linear-gradient(150deg,#3b82f628,#3b82f60a 55%,rgba(10,14,30,.7)) !important; border: 1px solid #3b82f666 !important; box-shadow: 0 8px 30px #3b82f622,inset 0 1px 0 #3b82f633 !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
   [data-col2divider] { display: block !important; }
   [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; }
+  .btn-mobile-label { display: none !important; }
 }
 @media (max-width: 1023px) {
+  .btn-desktop-label { display: none !important; }
   [data-col2divider] { display: none !important; }
   [data-col2becoming] { display: none !important; }
   [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
@@ -572,7 +574,7 @@ function Hero({ go, stats, animate, openProject }) {
             <div style={s.heroBtns} data-herobtns>
               <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
               <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
-              <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /> Download CV</button>
+              <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /><span className="btn-desktop-label">Download CV</span><span className="btn-mobile-label">Connect</span></button>
             </div>
             {/* divider + BECOMING — desktop only */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "14px 0 0" }} />
