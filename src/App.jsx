@@ -345,11 +345,18 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-col2divider] { display: block !important; }
   [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; }
   .btn-mobile-label { display: none !important; }
+  [data-dashlinks-old] { display: none !important; }
+  [data-dashgrid] { flex: 0 !important; }
+  [data-dashcol4] { justify-content: space-between !important; }
+  [data-dashlinks3] { margin-top: 0 !important; }
+  [data-dashlayer] { margin-top: 0 !important; }
+  [data-dashmission] { margin-top: 0 !important; }
 }
 @media (max-width: 1023px) {
   .btn-desktop-label { display: none !important; }
   [data-col2divider] { display: none !important; }
   [data-col2becoming] { display: none !important; }
+  [data-dashlinks3] { display: none !important; }
   [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   [data-reposgrid] { -webkit-overflow-scrolling: touch; }
 }
@@ -632,7 +639,7 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 4: Journey Dashboard */}
-        <div style={{ ...s.dash, marginRight: 8 }} className="fadeup">
+        <div data-dashcol4 style={{ ...s.dash, marginRight: 8 }} className="fadeup">
           <div style={s.dashHead}>
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
@@ -660,7 +667,8 @@ function Hero({ go, stats, animate, openProject }) {
               ))}
             </div>
           </div>
-          <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
+          {/* OLD side-by-side links — visible on mobile, hidden on desktop */}
+          <div data-dashlinks-old style={{ display: "flex", gap: 10, marginTop: 10 }}>
             <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
               style={{ ...s.dashCard, ...glossyJS("#6366f1"), flex: 1, display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
               className="hoverlift">
@@ -674,21 +682,42 @@ function Hero({ go, stats, animate, openProject }) {
               <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
             </a>
           </div>
-          {/* LAYER PROGRESS — live from Layer 1 step completion */}
-          <div style={{ marginTop: 12 }}>
+          {/* NEW 3 vertical buttons — desktop only */}
+          <div data-dashlinks3 style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
+              style={{ ...s.dashCard, ...glossyJS("#ea4335"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+              className="hoverlift">
+              <Icon name="mail" size={17} color="#ea4335" />
+              <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Gmail</span>
+            </a>
+            <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
+              style={{ ...s.dashCard, ...glossyJS("#6366f1"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+              className="hoverlift">
+              <Icon name="github" size={17} color="#fff" />
+              <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
+              style={{ ...s.dashCard, ...glossyJS(C.blue), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+              className="hoverlift">
+              <Icon name="linkedin" size={17} color={C.blue} />
+              <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
+            </a>
+          </div>
+          {/* LAYER PROGRESS */}
+          <div data-dashlayer style={{ marginTop: 12, width: "100%" }}>
             <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>LAYER PROGRESS</span>
             <div style={{ fontSize: 12, color: "#dbe4ff", fontWeight: 600, marginTop: 5, marginBottom: 6 }}>Layer 1: Python Programming</div>
-            <div style={{ position: "relative", height: 20, borderRadius: 10, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden" }}>
+            <div style={{ position: "relative", height: 20, borderRadius: 10, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden", width: "100%" }}>
               <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: l1pct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 10, transition: "width .8s ease" }} />
               <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>{l1pct}%</div>
             </div>
           </div>
           {/* MISSION PROGRESS */}
-          <div style={{ marginTop: 12 }}>
+          <div data-dashmission style={{ marginTop: 12, width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
               <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>MISSION PROGRESS</span>
             </div>
-            <div style={{ position: "relative", height: 26, borderRadius: 13, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden" }}>
+            <div style={{ position: "relative", height: 26, borderRadius: 13, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden", width: "100%" }}>
               <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: pct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 13, transition: "width .8s ease" }} />
               <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 13, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>{pct}%</div>
             </div>
