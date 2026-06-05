@@ -708,8 +708,8 @@ function Hero({ go, stats, animate, openProject }) {
           <div data-dashlayer style={{ marginTop: 12, width: "100%" }}>
             <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>LAYER PROGRESS</span>
             <div style={{ fontSize: 12, color: "#dbe4ff", fontWeight: 600, marginTop: 5, marginBottom: 6 }}>Layer 1: Python Programming</div>
-            <div data-layerbar style={{ position: "relative", height: 20, borderRadius: 10, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden", width: "100%" }}>
-              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: l1pct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 10, transition: "width .8s ease" }} />
+            <div data-layerbar style={{ position: "relative", height: 26, borderRadius: 13, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden", width: "100%" }}>
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: l1pct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 13, transition: "width .8s ease" }} />
               <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>{l1pct}%</div>
             </div>
           </div>
