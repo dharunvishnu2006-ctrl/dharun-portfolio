@@ -340,6 +340,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-herobtns] { display: none !important; }
   [data-sidetags] { display: none !important; }
   [data-heromain] { align-items: stretch !important; }
+  [data-photocol] { padding-left: 0 !important; }
   [data-col2box] { background: linear-gradient(150deg,#3b82f628,#3b82f60a 55%,rgba(10,14,30,.7)) !important; border: 1px solid #3b82f666 !important; box-shadow: 0 8px 30px #3b82f622,inset 0 1px 0 #3b82f633 !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
   [data-col2divider] { display: block !important; }
   [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; }
@@ -544,7 +545,7 @@ function Hero({ go, stats, animate, openProject }) {
         {/* COL 1 + COL 2 wrapped in heroMain for responsive collapse */}
         <div style={s.heroMain} data-heromain className="fadeup">
           {/* COL 1: Photo + skill tags below in 2×2 grid */}
-          <div style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8 }}>
+          <div data-photocol style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8 }}>
             <div style={s.photoWrap}>
               <div style={s.photoRing} />
               <img src={PROFILE_IMG} alt="J. Dharun Vishnu" style={s.photo} />
@@ -597,7 +598,7 @@ function Hero({ go, stats, animate, openProject }) {
         <div style={{ ...s.dash, padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="fadeup">
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexShrink: 0 }}>
             <Icon name="rocket" size={14} color={C.cyan} />
-            <span style={{ fontFamily: FD, fontSize: 12.5, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>PROJECT UNIVERSE</span>
+            <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>PROJECT UNIVERSE</span>
           </div>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
             {GROUPS.map(({ label, codes }) => {
