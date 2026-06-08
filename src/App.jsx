@@ -614,11 +614,14 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
             {projects.map(p => (
               <div key={p.code}
-                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", flex: 1, borderRadius: 14, padding: "16px 18px", cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, marginBottom: 8 }}
+                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", flex: 1, borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, marginBottom: 8, overflow: "hidden" }}
                 className="hoverlift"
                 onClick={() => openProject(p)}>
-                <div style={{ fontFamily: FD, fontSize: 16, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
-                <div style={{ fontSize: 13, color: "#dbe4ff", fontWeight: 500, marginTop: 4 }}>{p.desc}</div>
+                <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 110, objectFit: "cover", display: "block" }} />
+                <div style={{ padding: "10px 14px" }}>
+                  <div style={{ fontFamily: FD, fontSize: 16, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
+                  <div style={{ fontSize: 13, color: "#dbe4ff", fontWeight: 500, marginTop: 4 }}>{p.desc}</div>
+                </div>
               </div>
             ))}
           </div>
