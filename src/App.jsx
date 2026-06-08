@@ -127,7 +127,7 @@ const s = {
   photoCol: { position: "relative", display: "flex", flexDirection: "column", gap: 16, alignItems: "center", zIndex: 2 },
   photoWrap: { position: "relative", width: "min(390px, 100%)" },
   photoRing: { position: "absolute", inset: "8% 8% 14% 8%", borderRadius: "50%", background: "radial-gradient(circle, rgba(59,130,246,.5), rgba(139,92,246,.3) 50%, transparent 72%)", filter: "blur(26px)", opacity: .85, animation: "pulse 4s ease-in-out infinite" },
-  photo: { width: "100%", position: "relative", display: "block", filter: "drop-shadow(0 18px 50px rgba(59,130,246,.4))" },
+  photo: { width: "100%", position: "relative", display: "block" },
   sideTags: { display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", maxWidth: 280 },
   sideTag: { display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(120,150,255,.12)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "6px 13px", fontSize: 12, color: "#dbe4ff", fontWeight: 600 },
 
@@ -558,7 +558,6 @@ function Hero({ go, stats, animate, openProject }) {
           {/* COL 1: Photo + skill tags below in 2×2 grid */}
           <div data-photocol style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8 }}>
             <div style={s.photoWrap}>
-              <div style={s.photoRing} />
               <img src={PROFILE_IMG} alt="J. Dharun Vishnu" style={s.photo} />
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 12, width: "100%" }} data-sidetags>
