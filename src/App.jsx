@@ -614,12 +614,12 @@ function Hero({ go, stats, animate, openProject }) {
             <button style={{ ...s.puLink, fontSize: 12 }} onClick={() => go("projects")}>View All <Icon name="arrow" size={11} /></button>
           </div>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8, paddingTop: 8 }}>
-            {projects.map(p => (
+            {projects.map((p, i) => (
               <div key={p.code}
-                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", flex: 1, borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden" }}
+                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", flex: 1, borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden", marginTop: i < 2 ? -4 : 0 }}
                 className="hoverlift"
                 onClick={() => openProject(p)}>
-                <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", display: "block" }} />
+                <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: p.code === "SAI" ? 175 : 160, objectFit: "cover", display: "block" }} />
                 <div style={{ padding: "7px 14px 9px" }}>
                   <div style={{ fontSize: 12.5, color: C.gold, fontWeight: 600 }}>{p.desc}</div>
                 </div>
