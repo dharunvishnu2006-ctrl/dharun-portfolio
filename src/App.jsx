@@ -621,7 +621,7 @@ function Hero({ go, stats, animate, openProject }) {
                 onClick={() => openProject(p)}>
                 <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: p.code === "SAI" ? 175 : 160, objectFit: "cover", display: "block" }} />
                 <div style={{ padding: "7px 14px 9px" }}>
-                  <div style={{ fontSize: 12.5, color: C.gold, fontWeight: 600 }}>{p.desc}</div>
+                  <div style={{ fontSize: 14.5, color: C.gold, fontWeight: 600, textAlign: "center" }}>{p.desc}</div>
                 </div>
               </div>
             ))}
