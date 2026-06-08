@@ -607,27 +607,26 @@ function Hero({ go, stats, animate, openProject }) {
 
         {/* COL 3: Project Universe — desktop only */}
         <div style={{ ...s.dash, padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="fadeup">
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexShrink: 0 }}>
-            <Icon name="rocket" size={14} color={C.cyan} />
-            <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>PROJECT UNIVERSE</span>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Icon name="rocket" size={14} color={C.cyan} />
+              <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>PROJECT UNIVERSE</span>
+            </div>
+            <button style={{ ...s.puLink, fontSize: 12 }} onClick={() => go("projects")}>View All <Icon name="arrow" size={11} /></button>
           </div>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8, paddingTop: 8 }}>
             {projects.map(p => (
               <div key={p.code}
-                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", flex: 1, borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, marginBottom: 8, overflow: "hidden" }}
+                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", flex: 1, borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden" }}
                 className="hoverlift"
                 onClick={() => openProject(p)}>
-                <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 110, objectFit: "cover", display: "block" }} />
-                <div style={{ padding: "10px 14px" }}>
-                  <div style={{ fontFamily: FD, fontSize: 16, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
-                  <div style={{ fontSize: 13, color: "#dbe4ff", fontWeight: 500, marginTop: 4 }}>{p.desc}</div>
+                <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", display: "block" }} />
+                <div style={{ padding: "7px 14px 9px" }}>
+                  <div style={{ fontSize: 12.5, color: C.gold, fontWeight: 600 }}>{p.desc}</div>
                 </div>
               </div>
             ))}
           </div>
-          <button style={{ ...s.puLink, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 8, width: "100%", padding: "8px 10px", borderRadius: 10, background: "rgba(120,150,255,.1)", border: "1px solid " + C.border, flexShrink: 0 }} onClick={() => go("projects")}>
-            View All Projects <Icon name="arrow" size={13} />
-          </button>
         </div>
 
         {/* COL 4: Journey Dashboard */}
