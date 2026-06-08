@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from "react";
 import PROFILE_IMG from './j.dharun vishnu potho.jpeg';
 import CSX_LOGO from './cloudshield-x.jpg.png';
 import AMX_LOGO from './autopilot-mlx.jpg.png';
-import SAI_LOGO from './sentinelai-india.jpg.png';
+import SAI_LOGO from './NEW SENTINAL AI INDIA IMAGE.jpeg';
 
 // Supabase client
 const SUPABASE_URL = "https://imfqvebduwnojmbbivrk.supabase.co";
