@@ -539,7 +539,7 @@ function Hero({ go, stats, animate, openProject }) {
   const crt = useCountUp(stats.certs, animate);
   const commits = useCountUp(stats.commits, animate);
   const pct = useCountUp(stats.pct, animate);
-  const l1pct = useCountUp(stats.layer1Pct, animate);
+  const curLayerPct = useCountUp(stats.currentLayerPct, animate);
   const leftCards = [
     { n: projs, l: "Major Projects", c: "#8b5cf6", page: "myprojects" },
     { n: crt, l: "Certificates", c: "#e040fb", page: "certs" },
@@ -692,14 +692,21 @@ function Hero({ go, stats, animate, openProject }) {
               <Icon name="linkedin" size={17} color={C.blue} />
               <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
             </a>
+            <div style={{ ...s.dashCard, ...glossyJS(C.cyan), display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+                <Icon name="layers" size={17} color={C.cyan} />
+                <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Layers Completed</span>
+              </div>
+              <span style={{ fontFamily: FD, fontSize: 13, fontWeight: 800, color: C.cyan }}>{stats.layersStarted}/10</span>
+            </div>
           </div>
           {/* LAYER PROGRESS */}
           <div data-dashlayer style={{ marginTop: 12, width: "100%" }}>
             <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>LAYER PROGRESS</span>
-            <div style={{ fontSize: 12, color: "#dbe4ff", fontWeight: 600, marginTop: 5, marginBottom: 6 }}>Layer 1: Python for Everybody</div>
+            <div style={{ fontSize: 12, color: "#dbe4ff", fontWeight: 600, marginTop: 5, marginBottom: 6 }}>Layer {stats.currentLayerId}: {stats.currentLayerName}</div>
             <div data-layerbar style={{ position: "relative", height: 26, borderRadius: 13, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden", width: "100%" }}>
-              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: l1pct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 13, transition: "width .8s ease" }} />
-              <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>{l1pct}%</div>
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: curLayerPct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 13, transition: "width .8s ease" }} />
+              <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>{curLayerPct}%</div>
             </div>
           </div>
           {/* MISSION PROGRESS */}
@@ -1948,18 +1955,24 @@ export default function App() {
     const totalSubCerts = (courses || []).reduce((sum, c) => sum + ((c.subs && c.subs.length) || 0), 0);
     const totalCerts = totalSubCerts + (certs ? certs.length : 0);
     const certsDone = Object.keys(certLinks || {}).length;
-    const layer1Steps = steps.filter((x) => x.layer === 1);
-    const layer1Done = layer1Steps.filter((x) => done.has(x.num)).length;
-    const layer1Events = (events || []).filter((e) => e.layer === 1);
-    const layer1Heavy = layer1Events.filter((e) => e.kind === "project" || e.kind === "exam");
-    const layer1Light = layer1Events.filter((e) => e.kind !== "project" && e.kind !== "exam");
-    const layer1TotalPts = layer1Steps.length + layer1Heavy.length * 3 + layer1Light.length;
-    const layer1DonePts = layer1Done
-      + layer1Heavy.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length * 3
-      + layer1Light.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length;
-    const layer1Pct = layer1TotalPts ? Math.round((layer1DonePts / layer1TotalPts) * 100) : 0;
+    const layerStats = layers.map((layer) => {
+      const lSteps = steps.filter((x) => x.layer === layer.id);
+      const lDone = lSteps.filter((x) => done.has(x.num)).length;
+      const lEvents = (events || []).filter((e) => e.layer === layer.id);
+      const lHeavy = lEvents.filter((e) => e.kind === "project" || e.kind === "exam");
+      const lLight = lEvents.filter((e) => e.kind !== "project" && e.kind !== "exam");
+      const totalPts = lSteps.length + lHeavy.length * 3 + lLight.length;
+      const donePts = lDone
+        + lHeavy.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length * 3
+        + lLight.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length;
+      const pct = totalPts ? Math.round((donePts / totalPts) * 100) : 0;
+      return { id: layer.id, name: layer.name, pct, started: donePts > 0 };
+    });
+    const layer1Pct = (layerStats.find((l) => l.id === 1) || { pct: 0 }).pct;
+    const layersStarted = layerStats.filter((l) => l.started).length;
+    const currentLayer = layerStats.find((l) => l.pct < 100) || layerStats[layerStats.length - 1];
     const maxStep = doneSteps.length ? Math.max(...doneSteps.map((x) => x.num)) : 0;
-    return { steps: stepCount, days: maxDay, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct };
+    return { steps: stepCount, days: maxDay, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct, layersStarted, currentLayerPct: currentLayer.pct, currentLayerName: currentLayer.name, currentLayerId: currentLayer.id };
   }, [done, certLinks]);
 
   const go = (id) => { setPage(id); window.scrollTo({ top: 0, behavior: "smooth" }); };
