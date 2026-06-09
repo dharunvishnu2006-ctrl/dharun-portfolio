@@ -637,12 +637,12 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 4: Journey Dashboard */}
-        <div data-dashcol4 style={{ ...s.dash, marginRight: 8 }} className="fadeup">
-          <div style={s.dashHead}>
+        <div data-dashcol4 style={{ ...s.dash, marginRight: 8, gap: 10 }} className="fadeup">
+          <div style={{ ...s.dashHead, marginBottom: 0 }}>
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
           </div>
-          <div style={s.dashGrid} data-dashgrid>
+          <div style={{ ...s.dashGrid, flex: "none" }} data-dashgrid>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {leftCards.map((d) => (
                 <button key={d.l} onClick={() => go(d.page)}
@@ -666,7 +666,7 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
           </div>
           {/* OLD side-by-side links — visible on mobile, hidden on desktop */}
-          <div data-dashlinks-old style={{ display: "flex", gap: 10, marginTop: 10 }}>
+          <div data-dashlinks-old style={{ display: "flex", gap: 10 }}>
             <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
               style={{ ...s.dashCard, ...glossyJS("#6366f1"), flex: 1, display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
               className="hoverlift">
@@ -709,7 +709,7 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
           </div>
           {/* LAYER PROGRESS */}
-          <div data-dashlayer style={{ marginTop: 12, width: "100%" }}>
+          <div data-dashlayer style={{ width: "100%" }}>
             <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>LAYER PROGRESS</span>
             <div style={{ fontSize: 12, color: "#dbe4ff", fontWeight: 600, marginTop: 5, marginBottom: 6 }}>Layer {stats.currentLayerId}: {stats.currentLayerName}</div>
             <div data-layerbar style={{ position: "relative", height: 26, borderRadius: 13, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden", width: "100%" }}>
@@ -718,7 +718,7 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
           </div>
           {/* MISSION PROGRESS */}
-          <div data-dashmission style={{ marginTop: 12, width: "100%" }}>
+          <div data-dashmission style={{ width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
               <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>MISSION PROGRESS</span>
             </div>
