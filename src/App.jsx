@@ -556,8 +556,8 @@ function Hero({ go, stats, animate, openProject }) {
         {/* COL 1 + COL 2 wrapped in heroMain for responsive collapse */}
         <div style={s.heroMain} data-heromain className="fadeup">
           {/* COL 1: Photo + skill tags below in 2×2 grid */}
-          <div data-photocol style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8, marginTop: "-32px", alignSelf: "stretch" }}>
-            <div style={s.photoWrap}>
+          <div data-photocol style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8, marginTop: "-12px", alignSelf: "stretch" }}>
+            <div style={{ ...s.photoWrap, transform: "scale(1.12)", transformOrigin: "top center" }}>
               <img src={PROFILE_IMG} alt="J. Dharun Vishnu" style={s.photo} />
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 12, width: "100%" }} data-sidetags>
