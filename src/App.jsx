@@ -595,7 +595,7 @@ function Hero({ go, stats, animate, openProject }) {
                   { label: "Cyber Security", icon: "shield", color: "#ef4444" },
                   { label: "Cloud Builder",  icon: "layers", color: C.blue },
                 ].map(({ label, icon, color }) => (
-                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 15, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, ...gradText }}>
+                  <span key={label} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 17, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, ...gradText }}>
                     <Icon name={icon} size={16} color={color} />{label}
                   </span>
                 ))}
