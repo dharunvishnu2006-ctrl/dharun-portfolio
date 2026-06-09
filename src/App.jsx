@@ -621,10 +621,10 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
             <button style={{ ...s.puLink, fontSize: 12 }} onClick={() => go("projects")}>View All <Icon name="arrow" size={11} /></button>
           </div>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8, paddingTop: 8 }}>
-            {projects.map((p, i) => (
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", gap: 8 }}>
+            {projects.map((p) => (
               <div key={p.code}
-                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden", marginTop: i < 2 ? -4 : 0 }}
+                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden" }}
                 className="hoverlift"
                 onClick={() => openProject(p)}>
                 <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: p.code === "SAI" ? 175 : 160, objectFit: "cover", display: "block", flexShrink: 0 }} />
