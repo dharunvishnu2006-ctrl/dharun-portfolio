@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
-import PROFILE_IMG from './j.dharun vishnu potho.jpeg';
+import PROFILE_IMG from './dharun new photo.jpeg';
 import CSX_LOGO from './cloudshield-x.jpg.png';
 import AMX_LOGO from './autopilot-mlx.jpg.png';
 import SAI_LOGO from './NEW SENTINAL AI INDIA IMAGE.jpeg';
@@ -127,7 +127,7 @@ const s = {
   photoCol: { position: "relative", display: "flex", flexDirection: "column", gap: 16, alignItems: "center", zIndex: 2 },
   photoWrap: { position: "relative", width: "min(440px, 100%)", background: "transparent", overflow: "visible" },
   photoRing: { position: "absolute", inset: "8% 8% 14% 8%", borderRadius: "50%", background: "radial-gradient(circle, rgba(59,130,246,.5), rgba(139,92,246,.3) 50%, transparent 72%)", filter: "blur(26px)", opacity: .85, animation: "pulse 4s ease-in-out infinite" },
-  photo: { width: "100%", height: "auto", objectFit: "contain", background: "transparent", display: "block", border: "none", boxShadow: "none", borderRadius: 0 },
+  photo: { width: "100%", height: "auto", objectFit: "contain", objectPosition: "top", background: "transparent", display: "block", border: "none", boxShadow: "none", borderRadius: 0 },
   sideTags: { display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", maxWidth: 280 },
   sideTag: { display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(120,150,255,.12)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "6px 13px", fontSize: 12, color: "#dbe4ff", fontWeight: 600 },
 
