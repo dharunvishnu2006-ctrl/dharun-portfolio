@@ -681,7 +681,7 @@ function Hero({ go, stats, animate, openProject }) {
             </a>
           </div>
           {/* NEW 3 vertical buttons — desktop only */}
-          <div data-dashlinks3 style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div data-dashlinks3 style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: -4 }}>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
               style={{ ...s.dashCard, ...glossyJS("#ea4335"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
               className="hoverlift">
@@ -700,7 +700,7 @@ function Hero({ go, stats, animate, openProject }) {
               <Icon name="linkedin" size={17} color={C.blue} />
               <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
             </a>
-            <div style={{ ...s.dashCard, ...glossyJS(C.cyan), display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px" }}>
+            <div style={{ ...s.dashCard, ...glossyJS(C.cyan), display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", marginTop: 8 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
                 <Icon name="layers" size={17} color={C.cyan} />
                 <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Layers Completed</span>
