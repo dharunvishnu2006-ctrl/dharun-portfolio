@@ -628,7 +628,7 @@ function Hero({ go, stats, animate, openProject }) {
                 className="hoverlift"
                 onClick={() => openProject(p)}>
                 <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: p.code === "SAI" ? 175 : 160, objectFit: "cover", display: "block" }} />
-                <div style={{ padding: "7px 14px 9px" }}>
+                <div style={{ padding: "7px 14px 9px", ...(p.code !== "SAI" ? { display: "flex", alignItems: "center", justifyContent: "center" } : {}) }}>
                   <div style={{ fontSize: 16, color: C.gold, fontWeight: 600, textAlign: "center" }}>{p.desc}</div>
                 </div>
               </div>
