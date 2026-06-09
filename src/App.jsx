@@ -1918,11 +1918,13 @@ export default function App() {
     // also count ticked roadmap events (rest/project/flagship/upgrade/exam/review)
     // toward both the day count AND maxDay, so rest days and project days are
     // included in "Days" and ticking a build day flips its status that same day
-    const doneEventDays = (events || [])
-      .filter((e) => done.has("evt-" + e.day + "-" + e.kind))
-      .map((e) => e.day);
-    // unique calendar days completed = step-days + event-days combined
-    const dayset = new Set(doneSteps.map((x) => x.day).concat(doneEventDays));
+    const doneEvents = (events || []).filter((e) => done.has("evt-" + e.day + "-" + e.kind));
+    const doneEventDays = doneEvents.map((e) => e.day);
+    // project and exam events each represent 3 allocated days; others are 1 day
+    const heavyEvents = doneEvents.filter((e) => e.kind === "project" || e.kind === "exam");
+    const lightEventDays = doneEvents.filter((e) => e.kind !== "project" && e.kind !== "exam").map((e) => e.day);
+    const dayset = new Set(doneSteps.map((x) => x.day).concat(lightEventDays));
+    const daysCount = dayset.size + heavyEvents.length * 3;
     const allDoneDays = doneSteps.map((x) => x.day).concat(doneEventDays);
     const maxDay = allDoneDays.length ? Math.max(...allDoneDays) : 0;
     const projectsDone = projects.filter((p) => p.day <= maxDay && maxDay > 0).length;
@@ -1934,7 +1936,7 @@ export default function App() {
     const layer1Steps = steps.filter((x) => x.layer === 1);
     const layer1Done = layer1Steps.filter((x) => done.has(x.num)).length;
     const layer1Pct = layer1Steps.length ? Math.round((layer1Done / layer1Steps.length) * 100) : 0;
-    return { steps: stepCount, days: dayset.size, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct };
+    return { steps: stepCount, days: daysCount, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct };
   }, [done, certLinks]);
 
   const go = (id) => { setPage(id); window.scrollTo({ top: 0, behavior: "smooth" }); };
