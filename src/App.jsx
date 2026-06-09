@@ -534,7 +534,7 @@ function Nav({ page, go, admin, openLogin, logout }) {
 // ============ HERO ============
 function Hero({ go, stats, animate, openProject }) {
   const days = useCountUp(stats.days, animate);
-  const miles = useCountUp(stats.steps, animate);
+  const miles = useCountUp(stats.maxStep, animate);
   const projs = useCountUp(stats.projects, animate);
   const crt = useCountUp(stats.certs, animate);
   const commits = useCountUp(stats.commits, animate);
@@ -1951,7 +1951,8 @@ export default function App() {
       + layer1Heavy.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length * 3
       + layer1Light.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length;
     const layer1Pct = layer1TotalPts ? Math.round((layer1DonePts / layer1TotalPts) * 100) : 0;
-    return { steps: stepCount, days: daysCount, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct };
+    const maxStep = doneSteps.length ? Math.max(...doneSteps.map((x) => x.num)) : 0;
+    return { steps: stepCount, days: maxDay, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct };
   }, [done, certLinks]);
 
   const go = (id) => { setPage(id); window.scrollTo({ top: 0, behavior: "smooth" }); };
