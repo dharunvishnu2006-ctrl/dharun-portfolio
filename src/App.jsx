@@ -241,9 +241,9 @@ const s = {
 
   // project detail modal
   detailBg: { position: "fixed", inset: 0, background: "rgba(3,4,10,.82)", backdropFilter: "blur(10px)", display: "grid", placeItems: "center", zIndex: 90, padding: 20, overflowY: "auto" },
-  detail: { position: "relative", borderRadius: 24, padding: "32px", width: "100%", maxWidth: 540, backdropFilter: "blur(20px)", boxShadow: "0 30px 80px rgba(0,0,0,.6)", margin: "auto" },
+  detail: { position: "relative", borderRadius: 24, padding: "44px 32px 32px", width: "100%", maxWidth: 540, backdropFilter: "blur(20px)", boxShadow: "0 30px 80px rgba(0,0,0,.6)", margin: "auto" },
   detailClose: { position: "absolute", top: 18, right: 18, background: "rgba(120,150,255,.12)", border: "none", color: "#fff", width: 34, height: 34, borderRadius: 10, cursor: "pointer", display: "grid", placeItems: "center" },
-  detailIcon: { minHeight: 72, display: "grid", placeItems: "center", marginBottom: 16, position: "relative" },
+  detailIcon: { minHeight: 190, display: "grid", placeItems: "center", marginBottom: 20, position: "relative" },
   detailName: { fontFamily: FD, fontSize: 28, fontWeight: 800, color: "#fff", fontStyle: "italic" },
   detailLong: { fontSize: 15, color: C.dim, lineHeight: 1.6, marginTop: 12, fontWeight: 500 },
   detailStackRow: { display: "flex", gap: 8, flexWrap: "wrap", marginTop: 16 },
@@ -1243,7 +1243,11 @@ function ProjectDetail({ project, onClose, admin, links, setLinks, maxDay = 0 })
     <div style={s.detailBg} onClick={onClose}>
       <div style={{ ...s.detail, ...glossyJS(p.accent) }} onClick={(e) => e.stopPropagation()}>
         <button style={s.detailClose} onClick={onClose}><Icon name="close" size={18} /></button>
-        <div style={s.detailIcon}><Crest icon={p.icon} color={p.accent} size={72} iconSize={34} emoji={p.emoji} img={crownImg(p.code)} code={p.code} /></div>
+        <div style={s.detailIcon}>
+          {PROJECT_LOGOS[p.code]
+            ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: 190, height: 190, objectFit: "contain", filter: `drop-shadow(0 6px 28px ${p.accent}bb) drop-shadow(0 2px 8px rgba(0,0,0,.55))` }} />
+            : <Crest icon={p.icon} color={p.accent} size={72} iconSize={34} emoji={p.emoji} img={crownImg(p.code)} code={p.code} />}
+        </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
           <span style={{ ...s.projCode, color: p.accent, borderColor: p.accent + "88" }}>{p.code}</span>
           <span style={{ ...s.projTag, background: tc[p.tag] + "33", color: "#fff", border: `1px solid ${tc[p.tag]}88` }}>{p.tag}</span>
