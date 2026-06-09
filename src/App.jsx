@@ -242,7 +242,7 @@ const s = {
   // project detail modal
   detailBg: { position: "fixed", inset: 0, background: "rgba(3,4,10,.82)", backdropFilter: "blur(10px)", display: "grid", placeItems: "center", zIndex: 90, padding: 20, overflowY: "auto" },
   detail: { position: "relative", borderRadius: 24, padding: "0 32px 32px", width: "100%", maxWidth: 540, backdropFilter: "blur(20px)", boxShadow: "0 30px 80px rgba(0,0,0,.6)", margin: "auto" },
-  detailClose: { position: "absolute", top: 18, right: 18, background: "rgba(120,150,255,.12)", border: "none", color: "#fff", width: 34, height: 34, borderRadius: 10, cursor: "pointer", display: "grid", placeItems: "center" },
+  detailClose: { position: "absolute", top: 14, right: 14, background: "rgba(0,0,0,.65)", border: "1px solid rgba(255,255,255,.25)", color: "#fff", width: 42, height: 42, borderRadius: 12, cursor: "pointer", display: "grid", placeItems: "center", zIndex: 10, backdropFilter: "blur(6px)" },
   detailIcon: { margin: "0 -32px", marginBottom: 20, position: "relative", borderRadius: "24px 24px 0 0", overflow: "hidden" },
   detailName: { fontFamily: FD, fontSize: 28, fontWeight: 800, color: "#fff", fontStyle: "italic" },
   detailLong: { fontSize: 15, color: C.dim, lineHeight: 1.6, marginTop: 12, fontWeight: 500 },
@@ -1242,10 +1242,10 @@ function ProjectDetail({ project, onClose, admin, links, setLinks, maxDay = 0 })
   return (
     <div style={s.detailBg} onClick={onClose}>
       <div style={{ ...s.detail, ...glossyJS(p.accent) }} onClick={(e) => e.stopPropagation()}>
-        <button style={s.detailClose} onClick={onClose}><Icon name="close" size={18} /></button>
+        <button style={s.detailClose} onClick={onClose}><Icon name="close" size={22} /></button>
         <div style={s.detailIcon}>
           {PROJECT_LOGOS[p.code]
-            ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 240, objectFit: "cover", display: "block" }} />
+            ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
             : <Crest icon={p.icon} color={p.accent} size={72} iconSize={34} emoji={p.emoji} img={crownImg(p.code)} code={p.code} />}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
