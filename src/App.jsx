@@ -1358,7 +1358,14 @@ function Journey({ progress }) {
   const rows = skillmap.map((sk) => {
     const sset = steps.filter((x) => sk.layers.includes(x.layer));
     const sdone = sset.filter((x) => done.has(x.num)).length;
-    const pct = sset.length ? Math.round((sdone / sset.length) * 100) : 0;
+    const skEvents = (events || []).filter((e) => sk.layers.includes(e.layer));
+    const skHeavy = skEvents.filter((e) => e.kind === "project" || e.kind === "exam");
+    const skLight = skEvents.filter((e) => e.kind !== "project" && e.kind !== "exam");
+    const totalPts = sset.length + skHeavy.length * 3 + skLight.length;
+    const donePts = sdone
+      + skHeavy.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length * 3
+      + skLight.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length;
+    const pct = totalPts ? Math.round((donePts / totalPts) * 100) : 0;
     return { ...sk, pct };
   });
   return (
