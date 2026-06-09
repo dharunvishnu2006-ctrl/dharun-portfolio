@@ -627,7 +627,7 @@ function Hero({ go, stats, animate, openProject }) {
                 style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden", marginTop: i < 2 ? -4 : 0 }}
                 className="hoverlift"
                 onClick={() => openProject(p)}>
-                <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: p.code === "SAI" ? 175 : 160, objectFit: "cover", display: "block", flexShrink: 0 }} />
+                <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: p.code === "SAI" ? 260 : 240, objectFit: "cover", display: "block", flexShrink: 0 }} />
                 <div style={{ padding: "5px 14px 6px", flexShrink: 0, ...(p.code !== "SAI" ? { display: "flex", alignItems: "center", justifyContent: "center" } : {}) }}>
                   <div style={{ fontSize: 16, color: C.gold, fontWeight: 600, textAlign: "center" }}>{p.desc}</div>
                 </div>
