@@ -1069,8 +1069,14 @@ function Roadmap({ progress, admin, openLogin }) {
   const layer = layers.find((l) => l.id === active);
   const layerSteps = steps.filter((x) => x.layer === active);
   const layerDone = layerSteps.filter((x) => done.has(x.num)).length;
-  const lpct = layerSteps.length ? Math.round((layerDone / layerSteps.length) * 100) : 0;
   const layerEvents = (events || []).filter((e) => e.layer === active);
+  const layerHeavy = layerEvents.filter((e) => e.kind === "project" || e.kind === "exam");
+  const layerLight = layerEvents.filter((e) => e.kind !== "project" && e.kind !== "exam");
+  const layerTotalPts = layerSteps.length + layerHeavy.length * 3 + layerLight.length;
+  const layerDonePts = layerDone
+    + layerHeavy.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length * 3
+    + layerLight.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length;
+  const lpct = layerTotalPts ? Math.round((layerDonePts / layerTotalPts) * 100) : 0;
   // merge steps + events into a single day-keyed timeline
   const byDay = (() => {
     const m = {};
@@ -1920,11 +1926,10 @@ export default function App() {
     // included in "Days" and ticking a build day flips its status that same day
     const doneEvents = (events || []).filter((e) => done.has("evt-" + e.day + "-" + e.kind));
     const doneEventDays = doneEvents.map((e) => e.day);
-    // project and exam events each represent 3 allocated days; others are 1 day
+    // project/exam events = 3 points each; all other events = 1 point; steps = 1 point each
     const heavyEvents = doneEvents.filter((e) => e.kind === "project" || e.kind === "exam");
-    const lightEventDays = doneEvents.filter((e) => e.kind !== "project" && e.kind !== "exam").map((e) => e.day);
-    const dayset = new Set(doneSteps.map((x) => x.day).concat(lightEventDays));
-    const daysCount = dayset.size + heavyEvents.length * 3;
+    const lightEvents = doneEvents.filter((e) => e.kind !== "project" && e.kind !== "exam");
+    const daysCount = doneSteps.length + heavyEvents.length * 3 + lightEvents.length;
     const allDoneDays = doneSteps.map((x) => x.day).concat(doneEventDays);
     const maxDay = allDoneDays.length ? Math.max(...allDoneDays) : 0;
     const projectsDone = projects.filter((p) => p.day <= maxDay && maxDay > 0).length;
@@ -1935,7 +1940,14 @@ export default function App() {
     const certsDone = Object.keys(certLinks || {}).length;
     const layer1Steps = steps.filter((x) => x.layer === 1);
     const layer1Done = layer1Steps.filter((x) => done.has(x.num)).length;
-    const layer1Pct = layer1Steps.length ? Math.round((layer1Done / layer1Steps.length) * 100) : 0;
+    const layer1Events = (events || []).filter((e) => e.layer === 1);
+    const layer1Heavy = layer1Events.filter((e) => e.kind === "project" || e.kind === "exam");
+    const layer1Light = layer1Events.filter((e) => e.kind !== "project" && e.kind !== "exam");
+    const layer1TotalPts = layer1Steps.length + layer1Heavy.length * 3 + layer1Light.length;
+    const layer1DonePts = layer1Done
+      + layer1Heavy.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length * 3
+      + layer1Light.filter((e) => done.has("evt-" + e.day + "-" + e.kind)).length;
+    const layer1Pct = layer1TotalPts ? Math.round((layer1DonePts / layer1TotalPts) * 100) : 0;
     return { steps: stepCount, days: daysCount, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct };
   }, [done, certLinks]);
 
