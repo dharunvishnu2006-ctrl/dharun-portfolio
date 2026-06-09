@@ -574,7 +574,15 @@ function Hero({ go, stats, animate, openProject }) {
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
             </h1>
-            <div style={s.rolePill}>BSc IT <span style={s.roleDot}>•</span> Aspiring AI/ML &amp; DevSecOps Architect</div>
+            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18 }}>
+              <span style={{ whiteSpace: "nowrap" }}>BSc IT</span>
+              <span style={s.roleDot}>•</span>
+              <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                <span>Creator of CloudShield X</span>
+                <span>AutoPilot ML X</span>
+                <span>SentinelAI India</span>
+              </span>
+            </div>
             <div style={s.quoteBox} data-quotebox>
               <span style={s.quoteMark}>"</span>
               <div style={s.quoteText}>Building Enterprise AI Systems <span style={s.quoteAccent}>One Layer</span> at a Time.</div>
