@@ -1926,10 +1926,13 @@ export default function App() {
     // included in "Days" and ticking a build day flips its status that same day
     const doneEvents = (events || []).filter((e) => done.has("evt-" + e.day + "-" + e.kind));
     const doneEventDays = doneEvents.map((e) => e.day);
-    // project/exam events = 3 points each; all other events = 1 point; steps = 1 point each
-    const heavyEvents = doneEvents.filter((e) => e.kind === "project" || e.kind === "exam");
-    const lightEvents = doneEvents.filter((e) => e.kind !== "project" && e.kind !== "exam");
-    const daysCount = doneSteps.length + heavyEvents.length * 3 + lightEvents.length;
+    // days: unique calendar days with ticked steps; project/exam event days count as 3
+    const heavyEventDays = new Set(doneEvents.filter((e) => e.kind === "project" || e.kind === "exam").map((e) => e.day));
+    const lightEventDays = doneEvents.filter((e) => e.kind !== "project" && e.kind !== "exam").map((e) => e.day);
+    const doneStepDays = new Set(doneSteps.map((x) => x.day));
+    const allCountedDays = new Set([...doneStepDays, ...heavyEventDays, ...lightEventDays]);
+    let daysCount = 0;
+    for (const day of allCountedDays) { daysCount += heavyEventDays.has(day) ? 3 : 1; }
     const allDoneDays = doneSteps.map((x) => x.day).concat(doneEventDays);
     const maxDay = allDoneDays.length ? Math.max(...allDoneDays) : 0;
     const projectsDone = projects.filter((p) => p.day <= maxDay && maxDay > 0).length;
