@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
-import PROFILE_IMG from './dharun new photo 2.jpeg';
+import PROFILE_IMG from './DHARUN PHOTO 3.jpeg';
 import CSX_LOGO from './cloudshield-x.jpg.png';
 import AMX_LOGO from './autopilot-mlx.jpg.png';
 import SAI_LOGO from './NEW SENTINAL AI INDIA IMAGE.jpeg';
