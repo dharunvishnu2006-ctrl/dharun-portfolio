@@ -704,25 +704,24 @@ function Hero({ go, stats, animate, openProject }) {
                 style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
                 className="hoverlift">
                 <span className="shine" />
-                <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
+                <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </button>
             ))}
             {rightCards.map((d) => (
               <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}>
                 <span className="shine" />
-                <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
+                <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
-              style={{ ...s.dashCard, ...glossyJS("#f59e0b"), cursor: "pointer", width: "100%", font: "inherit", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 5 }}
+              style={{ ...s.dashCard, ...glossyJS("#f59e0b"), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
               className="hoverlift">
               <span className="shine" />
-              <Icon name="layers" size={22} color="#f59e0b" />
-              <div style={{ fontSize: 13.5, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</div>
+              <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
             </button>
             <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}>
               <span className="shine" />
-              <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>
+              <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>
                 {ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
               </span>
             </div>
