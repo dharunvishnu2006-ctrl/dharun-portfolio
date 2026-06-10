@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
-import PROFILE_IMG from './DHARUN PHOTO 3.jpeg';
+import PROFILE_IMG from './j.dharun vishnu potho.jpeg';
 import CSX_LOGO from './cloudshield-x.jpg.png';
 import AMX_LOGO from './autopilot-mlx.jpg.png';
 import SAI_LOGO from './NEW SENTINAL AI INDIA IMAGE.jpeg';
@@ -125,9 +125,9 @@ const s = {
   globeRings: { position: "absolute", inset: 0, borderRadius: "50%", border: "1px solid rgba(120,180,255,.3)", animation: "spin 30s linear infinite" },
 
   photoCol: { position: "relative", display: "flex", flexDirection: "column", gap: 16, alignItems: "center", zIndex: 2 },
-  photoWrap: { position: "relative", flex: 1, width: "100%", height: "100%", background: "transparent", overflow: "hidden" },
+  photoWrap: { position: "relative", width: "100%", background: "transparent", overflow: "visible" },
   photoRing: { position: "absolute", inset: "8% 8% 14% 8%", borderRadius: "50%", background: "radial-gradient(circle, rgba(59,130,246,.5), rgba(139,92,246,.3) 50%, transparent 72%)", filter: "blur(26px)", opacity: .85, animation: "pulse 4s ease-in-out infinite" },
-  photo: { width: "100%", height: "100%", objectFit: "contain", objectPosition: "top center", background: "transparent", display: "block", border: "none", boxShadow: "none", borderRadius: 0 },
+  photo: { width: "100%", height: "auto", objectFit: "contain", objectPosition: "top center", background: "transparent", display: "block", border: "none", boxShadow: "none", borderRadius: 0 },
   sideTags: { display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", maxWidth: 280 },
   sideTag: { display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(120,150,255,.12)", border: "1px solid " + C.borderHi, borderRadius: 100, padding: "6px 13px", fontSize: 12, color: "#dbe4ff", fontWeight: 600 },
 
@@ -556,8 +556,8 @@ function Hero({ go, stats, animate, openProject }) {
         {/* COL 1 + COL 2 wrapped in heroMain for responsive collapse */}
         <div style={s.heroMain} data-heromain className="fadeup">
           {/* COL 1: Photo + skill tags below in 2×2 grid */}
-          <div data-photocol style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8, marginTop: "-12px", alignSelf: "stretch" }}>
-            <div style={{ ...s.photoWrap, transform: "scale(1.12)", transformOrigin: "top center" }}>
+          <div data-photocol style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8, marginTop: "-50px", alignSelf: "flex-start" }}>
+            <div style={s.photoWrap}>
               <img src={PROFILE_IMG} alt="J. Dharun Vishnu" style={s.photo} />
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 12, width: "100%" }} data-sidetags>
