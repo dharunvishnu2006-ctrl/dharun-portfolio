@@ -1928,18 +1928,22 @@ function useProgress() {
 }
 
 // ============ LAYER & PROJECT PROGRESS ============
-function LayerProjectProgress({ go, stats }) {
+function LayerProjectProgress({ go, stats, done }) {
   const [animate, setAnimate] = useState(false);
   useEffect(() => { const t = setTimeout(() => setAnimate(true), 200); return () => clearTimeout(t); }, []);
 
-  const maxDay = stats.maxDay || 0;
   const curLayerPct = stats.currentLayerPct || 0;
   const missionPct = stats.pct || 0;
 
-  const projectRows = projects.map((p) => ({
-    ...p,
-    progress: maxDay >= p.day ? Math.min(Math.round((maxDay / 365) * 100), 100) : 0,
-  }));
+  const projectRows = projects.map((p) => {
+    const projEvents = (events || []).filter(
+      (e) => e.label && e.label.includes(p.name) && (e.kind === "project" || e.kind === "upgrade")
+    );
+    const doneEvts = projEvents.filter((e) => done.has("evt-" + e.day + "-" + e.kind));
+    const maxDoneDay = doneEvts.length > 0 ? Math.max(...doneEvts.map((e) => e.day)) : 0;
+    const progress = maxDoneDay > 0 ? Math.min(Math.round((maxDoneDay / 365) * 100), 100) : 0;
+    return { ...p, progress };
+  });
 
   const barStyle = (pct) => ({
     position: "absolute", left: 0, top: 0, bottom: 0,
@@ -2112,7 +2116,7 @@ export default function App() {
         {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} />}
         {page === "contact" && <Contact />}
         {page === "techstack" && <TechStack stats={stats} />}
-        {page === "layerprogress" && <LayerProjectProgress go={go} stats={stats} />}
+        {page === "layerprogress" && <LayerProjectProgress go={go} stats={stats} done={done} />}
       </main>
 
       <Footer />
