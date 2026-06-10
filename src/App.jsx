@@ -359,8 +359,9 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-dashmission] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
   [data-layerbar], [data-missionbar] { width: 100% !important; box-sizing: border-box !important; }
   [data-graphinner] { display: flex !important; width: 100%; }
-  [data-graphmonths] { display: none !important; }
+  [data-monthabsolute] { display: none !important; }
   [data-graphdaylabels] { flex-shrink: 0; }
+  [data-daylabelcell] { height: auto !important; flex: 1; line-height: normal !important; }
   [data-graphweek] { flex: 1; }
   [data-graphcell] { width: 100% !important; height: auto !important; aspect-ratio: 1; }
 }
@@ -372,6 +373,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-dashlinks3] { display: none !important; }
   [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   [data-reposgrid] { -webkit-overflow-scrolling: touch; }
+  [data-monthflex] { display: none !important; }
 }
 @media (max-width: 860px) {
   .navlinks { display: none !important; }
@@ -789,6 +791,14 @@ function GithubGraph() {
     return labels;
   }, [weeks]);
 
+  const monthRanges = React.useMemo(() => {
+    if (!monthLabels.length || !weeks.length) return [];
+    return monthLabels.map((m, i) => ({
+      label: m.label,
+      weeks: i + 1 < monthLabels.length ? monthLabels[i + 1].index - m.index : weeks.length - m.index
+    }));
+  }, [monthLabels, weeks]);
+
   return (
     <div data-graphbox style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
@@ -801,13 +811,16 @@ function GithubGraph() {
           <div data-graphinner style={{ display: "inline-flex", flexDirection: "column", gap: 6 }}>
             <div data-graphmonths style={{ display: "flex", marginLeft: 30, position: "relative", height: 14 }}>
               {monthLabels.map((m, i) => (
-                <div key={i} style={{ position: "absolute", left: m.index * (CELL + GAP), fontSize: 10, color: "#8b949e" }}>{m.label}</div>
+                <div data-monthabsolute key={i} style={{ position: "absolute", left: m.index * (CELL + GAP), fontSize: 10, color: "#8b949e" }}>{m.label}</div>
+              ))}
+              {monthRanges.map((m, i) => (
+                <div data-monthflex key={`f${i}`} style={{ flex: m.weeks, fontSize: 10, color: "#8b949e", overflow: "hidden" }}>{m.label}</div>
               ))}
             </div>
             <div data-graphweeks style={{ display: "flex", gap: GAP }}>
               <div data-graphdaylabels style={{ display: "flex", flexDirection: "column", gap: GAP, marginRight: 4, width: 26 }}>
                 {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
-                  <div key={i} style={{ height: CELL, fontSize: 9, color: "#8b949e", lineHeight: `${CELL}px` }}>{d}</div>
+                  <div data-daylabelcell key={i} style={{ height: CELL, fontSize: 9, color: "#8b949e", lineHeight: `${CELL}px` }}>{d}</div>
                 ))}
               </div>
               {weeks.map((week, wi) => (
