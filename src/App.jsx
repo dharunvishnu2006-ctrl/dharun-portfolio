@@ -701,18 +701,16 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: "none" }} data-dashgrid>
             {leftCards.map((d) => (
               <button key={d.l} onClick={() => go(d.page)}
-                style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}
+                style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}
                 className="hoverlift">
                 <span className="shine" />
-                <div style={{ ...s.dashNum, fontSize: 30 }}>{d.n}</div>
-                <div style={s.dashLabel}>{d.l}</div>
+                <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </button>
             ))}
             {rightCards.map((d) => (
-              <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+              <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                 <span className="shine" />
-                <div style={{ ...s.dashNum, fontSize: 20 }}>{d.n}</div>
-                <div style={s.dashLabel}>{d.l}</div>
+                <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
@@ -722,14 +720,10 @@ function Hero({ go, stats, animate, openProject }) {
               <Icon name="layers" size={22} color="#f59e0b" />
               <div style={{ fontSize: 13.5, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</div>
             </button>
-            <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
               <span className="shine" />
-              <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                <Icon name="github" size={17} color="#a855f7" />
-                <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Git Commits</span>
-              </div>
-              <span style={{ fontFamily: FD, fontSize: 13, fontWeight: 800, color: "#a855f7" }}>
-                {ghCommits !== null ? ghCommits.toLocaleString() : "…"} commits
+              <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>
+                {ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
               </span>
             </div>
           </div>
