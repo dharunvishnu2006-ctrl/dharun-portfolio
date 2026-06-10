@@ -358,6 +358,11 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-dashlayer] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
   [data-dashmission] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
   [data-layerbar], [data-missionbar] { width: 100% !important; box-sizing: border-box !important; }
+  [data-graphinner] { display: flex !important; width: 100%; }
+  [data-graphmonths] { display: none !important; }
+  [data-graphdaylabels] { flex-shrink: 0; }
+  [data-graphweek] { flex: 1; }
+  [data-graphcell] { width: 100% !important; height: auto !important; aspect-ratio: 1; }
 }
 @media (max-width: 1023px) {
   .btn-desktop-label { display: none !important; }
@@ -793,25 +798,25 @@ function GithubGraph() {
         {err && <div style={{ color: "#8b949e", fontSize: 13 }}>Could not load commit data right now.</div>}
         {!err && !data && <div style={{ color: "#8b949e", fontSize: 13 }}>Loading commit graph…</div>}
         {!err && data && (
-          <div style={{ display: "inline-flex", flexDirection: "column", gap: 6 }}>
-            <div style={{ display: "flex", marginLeft: 30, position: "relative", height: 14 }}>
+          <div data-graphinner style={{ display: "inline-flex", flexDirection: "column", gap: 6 }}>
+            <div data-graphmonths style={{ display: "flex", marginLeft: 30, position: "relative", height: 14 }}>
               {monthLabels.map((m, i) => (
                 <div key={i} style={{ position: "absolute", left: m.index * (CELL + GAP), fontSize: 10, color: "#8b949e" }}>{m.label}</div>
               ))}
             </div>
-            <div style={{ display: "flex", gap: GAP }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: GAP, marginRight: 4, width: 26 }}>
+            <div data-graphweeks style={{ display: "flex", gap: GAP }}>
+              <div data-graphdaylabels style={{ display: "flex", flexDirection: "column", gap: GAP, marginRight: 4, width: 26 }}>
                 {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
                   <div key={i} style={{ height: CELL, fontSize: 9, color: "#8b949e", lineHeight: `${CELL}px` }}>{d}</div>
                 ))}
               </div>
               {weeks.map((week, wi) => (
-                <div key={wi} style={{ display: "flex", flexDirection: "column", gap: GAP }}>
+                <div data-graphweek key={wi} style={{ display: "flex", flexDirection: "column", gap: GAP }}>
                   {Array.from({ length: 7 }).map((_, di) => {
                     const day = week.find(d => new Date(d.date).getDay() === di);
                     const lvl = day ? day.level : 0;
                     return (
-                      <div key={di}
+                      <div data-graphcell key={di}
                         title={day ? `${day.count} commits on ${day.date}` : ""}
                         style={{ width: CELL, height: CELL, borderRadius: 2, background: LEVELS[lvl] || LEVELS[0] }} />
                     );
