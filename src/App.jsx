@@ -348,7 +348,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-photocol] { padding-left: 0 !important; }
   [data-col2box] { background: linear-gradient(150deg,#3b82f628,#3b82f60a 55%,rgba(10,14,30,.7)) !important; border: 1px solid #3b82f666 !important; box-shadow: 0 8px 30px #3b82f622,inset 0 1px 0 #3b82f633 !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
   [data-col2divider] { display: block !important; }
-  [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; }
+  [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; width: 100%; }
   .btn-mobile-label { display: none !important; }
   [data-dashlinks-old] { display: none !important; }
   [data-dashgrid] { flex: 0 !important; }
@@ -567,9 +567,9 @@ function Hero({ go, stats, animate, openProject }) {
               <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="layers" size={14} color={C.blue} /> Cloud Builder</span>
             </div>
             {/* divider + BECOMING — desktop only */}
-            <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "14px 0 0" }} />
+            <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "0 0 0" }} />
             <div data-col2becoming>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "14px 0 12px", ...gradText }}>BECOMING →</div>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", textAlign: "center", ...gradText }}>BECOMING →</div>
               <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: 10, justifyContent: "space-evenly" }}>
                 {[
                   { label: "AI/ML Engineer", icon: "code",   color: C.cyan },
@@ -577,7 +577,7 @@ function Hero({ go, stats, animate, openProject }) {
                   { label: "Cyber Security", icon: "shield", color: "#ef4444" },
                   { label: "Cloud Builder",  icon: "layers", color: C.blue },
                 ].map(({ label, icon, color }) => (
-                  <span key={label} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 17, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, ...gradText }}>
+                  <span key={label} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, width: "100%", boxSizing: "border-box", background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 17, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, ...gradText }}>
                     <Icon name={icon} size={16} color={color} />{label}
                   </span>
                 ))}
