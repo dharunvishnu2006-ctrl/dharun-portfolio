@@ -349,7 +349,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-col2box] { background: linear-gradient(150deg,#3b82f628,#3b82f60a 55%,rgba(10,14,30,.7)) !important; border: 1px solid #3b82f666 !important; box-shadow: 0 8px 30px #3b82f622,inset 0 1px 0 #3b82f633 !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
   [data-col2divider] { display: block !important; }
   [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; width: 100%; }
-  [data-col2connect] { display: flex !important; flex-direction: column; }
+  [data-col2connect] { display: flex !important; flex-direction: column; flex: 1; }
   .btn-mobile-label { display: none !important; }
   [data-dashlinks-old] { display: none !important; }
   [data-dashgrid] { flex: 0 !important; }
@@ -610,7 +610,7 @@ function Hero({ go, stats, animate, openProject }) {
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
             <div data-col2connect style={{ marginBottom: 0 }}>
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", ...gradText }}>CONNECT →</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "space-between" }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, ...glossyJS("#ea4335"), display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
                   className="hoverlift">
