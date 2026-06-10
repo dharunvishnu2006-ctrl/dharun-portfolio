@@ -544,29 +544,28 @@ function Hero({ go, stats, animate, openProject }) {
   const curLayerPct = useCountUp(stats.currentLayerPct, animate);
 
   const [ghCommits, setGhCommits] = useState(null);
+  const [ghCommitsErr, setGhCommitsErr] = useState(false);
   useEffect(() => {
     let cancelled = false;
+    const CACHE_KEY = 'gh_commits_v1';
+    const TTL = 60 * 60 * 1000;
     (async () => {
       try {
-        const res = await fetch('https://api.github.com/users/dharunvishnu2006-ctrl/repos?per_page=100');
-        const repos = await res.json();
-        if (!Array.isArray(repos) || cancelled) return;
-        const counts = await Promise.all(
-          repos.filter(r => !r.fork).map(async repo => {
-            try {
-              const r = await fetch(`https://api.github.com/repos/dharunvishnu2006-ctrl/${repo.name}/commits?per_page=1`);
-              const link = r.headers.get('Link');
-              if (link) {
-                const m = link.match(/page=(\d+)>;\s*rel="last"/);
-                if (m) return parseInt(m[1], 10);
-              }
-              const data = await r.json();
-              return Array.isArray(data) ? data.length : 0;
-            } catch { return 0; }
-          })
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+        if (cached && Date.now() - cached.ts < TTL) { setGhCommits(cached.n); return; }
+      } catch {}
+      try {
+        const res = await fetch(
+          'https://api.github.com/search/commits?q=author:dharunvishnu2006-ctrl&per_page=1',
+          { headers: { Accept: 'application/vnd.github.cloak-preview+json' } }
         );
-        if (!cancelled) setGhCommits(counts.reduce((a, b) => a + b, 0));
-      } catch { /* ignore */ }
+        const data = await res.json();
+        if (cancelled) return;
+        if (typeof data.total_count === 'number') {
+          setGhCommits(data.total_count);
+          try { localStorage.setItem(CACHE_KEY, JSON.stringify({ n: data.total_count, ts: Date.now() })); } catch {}
+        } else { if (!cancelled) setGhCommitsErr(true); }
+      } catch { if (!cancelled) setGhCommitsErr(true); }
     })();
     return () => { cancelled = true; };
   }, []);
@@ -722,7 +721,7 @@ function Hero({ go, stats, animate, openProject }) {
             <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}>
               <span className="shine" />
               <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>
-                {ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
+                {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
               </span>
             </div>
           </div>
@@ -829,15 +828,35 @@ function GithubGraph() {
 
 function MyRepos() {
   const [repos, setRepos] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [err, setErr] = React.useState(false);
   React.useEffect(() => {
+    const CACHE_KEY = 'gh_repos_v1';
+    const TTL = 60 * 60 * 1000;
+    try {
+      const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+      if (cached && Date.now() - cached.ts < TTL && Array.isArray(cached.data)) {
+        setRepos(cached.data); setLoading(false); return;
+      }
+    } catch {}
     fetch("https://api.github.com/users/dharunvishnu2006-ctrl/repos?sort=updated&per_page=12")
-      .then(r => r.json()).then(data => { if (Array.isArray(data)) setRepos(data); });
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setRepos(data);
+          try { localStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() })); } catch {}
+        } else { setErr(true); }
+        setLoading(false);
+      })
+      .catch(() => { setErr(true); setLoading(false); });
   }, []);
   return (
     <div data-reposbox style={{ ...glossyJS("#0d1117"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
       <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
         <Icon name="github" size={16} color={C.cyan} /> MY REPOSITORIES <span style={{ color: C.dim, fontWeight: 500, fontSize: 12 }}>({repos.length})</span>
       </div>
+      {loading && <div style={{ color: "#8b949e", fontSize: 13 }}>Loading repositories…</div>}
+      {err && <div style={{ color: "#8b949e", fontSize: 13 }}>Could not load repositories — GitHub API rate limit may be exceeded. Try again in an hour.</div>}
       <div data-reposgrid style={{ display: "flex", flexDirection: "row", overflowX: "auto", gap: 16, paddingBottom: 6 }}>
         {repos.map(r => (
           <a key={r.id} href={r.html_url} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(22,27,34,.8)", border: "1px solid rgba(48,54,61,.8)", borderRadius: 12, padding: "14px 16px", textDecoration: "none", display: "block", flexShrink: 0, width: 280 }} className="hoverlift">
