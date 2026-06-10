@@ -349,6 +349,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-col2box] { background: linear-gradient(150deg,#3b82f628,#3b82f60a 55%,rgba(10,14,30,.7)) !important; border: 1px solid #3b82f666 !important; box-shadow: 0 8px 30px #3b82f622,inset 0 1px 0 #3b82f633 !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
   [data-col2divider] { display: block !important; }
   [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; width: 100%; }
+  [data-col2connect] { display: flex !important; flex-direction: column; }
   .btn-mobile-label { display: none !important; }
   [data-dashlinks-old] { display: none !important; }
   [data-dashgrid] { flex: 0 !important; }
@@ -362,6 +363,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   .btn-desktop-label { display: none !important; }
   [data-col2divider] { display: none !important; }
   [data-col2becoming] { display: none !important; }
+  [data-col2connect] { display: none !important; }
   [data-dashlinks3] { display: none !important; }
   [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   [data-reposgrid] { -webkit-overflow-scrolling: touch; }
@@ -604,6 +606,31 @@ function Hero({ go, stats, animate, openProject }) {
               <span style={s.quoteMark}>"</span>
               <div style={s.quoteText}>Building Enterprise AI Systems <span style={s.quoteAccent}>One Layer</span> at a Time.</div>
             </div>
+            {/* divider + CONNECT */}
+            <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
+            <div data-col2connect>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", ...gradText }}>CONNECT →</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
+                  style={{ ...s.dashCard, ...glossyJS("#ea4335"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift">
+                  <Icon name="mail" size={17} color="#ea4335" />
+                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Gmail</span>
+                </a>
+                <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
+                  style={{ ...s.dashCard, ...glossyJS("#6366f1"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift">
+                  <Icon name="github" size={17} color="#fff" />
+                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
+                  style={{ ...s.dashCard, ...glossyJS(C.blue), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift">
+                  <Icon name="linkedin" size={17} color={C.blue} />
+                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
+                </a>
+              </div>
+            </div>
             <div style={s.heroBtns} data-herobtns>
               <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
               <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
@@ -665,41 +692,8 @@ function Hero({ go, stats, animate, openProject }) {
               ))}
             </div>
           </div>
-          {/* OLD side-by-side links — visible on mobile, hidden on desktop */}
-          <div data-dashlinks-old style={{ display: "flex", gap: 10 }}>
-            <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
-              style={{ ...s.dashCard, ...glossyJS("#6366f1"), flex: 1, display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-              className="hoverlift">
-              <Icon name="github" size={17} color="#fff" />
-              <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
-              style={{ ...s.dashCard, ...glossyJS(C.blue), flex: 1, display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-              className="hoverlift">
-              <Icon name="linkedin" size={17} color={C.blue} />
-              <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
-            </a>
-          </div>
-          {/* NEW 3 vertical buttons — desktop only */}
+          {/* NEW vertical buttons — desktop only */}
           <div data-dashlinks3 style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: -4 }}>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
-              style={{ ...s.dashCard, ...glossyJS("#ea4335"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-              className="hoverlift">
-              <Icon name="mail" size={17} color="#ea4335" />
-              <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Gmail</span>
-            </a>
-            <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
-              style={{ ...s.dashCard, ...glossyJS("#6366f1"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-              className="hoverlift">
-              <Icon name="github" size={17} color="#fff" />
-              <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
-              style={{ ...s.dashCard, ...glossyJS(C.blue), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-              className="hoverlift">
-              <Icon name="linkedin" size={17} color={C.blue} />
-              <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
-            </a>
             <div style={{ ...s.dashCard, ...glossyJS(C.cyan), display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", marginTop: 8 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
                 <Icon name="layers" size={17} color={C.cyan} />
