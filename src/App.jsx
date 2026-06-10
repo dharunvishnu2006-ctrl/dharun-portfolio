@@ -672,11 +672,10 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: "none" }} data-dashgrid>
             {leftCards.map((d) => (
               <button key={d.l} onClick={() => go(d.page)}
-                style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", textAlign: "left", width: "100%", font: "inherit" }}
+                style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}
                 className="hoverlift">
                 <span className="shine" />
-                <div style={{ position: "absolute", top: 12, right: 12 }}><Icon name="arrow" size={15} color={d.c} /></div>
-                <div style={s.dashNum}>{d.n}</div>
+                <div style={{ ...s.dashNum, fontSize: 30 }}>{d.n}</div>
                 <div style={s.dashLabel}>{d.l}</div>
               </button>
             ))}
@@ -688,25 +687,12 @@ function Hero({ go, stats, animate, openProject }) {
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
-              style={{ ...s.dashCard, ...glossyJS("#f59e0b"), cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", width: "100%", font: "inherit", textAlign: "left" }}
+              style={{ ...s.dashCard, ...glossyJS("#f59e0b"), cursor: "pointer", width: "100%", font: "inherit", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 5 }}
               className="hoverlift">
               <span className="shine" />
-              <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                <Icon name="layers" size={17} color="#f59e0b" />
-                <span style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
-              </div>
-              <Icon name="arrow" size={15} color="#f59e0b" />
+              <Icon name="layers" size={22} color="#f59e0b" />
+              <div style={{ fontSize: 13.5, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</div>
             </button>
-          </div>
-          {/* Layers Completed */}
-          <div data-dashlinks3 style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: -4 }}>
-            <div style={{ ...s.dashCard, ...glossyJS(C.cyan), display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", marginTop: 8 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                <Icon name="layers" size={17} color={C.cyan} />
-                <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Layers Completed</span>
-              </div>
-              <span style={{ fontFamily: FD, fontSize: 13, fontWeight: 800, color: C.cyan }}>{stats.layersStarted}/10</span>
-            </div>
           </div>
         </div>
       </div>
