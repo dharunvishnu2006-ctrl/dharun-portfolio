@@ -566,6 +566,23 @@ function Hero({ go, stats, animate, openProject }) {
               <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="shield" size={14} color={C.green} /> Cyber security</span>
               <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="layers" size={14} color={C.blue} /> Cloud Builder</span>
             </div>
+            {/* divider + BECOMING — desktop only */}
+            <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "14px 0 0" }} />
+            <div data-col2becoming>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "14px 0 12px", ...gradText }}>BECOMING →</div>
+              <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: 10, justifyContent: "space-evenly" }}>
+                {[
+                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan },
+                  { label: "Problem Solver", icon: "target", color: C.purple },
+                  { label: "Cyber Security", icon: "shield", color: "#ef4444" },
+                  { label: "Cloud Builder",  icon: "layers", color: C.blue },
+                ].map(({ label, icon, color }) => (
+                  <span key={label} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 17, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, ...gradText }}>
+                    <Icon name={icon} size={16} color={color} />{label}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* COL 2: unified box on desktop, plain stack on mobile */}
@@ -591,23 +608,6 @@ function Hero({ go, stats, animate, openProject }) {
               <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
               <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
               <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /><span className="btn-desktop-label">Download CV</span><span className="btn-mobile-label">Connect</span></button>
-            </div>
-            {/* divider + BECOMING — desktop only */}
-            <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "14px 0 0" }} />
-            <div data-col2becoming>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "14px 0 12px", ...gradText }}>BECOMING →</div>
-              <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: 10, justifyContent: "space-evenly" }}>
-                {[
-                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan },
-                  { label: "Problem Solver", icon: "target", color: C.purple },
-                  { label: "Cyber Security", icon: "shield", color: "#ef4444" },
-                  { label: "Cloud Builder",  icon: "layers", color: C.blue },
-                ].map(({ label, icon, color }) => (
-                  <span key={label} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 17, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, ...gradText }}>
-                    <Icon name={icon} size={16} color={color} />{label}
-                  </span>
-                ))}
-              </div>
             </div>
           </div>
         </div>
