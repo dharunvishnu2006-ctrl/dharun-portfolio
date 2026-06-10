@@ -608,26 +608,26 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
             {/* divider + CONNECT */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
-            <div data-col2connect>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", ...gradText }}>CONNECT →</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div data-col2connect style={{ marginBottom: 0 }}>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", ...gradText }}>CONNECT →</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS("#ea4335"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  style={{ ...s.dashCard, ...glossyJS("#ea4335"), display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
                   className="hoverlift">
                   <Icon name="mail" size={17} color="#ea4335" />
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Gmail</span>
+                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Gmail</span>
                 </a>
                 <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS("#6366f1"), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  style={{ ...s.dashCard, ...glossyJS("#6366f1"), display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
                   className="hoverlift">
-                  <Icon name="github" size={17} color="#fff" />
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>GitHub</span>
+                  <Icon name="github" size={17} color="#a855f7" />
+                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GitHub</span>
                 </a>
                 <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS(C.blue), display: "flex", alignItems: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  style={{ ...s.dashCard, ...glossyJS(C.blue), display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
                   className="hoverlift">
                   <Icon name="linkedin" size={17} color={C.blue} />
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
+                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#3b82f6,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>LinkedIn</span>
                 </a>
               </div>
             </div>
