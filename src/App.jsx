@@ -669,30 +669,36 @@ function Hero({ go, stats, animate, openProject }) {
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
           </div>
-          <div style={{ ...s.dashGrid, flex: "none" }} data-dashgrid>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {leftCards.map((d) => (
-                <button key={d.l} onClick={() => go(d.page)}
-                  style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", textAlign: "left", width: "100%", font: "inherit" }}
-                  className="hoverlift">
-                  <span className="shine" />
-                  <div style={{ position: "absolute", top: 12, right: 12 }}><Icon name="arrow" size={15} color={d.c} /></div>
-                  <div style={s.dashNum}>{d.n}</div>
-                  <div style={s.dashLabel}>{d.l}</div>
-                </button>
-              ))}
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {rightCards.map((d) => (
-                <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-                  <span className="shine" />
-                  <div style={{ ...s.dashNum, fontSize: 20 }}>{d.n}</div>
-                  <div style={s.dashLabel}>{d.l}</div>
-                </div>
-              ))}
-            </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: "none" }} data-dashgrid>
+            {leftCards.map((d) => (
+              <button key={d.l} onClick={() => go(d.page)}
+                style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", textAlign: "left", width: "100%", font: "inherit" }}
+                className="hoverlift">
+                <span className="shine" />
+                <div style={{ position: "absolute", top: 12, right: 12 }}><Icon name="arrow" size={15} color={d.c} /></div>
+                <div style={s.dashNum}>{d.n}</div>
+                <div style={s.dashLabel}>{d.l}</div>
+              </button>
+            ))}
+            {rightCards.map((d) => (
+              <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+                <span className="shine" />
+                <div style={{ ...s.dashNum, fontSize: 20 }}>{d.n}</div>
+                <div style={s.dashLabel}>{d.l}</div>
+              </div>
+            ))}
+            <button onClick={() => go("layerprogress")}
+              style={{ ...s.dashCard, ...glossyJS("#f59e0b"), cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", width: "100%", font: "inherit", textAlign: "left" }}
+              className="hoverlift">
+              <span className="shine" />
+              <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+                <Icon name="layers" size={17} color="#f59e0b" />
+                <span style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
+              </div>
+              <Icon name="arrow" size={15} color="#f59e0b" />
+            </button>
           </div>
-          {/* NEW vertical buttons — desktop only */}
+          {/* Layers Completed */}
           <div data-dashlinks3 style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: -4 }}>
             <div style={{ ...s.dashCard, ...glossyJS(C.cyan), display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", marginTop: 8 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
@@ -700,25 +706,6 @@ function Hero({ go, stats, animate, openProject }) {
                 <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Layers Completed</span>
               </div>
               <span style={{ fontFamily: FD, fontSize: 13, fontWeight: 800, color: C.cyan }}>{stats.layersStarted}/10</span>
-            </div>
-          </div>
-          {/* LAYER PROGRESS */}
-          <div data-dashlayer style={{ width: "100%" }}>
-            <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>LAYER PROGRESS</span>
-            <div style={{ fontSize: 12, color: "#dbe4ff", fontWeight: 600, marginTop: 5, marginBottom: 6 }}>Layer {stats.currentLayerId}: {stats.currentLayerName}</div>
-            <div data-layerbar style={{ position: "relative", height: 26, borderRadius: 13, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden", width: "100%" }}>
-              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: curLayerPct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 13, transition: "width .8s ease" }} />
-              <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>{curLayerPct}%</div>
-            </div>
-          </div>
-          {/* MISSION PROGRESS */}
-          <div data-dashmission style={{ width: "100%" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-              <span style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px" }}>MISSION PROGRESS</span>
-            </div>
-            <div data-missionbar style={{ position: "relative", height: 26, borderRadius: 13, background: "rgba(10,14,30,.6)", border: "1px solid " + C.border, overflow: "hidden", width: "100%" }}>
-              <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: pct + "%", background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)", borderRadius: 13, transition: "width .8s ease" }} />
-              <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", fontFamily: FD, fontWeight: 800, fontSize: 13, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)" }}>{pct}%</div>
             </div>
           </div>
         </div>
@@ -1922,6 +1909,96 @@ function useProgress() {
   return { done, toggle, setLayerDone };
 }
 
+// ============ LAYER & PROJECT PROGRESS ============
+function LayerProjectProgress({ go, stats }) {
+  const [animate, setAnimate] = useState(false);
+  useEffect(() => { const t = setTimeout(() => setAnimate(true), 200); return () => clearTimeout(t); }, []);
+
+  const maxDay = stats.maxDay || 0;
+  const curLayerPct = stats.currentLayerPct || 0;
+  const missionPct = stats.pct || 0;
+
+  const projectRows = projects.map((p) => ({
+    ...p,
+    progress: maxDay >= p.day ? Math.min(Math.round((maxDay / 365) * 100), 100) : 0,
+  }));
+
+  const barStyle = (pct) => ({
+    position: "absolute", left: 0, top: 0, bottom: 0,
+    width: animate ? pct + "%" : "0%",
+    background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)",
+    borderRadius: 13, transition: "width .8s ease",
+  });
+  const barTrack = {
+    position: "relative", height: 26, borderRadius: 13,
+    background: "rgba(10,14,30,.6)", border: "1px solid " + C.border,
+    overflow: "hidden", width: "100%",
+  };
+  const barLabel = {
+    position: "absolute", inset: 0, display: "grid", placeItems: "center",
+    fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff",
+    textShadow: "0 1px 3px rgba(0,0,0,.6)",
+  };
+
+  return (
+    <div style={s.shell}>
+      <div style={s.sec}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
+          <button onClick={() => go("home")}
+            style={{ background: "rgba(255,255,255,.07)", border: "1px solid rgba(255,255,255,.15)", borderRadius: 10, padding: "8px 16px", color: "#fff", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: FM, display: "flex", alignItems: "center", gap: 7 }}>
+            ← Back
+          </button>
+          <div>
+            <div style={{ fontFamily: FD, fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>Layer &amp; Project Progress</div>
+            <div style={{ fontSize: 13, color: C.dim2, marginTop: 2 }}>Live tracker — updates as milestones are ticked</div>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 860 }}>
+
+          {/* Sections 1-3: Projects */}
+          {projectRows.map((p) => (
+            <div key={p.code} style={{ ...glossyJS(p.accent), borderRadius: 20, padding: "18px 22px", display: "flex", alignItems: "center", gap: 20 }}>
+              <div style={{ flexShrink: 0, width: 110, height: 72, borderRadius: 12, overflow: "hidden", border: "1px solid " + p.accent + "55" }}>
+                <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 10 }}>{p.name}</div>
+                <div style={barTrack}>
+                  <div style={barStyle(p.progress)} />
+                  <div style={barLabel}>{p.progress}%</div>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Section 4: Layer Progress */}
+          <div style={{ ...glossyJS(C.cyan), borderRadius: 20, padding: "18px 22px" }}>
+            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px", marginBottom: 4 }}>LAYER PROGRESS</div>
+            <div style={{ fontSize: 13, color: "#dbe4ff", fontWeight: 600, marginBottom: 10 }}>
+              Layer {stats.currentLayerId}: {stats.currentLayerName}
+            </div>
+            <div style={barTrack}>
+              <div style={barStyle(curLayerPct)} />
+              <div style={barLabel}>{curLayerPct}%</div>
+            </div>
+          </div>
+
+          {/* Section 5: Mission Progress */}
+          <div style={{ ...glossyJS(C.green), borderRadius: 20, padding: "18px 22px" }}>
+            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px", marginBottom: 10 }}>MISSION PROGRESS</div>
+            <div style={{ ...barTrack, height: 28 }}>
+              <div style={{ ...barStyle(missionPct), background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)" }} />
+              <div style={{ ...barLabel, fontSize: 13 }}>{missionPct}%</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ============ APP ============
 export default function App() {
   const [page, setPage] = useState("home");
@@ -2017,6 +2094,7 @@ export default function App() {
         {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} />}
         {page === "contact" && <Contact />}
         {page === "techstack" && <TechStack stats={stats} />}
+        {page === "layerprogress" && <LayerProjectProgress go={go} stats={stats} />}
       </main>
 
       <Footer />
