@@ -701,14 +701,14 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: "none" }} data-dashgrid>
             {leftCards.map((d) => (
               <button key={d.l} onClick={() => go(d.page)}
-                style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}
+                style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
                 className="hoverlift">
                 <span className="shine" />
                 <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </button>
             ))}
             {rightCards.map((d) => (
-              <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+              <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}>
                 <span className="shine" />
                 <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </div>
@@ -720,7 +720,7 @@ function Hero({ go, stats, animate, openProject }) {
               <Icon name="layers" size={22} color="#f59e0b" />
               <div style={{ fontSize: 13.5, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</div>
             </button>
-            <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+            <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}>
               <span className="shine" />
               <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>
                 {ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
