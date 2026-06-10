@@ -353,7 +353,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   .btn-mobile-label { display: none !important; }
   [data-dashlinks-old] { display: none !important; }
   [data-dashgrid] { flex: 0 !important; }
-  [data-dashcol4] { justify-content: space-between !important; }
+  [data-dashcol4] { justify-content: flex-start !important; }
   [data-dashlinks3] { margin-top: 0 !important; }
   [data-dashlayer] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
   [data-dashmission] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
@@ -542,6 +542,35 @@ function Hero({ go, stats, animate, openProject }) {
   const commits = useCountUp(stats.commits, animate);
   const pct = useCountUp(stats.pct, animate);
   const curLayerPct = useCountUp(stats.currentLayerPct, animate);
+
+  const [ghCommits, setGhCommits] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch('https://api.github.com/users/dharunvishnu2006-ctrl/repos?per_page=100');
+        const repos = await res.json();
+        if (!Array.isArray(repos) || cancelled) return;
+        const counts = await Promise.all(
+          repos.filter(r => !r.fork).map(async repo => {
+            try {
+              const r = await fetch(`https://api.github.com/repos/dharunvishnu2006-ctrl/${repo.name}/commits?per_page=1`);
+              const link = r.headers.get('Link');
+              if (link) {
+                const m = link.match(/page=(\d+)>;\s*rel="last"/);
+                if (m) return parseInt(m[1], 10);
+              }
+              const data = await r.json();
+              return Array.isArray(data) ? data.length : 0;
+            } catch { return 0; }
+          })
+        );
+        if (!cancelled) setGhCommits(counts.reduce((a, b) => a + b, 0));
+      } catch { /* ignore */ }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
   const leftCards = [
     { n: projs, l: "Major Projects", c: "#8b5cf6", page: "myprojects" },
     { n: crt, l: "Certificates", c: "#e040fb", page: "certs" },
@@ -693,6 +722,16 @@ function Hero({ go, stats, animate, openProject }) {
               <Icon name="layers" size={22} color="#f59e0b" />
               <div style={{ fontSize: 13.5, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</div>
             </button>
+            <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span className="shine" />
+              <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+                <Icon name="github" size={17} color="#a855f7" />
+                <span style={{ fontSize: 12.5, fontWeight: 700, color: "#fff" }}>Git Commits</span>
+              </div>
+              <span style={{ fontFamily: FD, fontSize: 13, fontWeight: 800, color: "#a855f7" }}>
+                {ghCommits !== null ? ghCommits.toLocaleString() : "…"} commits
+              </span>
+            </div>
           </div>
         </div>
       </div>
