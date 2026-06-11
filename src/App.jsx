@@ -567,6 +567,8 @@ function Hero({ go, stats, animate, openProject }) {
   const days = useCountUp(stats.days, animate);
   const miles = useCountUp(stats.maxStep, animate);
   const projs = useCountUp(stats.projects, animate);
+  const majorProjs = useCountUp(projects.filter(p => p.tag !== "Mini Project").length, animate);
+  const miniProjs = useCountUp(projects.filter(p => p.tag === "Mini Project").length, animate);
   const crt = useCountUp(stats.certs, animate);
   const commits = useCountUp(stats.commits, animate);
   const pct = useCountUp(stats.pct, animate);
@@ -600,7 +602,7 @@ function Hero({ go, stats, animate, openProject }) {
   }, []);
 
   const leftCards = [
-    { n: projs, l: "Major Projects", c: "#8b5cf6", page: "myprojects" },
+    { major: majorProjs, mini: miniProjs, c: "#8b5cf6", page: "myprojects" },
     { n: crt, l: "Certificates", c: "#e040fb", page: "certs" },
   ];
   const rightCards = [
@@ -728,11 +730,18 @@ function Hero({ go, stats, animate, openProject }) {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: "none" }} data-dashgrid>
             {leftCards.map((d) => (
-              <button key={d.l} onClick={() => go(d.page)}
+              <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
                 style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
                 className="hoverlift">
                 <span className="shine" />
-                <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
+                {d.major != null ? (
+                  <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
+                    <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.major} · Major Projects</span>
+                    <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.mini} · Mini Project</span>
+                  </span>
+                ) : (
+                  <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
+                )}
               </button>
             ))}
             {rightCards.map((d) => (
