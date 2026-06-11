@@ -735,12 +735,18 @@ function Hero({ go, stats, animate, openProject }) {
                 className="hoverlift">
                 <span className="shine" />
                 {d.major != null ? (
-                  <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
-                    <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.major} · Major Projects</span>
+                  <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                      <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.major} · Major Projects</span>
+                      <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
+                    </span>
                     <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.mini} · Mini Project</span>
                   </span>
                 ) : (
-                  <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                    <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
+                    <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
+                  </span>
                 )}
               </button>
             ))}
@@ -754,7 +760,10 @@ function Hero({ go, stats, animate, openProject }) {
               style={{ ...s.dashCard, ...glossyJS("#f59e0b"), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
               className="hoverlift">
               <span className="shine" />
-              <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
+              <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
+                <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
+              </span>
             </button>
             <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}>
               <span className="shine" />
