@@ -400,6 +400,18 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-lboxrow] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
   [data-lboxrow]::-webkit-scrollbar { display: none; }
   [data-lboxrow] [data-lbox] { flex-shrink: 0; min-width: 65px; }
+  [data-pcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
+  [data-pcard]::-webkit-scrollbar { display: none; }
+  [data-pcard] [data-pcardsection] { flex-shrink: 0 !important; min-width: 1000px !important; }
+  [data-pcard] [data-vboxrow] { overflow-x: visible; }
+  [data-pcard] [data-vbox-single] { display: block !important; }
+  [data-pcard] [data-vbox-line1], [data-pcard] [data-vbox-line2] { display: none !important; }
+  [data-lcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
+  [data-lcard]::-webkit-scrollbar { display: none; }
+  [data-lcardcontent] { min-width: 1100px; }
+  [data-lcard] [data-lboxrow] { overflow-x: visible; }
+  [data-lcard] [data-lbox-single] { display: block !important; }
+  [data-lcard] [data-lbox-label], [data-lcard] [data-lbox-name] { display: none !important; }
 }
 @media (max-width: 560px) {
   [data-pugrid] { grid-template-columns: 1fr !important; }
@@ -2035,11 +2047,11 @@ function LayerProjectProgress({ go, stats, done }) {
 
           {/* Sections 1-3: Projects */}
           {projectRows.map((p) => (
-            <div key={p.code} style={{ ...glossyJS(p.accent), borderRadius: 20, padding: "18px 22px", display: "flex", alignItems: "center", gap: 20 }}>
+            <div data-pcard key={p.code} style={{ ...glossyJS(p.accent), borderRadius: 20, padding: "18px 22px", display: "flex", alignItems: "center", gap: 20 }}>
               <div style={{ flexShrink: 0, width: 110, height: 72, borderRadius: 12, overflow: "hidden", border: "1px solid " + p.accent + "55" }}>
                 <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
+              <div data-pcardsection style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <div style={{ fontSize: 15, fontWeight: 800, color: "#fff", flexShrink: 0 }}>{p.name}</div>
                   <div data-vboxrow style={{ display: "flex", gap: 4, flex: 1, minWidth: 0 }}>
@@ -2073,7 +2085,8 @@ function LayerProjectProgress({ go, stats, done }) {
           ))}
 
           {/* Section 4: Layer Progress */}
-          <div style={{ ...glossyJS(C.cyan), borderRadius: 20, padding: "18px 22px" }}>
+          <div data-lcard style={{ ...glossyJS(C.cyan), borderRadius: 20, padding: "18px 22px" }}>
+            <div data-lcardcontent>
             <div style={{ fontFamily: FM, fontSize: 15, fontWeight: 800, color: "#fff", letterSpacing: ".5px", marginBottom: 12 }}>LAYER PROGRESS</div>
             <div data-lboxrow style={{ display: "flex", gap: 6, marginBottom: 14 }}>
               {layers.map((layer, i) => {
@@ -2096,6 +2109,7 @@ function LayerProjectProgress({ go, stats, done }) {
             <div style={barTrack}>
               <div style={barStyle(curLayerPct)} />
               <div style={barLabel}>Layer {stats.currentLayerId} · {curLayerPct}%</div>
+            </div>
             </div>
           </div>
 
