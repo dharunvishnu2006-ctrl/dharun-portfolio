@@ -1848,8 +1848,10 @@ function MyProjects({ openProject, links, stats }) {
                   <div style={{ flexShrink: 0 }}>
                     <Crest icon={p.icon} color={p.accent} size={42} iconSize={20} emoji={p.emoji} img={crownImg(p.code)} code={p.code} />
                   </div>
-                  <span style={{ ...s.projCode, color: p.accent, borderColor: p.accent + "88", flexShrink: 0 }}>{p.code}</span>
+                  {p.code !== "P1" && <span style={{ ...s.projCode, color: p.accent, borderColor: p.accent + "88", flexShrink: 0 }}>{p.code}</span>}
                   <span style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic", flexShrink: 0 }}>{p.name}</span>
+                  {p.tag === "Mini Project" && <span style={{ ...s.projTag, background: C.green + "33", color: "#fff", border: `1px solid ${C.green}88`, flexShrink: 0 }}>Mini Project</span>}
+                  {p.subtag && <span style={{ ...s.projTag, background: C.cyan + "33", color: "#fff", border: `1px solid ${C.cyan}88`, flexShrink: 0 }}>{p.subtag}</span>}
                   <span style={{ fontFamily: FM, fontSize: 13, color: "#dbe4ff", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {st.currentLabel}
                   </span>
