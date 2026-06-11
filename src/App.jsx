@@ -404,7 +404,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-pcard]::-webkit-scrollbar { display: none; }
   [data-pcard] [data-pcardsection] { flex-shrink: 0 !important; min-width: 1000px !important; }
   [data-pcard] [data-vboxrow] { overflow-x: visible; }
-  [data-pcard] [data-vbox-single] { display: block !important; }
+  [data-pcard] [data-vbox-single] { display: block !important; font-size: 11px !important; }
   [data-pcard] [data-vbox-line1], [data-pcard] [data-vbox-line2] { display: none !important; }
   [data-lcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
   [data-lcard]::-webkit-scrollbar { display: none; }
