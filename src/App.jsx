@@ -364,6 +364,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-daylabelcell] { height: auto !important; flex: 1; line-height: normal !important; }
   [data-graphweek] { flex: 1; }
   [data-graphcell] { width: 100% !important; height: auto !important; aspect-ratio: 1; }
+  [data-vbox-line1], [data-vbox-line2] { display: none !important; }
+  [data-lbox-label], [data-lbox-name] { display: none !important; }
 }
 @media (max-width: 1023px) {
   .btn-desktop-label { display: none !important; }
@@ -374,6 +376,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-graphscroll] { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   [data-reposgrid] { -webkit-overflow-scrolling: touch; }
   [data-monthflex] { display: none !important; }
+  [data-vbox-single] { display: none !important; }
+  [data-lbox-single] { display: none !important; }
 }
 @media (max-width: 860px) {
   .navlinks { display: none !important; }
@@ -2037,15 +2041,16 @@ function LayerProjectProgress({ go, stats, done }) {
                       const skill = parts[1] ? parts[1].split(" ")[0] : "";
                       const day = parts[2] ? parts[2].replace("Day ", "D") : "";
                       return (
-                        <div key={vi} title={v} style={{
+                        <div data-vbox key={vi} title={v} style={{
                           flex: 1, minWidth: 0,
                           background: isDone ? "rgba(34,197,94,.18)" : "rgba(255,255,255,.06)",
                           border: "1px solid " + (isDone ? "#22c55e50" : "rgba(255,255,255,.1)"),
                           borderRadius: 6, padding: "6px 4px",
                           display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
                         }}>
-                          <div style={{ fontSize: 10, fontWeight: 800, color: "#fff", lineHeight: 1.2 }}>{parts[0]}</div>
-                          <div style={{ fontSize: 9, fontWeight: 700, color: "#fff", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center" }}>{skill}{day ? " · " + day : ""}</div>
+                          <div data-vbox-line1 style={{ fontSize: 10, fontWeight: 800, color: "#fff", lineHeight: 1.2 }}>{parts[0]}</div>
+                          <div data-vbox-line2 style={{ fontSize: 9, fontWeight: 700, color: "#fff", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center" }}>{skill}{day ? " · " + day : ""}</div>
+                          <div data-vbox-single style={{ fontSize: 11, fontWeight: 700, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center", lineHeight: 1.3 }}>{parts[0]}{skill ? " · " + skill : ""}{parts[2] ? " · " + parts[2] : ""}</div>
                         </div>
                       );
                     })}
@@ -2066,15 +2071,16 @@ function LayerProjectProgress({ go, stats, done }) {
               {layers.map((layer, i) => {
                 const isDone = layer.id < stats.currentLayerId;
                 return (
-                  <div key={layer.id} style={{
+                  <div data-lbox key={layer.id} style={{
                     flex: 1, minWidth: 0,
                     background: isDone ? "rgba(34,197,94,.25)" : "rgba(255,255,255,.08)",
                     border: "1px solid " + (isDone ? "#22c55e70" : "rgba(255,255,255,.15)"),
                     borderRadius: 8, padding: "8px 4px",
                     display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
                   }}>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: "#fff" }}>L{layer.id}</div>
-                    <div style={{ fontSize: 8, fontWeight: 700, color: "#fff", lineHeight: 1.3, textAlign: "center" }}>{LAYER_NAMES[i]}</div>
+                    <div data-lbox-label style={{ fontSize: 11, fontWeight: 800, color: "#fff" }}>L{layer.id}</div>
+                    <div data-lbox-name style={{ fontSize: 8, fontWeight: 700, color: "#fff", lineHeight: 1.3, textAlign: "center" }}>{LAYER_NAMES[i]}</div>
+                    <div data-lbox-single style={{ fontSize: 11, fontWeight: 700, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center", lineHeight: 1.3 }}>L{layer.id} · {LAYER_NAMES[i]}</div>
                   </div>
                 );
               })}
