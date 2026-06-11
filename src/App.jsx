@@ -400,18 +400,18 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-lboxrow] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
   [data-lboxrow]::-webkit-scrollbar { display: none; }
   [data-lboxrow] [data-lbox] { flex-shrink: 0; min-width: 65px; }
-  [data-pcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #58a6ff #30363d; }
+  [data-pcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(120,150,255,.4) transparent; }
   [data-pcard]::-webkit-scrollbar { height: 4px; }
-  [data-pcard]::-webkit-scrollbar-track { background: #30363d; border-radius: 4px; }
-  [data-pcard]::-webkit-scrollbar-thumb { background: #58a6ff; border-radius: 4px; }
+  [data-pcard]::-webkit-scrollbar-track { background: transparent; border-radius: 4px; }
+  [data-pcard]::-webkit-scrollbar-thumb { background: rgba(120,150,255,.4); border-radius: 4px; opacity: 1; visibility: visible; }
   [data-pcard] [data-pcardsection] { flex-shrink: 0 !important; min-width: 1000px !important; }
   [data-pcard] [data-vboxrow] { overflow-x: visible; }
   [data-pcard] [data-vbox-single] { display: block !important; font-size: 11px !important; }
   [data-pcard] [data-vbox-line1], [data-pcard] [data-vbox-line2] { display: none !important; }
-  [data-lcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #58a6ff #30363d; }
+  [data-lcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(120,150,255,.4) transparent; }
   [data-lcard]::-webkit-scrollbar { height: 4px; }
-  [data-lcard]::-webkit-scrollbar-track { background: #30363d; border-radius: 4px; }
-  [data-lcard]::-webkit-scrollbar-thumb { background: #58a6ff; border-radius: 4px; }
+  [data-lcard]::-webkit-scrollbar-track { background: transparent; border-radius: 4px; }
+  [data-lcard]::-webkit-scrollbar-thumb { background: rgba(120,150,255,.4); border-radius: 4px; opacity: 1; visibility: visible; }
   [data-lcardcontent] { min-width: 1100px; }
   [data-lcard] [data-lboxrow] { overflow-x: visible; }
   [data-lcard] [data-lbox-single] { display: block !important; }
