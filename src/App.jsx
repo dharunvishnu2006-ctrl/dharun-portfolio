@@ -2066,7 +2066,7 @@ function LayerProjectProgress({ go, stats, done }) {
 
           {/* Section 4: Layer Progress */}
           <div style={{ ...glossyJS(C.cyan), borderRadius: 20, padding: "18px 22px" }}>
-            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: ".5px", marginBottom: 12 }}>LAYER PROGRESS</div>
+            <div style={{ fontFamily: FM, fontSize: 15, fontWeight: 800, color: "#fff", letterSpacing: ".5px", marginBottom: 12 }}>LAYER PROGRESS</div>
             <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
               {layers.map((layer, i) => {
                 const isDone = layer.id < stats.currentLayerId;
@@ -2093,7 +2093,7 @@ function LayerProjectProgress({ go, stats, done }) {
 
           {/* Section 5: Mission Progress */}
           <div style={{ ...glossyJS(C.green), borderRadius: 20, padding: "18px 22px" }}>
-            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: ".5px", marginBottom: 10 }}>MISSION PROGRESS</div>
+            <div style={{ fontFamily: FM, fontSize: 15, fontWeight: 800, color: "#fff", letterSpacing: ".5px", marginBottom: 10 }}>MISSION PROGRESS</div>
             <div style={{ ...barTrack, height: 28 }}>
               <div style={{ ...barStyle(missionPct), background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)" }} />
               <div style={{ ...barLabel, fontSize: 13 }}>{missionPct}%</div>
