@@ -366,6 +366,9 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-graphcell] { width: 100% !important; height: auto !important; aspect-ratio: 1; }
   [data-vbox-line1], [data-vbox-line2] { display: none !important; }
   [data-lbox-label], [data-lbox-name] { display: none !important; }
+  [data-graphbox] { max-width: 75vw; }
+  [data-monthflex] { font-size: 14px !important; color: #ffffff !important; font-weight: 700 !important; }
+  [data-daylabelcell] { font-size: 14px !important; color: #ffffff !important; font-weight: 700 !important; }
 }
 @media (max-width: 1023px) {
   .btn-desktop-label { display: none !important; }
@@ -378,6 +381,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-monthflex] { display: none !important; }
   [data-vbox-single] { display: none !important; }
   [data-lbox-single] { display: none !important; }
+  [data-graphlegend] { display: none !important; }
 }
 @media (max-width: 860px) {
   .navlinks { display: none !important; }
@@ -879,6 +883,13 @@ function GithubGraph() {
             </div>
           </div>
         )}
+      </div>
+      <div data-graphlegend style={{ display: "flex", alignItems: "center", gap: 4, justifyContent: "flex-end", marginTop: 10 }}>
+        <span style={{ fontSize: 11, color: "#8b949e", marginRight: 4 }}>Less</span>
+        {LEVELS.map((color, i) => (
+          <div key={i} style={{ width: 12, height: 12, borderRadius: 2, background: color }} />
+        ))}
+        <span style={{ fontSize: 11, color: "#8b949e", marginLeft: 4 }}>More</span>
       </div>
     </div>
   );
