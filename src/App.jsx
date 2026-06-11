@@ -358,15 +358,14 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-dashlayer] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
   [data-dashmission] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
   [data-layerbar], [data-missionbar] { width: 100% !important; box-sizing: border-box !important; }
-  [data-graphinner] { display: flex !important; width: 100%; }
+  [data-graphinner] { display: inline-flex !important; width: auto !important; }
   [data-monthabsolute] { display: none !important; }
   [data-graphdaylabels] { flex-shrink: 0; }
   [data-daylabelcell] { height: auto !important; flex: 1; line-height: normal !important; }
-  [data-graphweek] { flex: 1; }
-  [data-graphcell] { width: 100% !important; height: auto !important; aspect-ratio: 1; }
+  [data-graphweek] { flex: 0 !important; width: 11px !important; min-width: 11px !important; }
+  [data-graphcell] { width: 11px !important; height: 11px !important; aspect-ratio: unset !important; }
   [data-vbox-line1], [data-vbox-line2] { display: none !important; }
   [data-lbox-label], [data-lbox-name] { display: none !important; }
-  [data-graphbox] { max-width: 75vw; }
   [data-monthflex] { font-size: 14px !important; color: #ffffff !important; font-weight: 700 !important; }
   [data-daylabelcell] { font-size: 14px !important; color: #ffffff !important; font-weight: 700 !important; }
 }
