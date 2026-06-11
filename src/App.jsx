@@ -1996,7 +1996,7 @@ function LayerProjectProgress({ go, stats, done }) {
 
   const LAYER_NAMES = ["Python", "DSA", "SQL", "Math ML", "ML Spec", "API+AWS", "Deep L", "GenAI", "MLOps", "Polish"];
 
-  const projectRows = projects.map((p) => {
+  const projectRows = projects.filter((p) => p.code !== "P1").map((p) => {
     const projEvents = (events || []).filter(
       (e) => e.label && e.label.includes(p.name) && (e.kind === "project" || e.kind === "upgrade")
     ).sort((a, b) => a.day - b.day);
