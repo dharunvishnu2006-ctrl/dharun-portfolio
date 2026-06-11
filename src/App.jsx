@@ -400,18 +400,12 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-lboxrow] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
   [data-lboxrow]::-webkit-scrollbar { display: none; }
   [data-lboxrow] [data-lbox] { flex-shrink: 0; min-width: 65px; }
-  [data-pcard] { overflow-x: scroll; overflow: -moz-scrollbars-horizontal; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(120,150,255,.4) transparent; }
-  [data-pcard]::-webkit-scrollbar { height: 4px; display: block !important; opacity: 1 !important; }
-  [data-pcard]::-webkit-scrollbar-track { background: transparent; border-radius: 4px; }
-  [data-pcard]::-webkit-scrollbar-thumb { background: rgba(120,150,255,.4); border-radius: 4px; opacity: 1 !important; visibility: visible !important; }
+  [data-pcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   [data-pcard] [data-pcardsection] { flex-shrink: 0 !important; min-width: 1000px !important; }
   [data-pcard] [data-vboxrow] { overflow-x: visible; }
   [data-pcard] [data-vbox-single] { display: block !important; font-size: 11px !important; }
   [data-pcard] [data-vbox-line1], [data-pcard] [data-vbox-line2] { display: none !important; }
-  [data-lcard] { overflow-x: scroll; overflow: -moz-scrollbars-horizontal; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(120,150,255,.4) transparent; }
-  [data-lcard]::-webkit-scrollbar { height: 4px; display: block !important; opacity: 1 !important; }
-  [data-lcard]::-webkit-scrollbar-track { background: transparent; border-radius: 4px; }
-  [data-lcard]::-webkit-scrollbar-thumb { background: rgba(120,150,255,.4); border-radius: 4px; opacity: 1 !important; visibility: visible !important; }
+  [data-lcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   [data-lcardcontent] { min-width: 1100px; }
   [data-lcard] [data-lboxrow] { overflow-x: visible; }
   [data-lcard] [data-lbox-single] { display: block !important; }
@@ -1996,21 +1990,6 @@ function useProgress() {
 function LayerProjectProgress({ go, stats, done }) {
   const [animate, setAnimate] = useState(false);
   useEffect(() => { const t = setTimeout(() => setAnimate(true), 200); return () => clearTimeout(t); }, []);
-  useEffect(() => {
-    if (window.innerWidth > 768) return;
-    const cards = Array.from(document.querySelectorAll('[data-pcard], [data-lcard]'));
-    const cleanups = cards.map(card => {
-      const restore = () => {
-        const pos = card.scrollLeft;
-        card.style.overflowX = 'hidden';
-        card.style.overflowX = 'scroll';
-        card.scrollLeft = pos;
-      };
-      card.addEventListener('scroll', restore, { passive: true });
-      return () => card.removeEventListener('scroll', restore);
-    });
-    return () => cleanups.forEach(fn => fn());
-  }, []);
 
   const curLayerPct = stats.currentLayerPct || 0;
   const missionPct = stats.pct || 0;
