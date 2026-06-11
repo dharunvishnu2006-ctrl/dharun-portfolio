@@ -400,14 +400,18 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-lboxrow] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
   [data-lboxrow]::-webkit-scrollbar { display: none; }
   [data-lboxrow] [data-lbox] { flex-shrink: 0; min-width: 65px; }
-  [data-pcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
-  [data-pcard]::-webkit-scrollbar { display: none; }
+  [data-pcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #4ade80 transparent; }
+  [data-pcard]::-webkit-scrollbar { height: 4px; }
+  [data-pcard]::-webkit-scrollbar-track { background: transparent; border-radius: 4px; }
+  [data-pcard]::-webkit-scrollbar-thumb { background: #4ade80; border-radius: 4px; }
   [data-pcard] [data-pcardsection] { flex-shrink: 0 !important; min-width: 1000px !important; }
   [data-pcard] [data-vboxrow] { overflow-x: visible; }
   [data-pcard] [data-vbox-single] { display: block !important; font-size: 11px !important; }
   [data-pcard] [data-vbox-line1], [data-pcard] [data-vbox-line2] { display: none !important; }
-  [data-lcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
-  [data-lcard]::-webkit-scrollbar { display: none; }
+  [data-lcard] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #4ade80 transparent; }
+  [data-lcard]::-webkit-scrollbar { height: 4px; }
+  [data-lcard]::-webkit-scrollbar-track { background: transparent; border-radius: 4px; }
+  [data-lcard]::-webkit-scrollbar-thumb { background: #4ade80; border-radius: 4px; }
   [data-lcardcontent] { min-width: 1100px; }
   [data-lcard] [data-lboxrow] { overflow-x: visible; }
   [data-lcard] [data-lbox-single] { display: block !important; }
