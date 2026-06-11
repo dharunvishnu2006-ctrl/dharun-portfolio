@@ -2019,7 +2019,7 @@ function LayerProjectProgress({ go, stats, done }) {
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 860 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
 
           {/* Sections 1-3: Projects */}
           {projectRows.map((p) => (
@@ -2029,7 +2029,7 @@ function LayerProjectProgress({ go, stats, done }) {
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", flexShrink: 0 }}>{p.name}</div>
+                  <div style={{ fontSize: 15, fontWeight: 800, color: "#fff", flexShrink: 0 }}>{p.name}</div>
                   <div style={{ display: "flex", gap: 4, flex: 1, minWidth: 0 }}>
                     {(p.versions || []).map((v, vi) => {
                       const parts = v.split(" · ");
@@ -2041,11 +2041,11 @@ function LayerProjectProgress({ go, stats, done }) {
                           flex: 1, minWidth: 0,
                           background: isDone ? "rgba(34,197,94,.18)" : "rgba(255,255,255,.06)",
                           border: "1px solid " + (isDone ? "#22c55e50" : "rgba(255,255,255,.1)"),
-                          borderRadius: 6, padding: "4px 3px",
-                          display: "flex", flexDirection: "column", alignItems: "center", gap: 1,
+                          borderRadius: 6, padding: "6px 4px",
+                          display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
                         }}>
-                          <div style={{ fontSize: 9, fontWeight: 800, color: isDone ? "#22c55e" : "#6b7280", lineHeight: 1.2 }}>{parts[0]}</div>
-                          <div style={{ fontSize: 8, color: isDone ? "#86efac" : "#4b5563", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center" }}>{skill}{day ? " · " + day : ""}</div>
+                          <div style={{ fontSize: 10, fontWeight: 800, color: "#fff", lineHeight: 1.2 }}>{parts[0]}</div>
+                          <div style={{ fontSize: 9, fontWeight: 700, color: "#fff", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center" }}>{skill}{day ? " · " + day : ""}</div>
                         </div>
                       );
                     })}
@@ -2061,29 +2061,33 @@ function LayerProjectProgress({ go, stats, done }) {
 
           {/* Section 4: Layer Progress */}
           <div style={{ ...glossyJS(C.cyan), borderRadius: 20, padding: "18px 22px" }}>
-            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px", marginBottom: 12 }}>LAYER PROGRESS</div>
-            <div style={{ display: "flex", gap: 6 }}>
+            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: ".5px", marginBottom: 12 }}>LAYER PROGRESS</div>
+            <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
               {layers.map((layer, i) => {
                 const isDone = layer.id < stats.currentLayerId;
                 return (
                   <div key={layer.id} style={{
                     flex: 1, minWidth: 0,
-                    background: isDone ? "rgba(34,197,94,.18)" : "rgba(255,255,255,.06)",
-                    border: "1px solid " + (isDone ? "#22c55e50" : "rgba(255,255,255,.1)"),
+                    background: isDone ? "rgba(34,197,94,.25)" : "rgba(255,255,255,.08)",
+                    border: "1px solid " + (isDone ? "#22c55e70" : "rgba(255,255,255,.15)"),
                     borderRadius: 8, padding: "8px 4px",
                     display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
                   }}>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: isDone ? "#22c55e" : "#6b7280" }}>L{layer.id}</div>
-                    <div style={{ fontSize: 8, color: isDone ? "#86efac" : "#4b5563", lineHeight: 1.3, textAlign: "center" }}>{LAYER_NAMES[i]}</div>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: "#fff" }}>L{layer.id}</div>
+                    <div style={{ fontSize: 8, fontWeight: 700, color: "#fff", lineHeight: 1.3, textAlign: "center" }}>{LAYER_NAMES[i]}</div>
                   </div>
                 );
               })}
+            </div>
+            <div style={barTrack}>
+              <div style={barStyle(curLayerPct)} />
+              <div style={barLabel}>Layer {stats.currentLayerId} · {curLayerPct}%</div>
             </div>
           </div>
 
           {/* Section 5: Mission Progress */}
           <div style={{ ...glossyJS(C.green), borderRadius: 20, padding: "18px 22px" }}>
-            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px", marginBottom: 10 }}>MISSION PROGRESS</div>
+            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: ".5px", marginBottom: 10 }}>MISSION PROGRESS</div>
             <div style={{ ...barTrack, height: 28 }}>
               <div style={{ ...barStyle(missionPct), background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)" }} />
               <div style={{ ...barLabel, fontSize: 13 }}>{missionPct}%</div>
