@@ -2050,7 +2050,7 @@ function LayerProjectProgress({ go, stats, done }) {
                         }}>
                           <div data-vbox-line1 style={{ fontSize: 10, fontWeight: 800, color: "#fff", lineHeight: 1.2 }}>{parts[0]}</div>
                           <div data-vbox-line2 style={{ fontSize: 9, fontWeight: 700, color: "#fff", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center" }}>{skill}{day ? " · " + day : ""}</div>
-                          <div data-vbox-single style={{ fontSize: 11, fontWeight: 700, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center", lineHeight: 1.3 }}>{parts[0]}{skill ? " · " + skill : ""}{parts[2] ? " · " + parts[2] : ""}</div>
+                          <div data-vbox-single style={{ fontSize: 13, fontWeight: 700, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center", lineHeight: 1.3 }}>{parts[0]}{skill ? " · " + skill : ""}{parts[2] ? " · " + parts[2] : ""}</div>
                         </div>
                       );
                     })}
@@ -2080,7 +2080,7 @@ function LayerProjectProgress({ go, stats, done }) {
                   }}>
                     <div data-lbox-label style={{ fontSize: 11, fontWeight: 800, color: "#fff" }}>L{layer.id}</div>
                     <div data-lbox-name style={{ fontSize: 8, fontWeight: 700, color: "#fff", lineHeight: 1.3, textAlign: "center" }}>{LAYER_NAMES[i]}</div>
-                    <div data-lbox-single style={{ fontSize: 11, fontWeight: 700, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center", lineHeight: 1.3 }}>L{layer.id} · {LAYER_NAMES[i]}</div>
+                    <div data-lbox-single style={{ fontSize: 13, fontWeight: 700, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center", lineHeight: 1.3 }}>L{layer.id} · {LAYER_NAMES[i]}</div>
                   </div>
                 );
               })}
