@@ -369,6 +369,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-lbox-label], [data-lbox-name] { display: none !important; }
   [data-monthflex] { font-size: 14px !important; color: #ffffff !important; font-weight: 700 !important; }
   [data-daylabelcell] { font-size: 14px !important; color: #ffffff !important; font-weight: 700 !important; }
+  [data-graphlegend] div { width: calc((75vw - 266px) / 53) !important; height: calc((75vw - 266px) / 53) !important; }
+  [data-graphlegend] span { font-size: calc((75vw - 266px) / 53) !important; }
 }
 @media (max-width: 1023px) {
   .btn-desktop-label { display: none !important; }
