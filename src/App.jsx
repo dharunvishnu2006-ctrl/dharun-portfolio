@@ -393,6 +393,14 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-qagrid] { grid-template-columns: 1fr !important; }
   [data-sidetags] { justify-content: center !important; }
 }
+@media (max-width: 768px) {
+  [data-vboxrow] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
+  [data-vboxrow]::-webkit-scrollbar { display: none; }
+  [data-vboxrow] [data-vbox] { flex-shrink: 0; min-width: 80px; }
+  [data-lboxrow] { overflow-x: scroll; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
+  [data-lboxrow]::-webkit-scrollbar { display: none; }
+  [data-lboxrow] [data-lbox] { flex-shrink: 0; min-width: 65px; }
+}
 @media (max-width: 560px) {
   [data-pugrid] { grid-template-columns: 1fr !important; }
   [data-sidetags] { display: none !important; }
@@ -2034,7 +2042,7 @@ function LayerProjectProgress({ go, stats, done }) {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <div style={{ fontSize: 15, fontWeight: 800, color: "#fff", flexShrink: 0 }}>{p.name}</div>
-                  <div style={{ display: "flex", gap: 4, flex: 1, minWidth: 0 }}>
+                  <div data-vboxrow style={{ display: "flex", gap: 4, flex: 1, minWidth: 0 }}>
                     {(p.versions || []).map((v, vi) => {
                       const parts = v.split(" · ");
                       const isDone = (p.versionStatus || [])[vi];
@@ -2067,7 +2075,7 @@ function LayerProjectProgress({ go, stats, done }) {
           {/* Section 4: Layer Progress */}
           <div style={{ ...glossyJS(C.cyan), borderRadius: 20, padding: "18px 22px" }}>
             <div style={{ fontFamily: FM, fontSize: 15, fontWeight: 800, color: "#fff", letterSpacing: ".5px", marginBottom: 12 }}>LAYER PROGRESS</div>
-            <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
+            <div data-lboxrow style={{ display: "flex", gap: 6, marginBottom: 14 }}>
               {layers.map((layer, i) => {
                 const isDone = layer.id < stats.currentLayerId;
                 return (
