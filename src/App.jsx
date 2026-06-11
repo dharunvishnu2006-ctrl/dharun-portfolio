@@ -1972,14 +1972,20 @@ function LayerProjectProgress({ go, stats, done }) {
   const curLayerPct = stats.currentLayerPct || 0;
   const missionPct = stats.pct || 0;
 
+  const LAYER_NAMES = ["Python", "DSA", "SQL", "Math ML", "ML Spec", "API+AWS", "Deep L", "GenAI", "MLOps", "Polish"];
+
   const projectRows = projects.map((p) => {
     const projEvents = (events || []).filter(
       (e) => e.label && e.label.includes(p.name) && (e.kind === "project" || e.kind === "upgrade")
-    );
+    ).sort((a, b) => a.day - b.day);
+    const versionStatus = (p.versions || []).map((_, vi) => {
+      const evt = projEvents[vi];
+      return evt ? done.has("evt-" + evt.day + "-" + evt.kind) : false;
+    });
     const doneEvts = projEvents.filter((e) => done.has("evt-" + e.day + "-" + e.kind));
     const maxDoneDay = doneEvts.length > 0 ? Math.max(...doneEvts.map((e) => e.day)) : 0;
     const progress = maxDoneDay > 0 ? Math.min(Math.round((maxDoneDay / 365) * 100), 100) : 0;
-    return { ...p, progress };
+    return { ...p, progress, versionStatus };
   });
 
   const barStyle = (pct) => ({
@@ -2022,7 +2028,29 @@ function LayerProjectProgress({ go, stats, done }) {
                 <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 10 }}>{p.name}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", flexShrink: 0 }}>{p.name}</div>
+                  <div style={{ display: "flex", gap: 4, flex: 1, minWidth: 0 }}>
+                    {(p.versions || []).map((v, vi) => {
+                      const parts = v.split(" · ");
+                      const isDone = (p.versionStatus || [])[vi];
+                      const skill = parts[1] ? parts[1].split(" ")[0] : "";
+                      const day = parts[2] ? parts[2].replace("Day ", "D") : "";
+                      return (
+                        <div key={vi} title={v} style={{
+                          flex: 1, minWidth: 0,
+                          background: isDone ? "rgba(34,197,94,.18)" : "rgba(255,255,255,.06)",
+                          border: "1px solid " + (isDone ? "#22c55e50" : "rgba(255,255,255,.1)"),
+                          borderRadius: 6, padding: "4px 3px",
+                          display: "flex", flexDirection: "column", alignItems: "center", gap: 1,
+                        }}>
+                          <div style={{ fontSize: 9, fontWeight: 800, color: isDone ? "#22c55e" : "#6b7280", lineHeight: 1.2 }}>{parts[0]}</div>
+                          <div style={{ fontSize: 8, color: isDone ? "#86efac" : "#4b5563", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", width: "100%", textAlign: "center" }}>{skill}{day ? " · " + day : ""}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
                 <div style={barTrack}>
                   <div style={barStyle(p.progress)} />
                   <div style={barLabel}>{p.progress}%</div>
@@ -2033,13 +2061,23 @@ function LayerProjectProgress({ go, stats, done }) {
 
           {/* Section 4: Layer Progress */}
           <div style={{ ...glossyJS(C.cyan), borderRadius: 20, padding: "18px 22px" }}>
-            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px", marginBottom: 4 }}>LAYER PROGRESS</div>
-            <div style={{ fontSize: 13, color: "#dbe4ff", fontWeight: 600, marginBottom: 10 }}>
-              Layer {stats.currentLayerId}: {stats.currentLayerName}
-            </div>
-            <div style={barTrack}>
-              <div style={barStyle(curLayerPct)} />
-              <div style={barLabel}>{curLayerPct}%</div>
+            <div style={{ fontFamily: FM, fontSize: 11, fontWeight: 700, color: C.dim2, letterSpacing: ".5px", marginBottom: 12 }}>LAYER PROGRESS</div>
+            <div style={{ display: "flex", gap: 6 }}>
+              {layers.map((layer, i) => {
+                const isDone = layer.id < stats.currentLayerId;
+                return (
+                  <div key={layer.id} style={{
+                    flex: 1, minWidth: 0,
+                    background: isDone ? "rgba(34,197,94,.18)" : "rgba(255,255,255,.06)",
+                    border: "1px solid " + (isDone ? "#22c55e50" : "rgba(255,255,255,.1)"),
+                    borderRadius: 8, padding: "8px 4px",
+                    display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
+                  }}>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: isDone ? "#22c55e" : "#6b7280" }}>L{layer.id}</div>
+                    <div style={{ fontSize: 8, color: isDone ? "#86efac" : "#4b5563", lineHeight: 1.3, textAlign: "center" }}>{LAYER_NAMES[i]}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
