@@ -350,6 +350,14 @@ body { margin: 0; background: #000000; }
 .card-glow-csx { animation: cardGlowCSX 6s ease-in-out infinite; }
 .card-glow-amx { animation: cardGlowAMX 7s ease-in-out infinite; }
 .card-glow-sai { animation: cardGlowSAI 5s ease-in-out infinite; }
+@keyframes dashGlowCycle {
+  0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.42), 0 0 14px rgba(59,130,246,.16); }
+  33%     { box-shadow: 0 0 0 1px rgba(139,92,246,.42), 0 0 14px rgba(139,92,246,.16); }
+  66%     { box-shadow: 0 0 0 1px rgba(34,197,94,.42),  0 0 14px rgba(34,197,94,.16);  }
+}
+.dash-glow-a { animation: dashGlowCycle 21s ease-in-out infinite; }
+.dash-glow-b { animation: dashGlowCycle 21s ease-in-out infinite; animation-delay: -7s; }
+.dash-glow-c { animation: dashGlowCycle 21s ease-in-out infinite; animation-delay: -14s; }
 @keyframes statGlowBlue   { 0%,100% { box-shadow: inset 0 1px 0 rgba(59,130,246,.22), 0 0 0 1px rgba(59,130,246,.20), 0 0 10px rgba(59,130,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(59,130,246,.38), 0 0 0 1px rgba(59,130,246,.38), 0 0 16px rgba(59,130,246,.18); } }
 @keyframes statGlowPurple { 0%,100% { box-shadow: inset 0 1px 0 rgba(139,92,246,.22), 0 0 0 1px rgba(139,92,246,.20), 0 0 10px rgba(139,92,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(139,92,246,.38), 0 0 0 1px rgba(139,92,246,.38), 0 0 16px rgba(139,92,246,.18); } }
 @keyframes statGlowCyan   { 0%,100% { box-shadow: inset 0 1px 0 rgba(34,211,238,.22), 0 0 0 1px rgba(34,211,238,.20), 0 0 10px rgba(34,211,238,.08); } 50% { box-shadow: inset 0 1px 0 rgba(34,211,238,.38), 0 0 0 1px rgba(34,211,238,.38), 0 0 16px rgba(34,211,238,.18); } }
@@ -777,7 +785,7 @@ function Hero({ go, stats, animate, openProject }) {
             {leftCards.map((d, i) => (
               <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
                 style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-                className={`hoverlift ${i === 0 ? "card-glow-csx" : "card-glow-amx"}`}>
+                className={`hoverlift ${i === 0 ? "dash-glow-a" : "dash-glow-b"}`}>
                 <span className="shine" />
                 {d.major != null ? (
                   <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
@@ -796,21 +804,21 @@ function Hero({ go, stats, animate, openProject }) {
               </button>
             ))}
             {rightCards.map((d, i) => (
-              <div key={d.l} style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "card-glow-sai" : "card-glow-csx"}>
+              <div key={d.l} style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "dash-glow-c" : "dash-glow-a"}>
                 <span className="shine" />
                 <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
               style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-              className="hoverlift card-glow-amx">
+              className="hoverlift dash-glow-b">
               <span className="shine" />
               <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
                 <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
                 <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
               </span>
             </button>
-            <div style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="card-glow-sai">
+            <div style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="dash-glow-c">
               <span className="shine" />
               <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>
                 {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
