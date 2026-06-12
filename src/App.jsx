@@ -663,6 +663,15 @@ function Hero({ go, stats, animate, openProject }) {
     return () => { cancelled = true; };
   }, []);
 
+  const fullRainbow = { background: "linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" };
+  const DASH_GRADS = [
+    { background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+    { background: "linear-gradient(90deg,#f97316,#fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+    { background: "linear-gradient(90deg,#fbbf24,#22c55e)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+    { background: "linear-gradient(90deg,#22c55e,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+    { background: "linear-gradient(90deg,#22d3ee,#3b82f6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+    { background: "linear-gradient(90deg,#3b82f6,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+  ];
   const leftCards = [
     { major: majorProjs, mini: miniProjs, c: "#8b5cf6", page: "projects" },
     { n: crt, l: "Certificates", c: "#e040fb", page: "certs" },
@@ -765,7 +774,7 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Icon name="rocket" size={14} color={C.cyan} />
-              <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>PROJECT UNIVERSE</span>
+              <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", ...fullRainbow }}>PROJECT UNIVERSE</span>
             </div>
             <button style={{ ...s.puLink, fontSize: 12 }} onClick={() => go("projects")}>View All <Icon name="arrow" size={11} /></button>
           </div>
@@ -784,7 +793,7 @@ function Hero({ go, stats, animate, openProject }) {
         {/* COL 4: Journey Dashboard */}
         <div data-dashcol4 style={{ ...s.dash, background: "transparent", border: "none", boxShadow: "none", backdropFilter: "none", padding: 14, gap: 0, marginRight: 8 }} className="dash-calm">
           <div style={{ ...s.dashHead, marginBottom: 10, flexShrink: 0 }}>
-            <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
+            <div style={{ ...s.dashTitle, whiteSpace: "nowrap", ...fullRainbow }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, justifyContent: "space-evenly" }} data-dashgrid>
@@ -796,15 +805,15 @@ function Hero({ go, stats, animate, openProject }) {
                 {d.major != null ? (
                   <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
                     <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                      <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.major} · Major Projects</span>
-                      <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
+                      <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.major} · Major Projects</span>
+                      <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
                     </span>
-                    <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.mini} · Mini Project</span>
+                    <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.mini} · Mini Project</span>
                   </span>
                 ) : (
                   <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                    <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
-                    <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
+                    <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.n} · {d.l}</span>
+                    <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
                   </span>
                 )}
               </button>
@@ -812,7 +821,7 @@ function Hero({ go, stats, animate, openProject }) {
             {rightCards.map((d, i) => (
               <div key={d.l} style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "dash-glow-3" : "dash-glow-4"}>
                 <span className="shine" />
-                <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
+                <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i + 2] }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
@@ -820,13 +829,13 @@ function Hero({ go, stats, animate, openProject }) {
               className="hoverlift dash-glow-5">
               <span className="shine" />
               <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
-                <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
+                <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[4] }}>Layer &amp; Project Progress</span>
+                <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[4] }}>→</span>
               </span>
             </button>
             <div style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="dash-glow-6">
               <span className="shine" />
-              <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>
+              <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[5] }}>
                 {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
               </span>
             </div>
@@ -908,8 +917,8 @@ function GithubGraph() {
 
   return (
     <div data-graphbox style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
-      <div style={{ color: "#fff", fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-        <Icon name="github" size={16} color="#7ee787" /> GITHUB COMMIT GRAPH
+      <div style={{ fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+        <Icon name="github" size={16} color="#7ee787" /><span style={{ background: "linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GITHUB COMMIT GRAPH</span>
       </div>
       <div data-graphscroll style={{ background: "#0d1117", borderRadius: 8, padding: "16px", overflowX: "auto" }}>
         {err && <div style={{ color: "#8b949e", fontSize: 13 }}>Could not load commit data right now.</div>}
@@ -948,11 +957,11 @@ function GithubGraph() {
         )}
       </div>
       <div data-graphlegend style={{ display: "flex", alignItems: "center", gap: 4, justifyContent: "flex-end", marginTop: 10 }}>
-        <span style={{ fontSize: 11, color: "#8b949e", marginRight: 4 }}>Less</span>
+        <span style={{ fontSize: 11, marginRight: 4, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Less</span>
         {LEVELS.map((color, i) => (
           <div key={i} style={{ width: 12, height: 12, borderRadius: 2, background: color }} />
         ))}
-        <span style={{ fontSize: 11, color: "#8b949e", marginLeft: 4 }}>More</span>
+        <span style={{ fontSize: 11, marginLeft: 4, background: "linear-gradient(90deg,#3b82f6,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>More</span>
       </div>
     </div>
   );
