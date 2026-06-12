@@ -2097,8 +2097,8 @@ function LayerProjectProgress({ go, stats, done }) {
                           flex: 1, minWidth: 0,
                           background: isDone ? "linear-gradient(135deg, #FFD700, #FFA500)" : "rgba(255,255,255,.06)",
                           border: "1px solid " + (isDone ? "#FFD700" : "rgba(255,255,255,.1)"),
-                          borderRadius: 6, padding: "6px 4px",
-                          display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
+                          borderRadius: 6, padding: "0 4px", height: 26,
+                          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 1,
                           animation: isDone ? "goldGlow 2s ease-in-out infinite" : "none",
                         }}>
                           <div data-vbox-line1 style={{ fontSize: 10, fontWeight: 800, color: isDone ? "#1a1000" : "#fff", lineHeight: 1.2 }}>{parts[0]}</div>
@@ -2129,8 +2129,8 @@ function LayerProjectProgress({ go, stats, done }) {
                     flex: 1, minWidth: 0,
                     background: isDone ? "linear-gradient(135deg, #FFD700, #FFA500)" : "rgba(255,255,255,.08)",
                     border: "1px solid " + (isDone ? "#FFD700" : "rgba(255,255,255,.15)"),
-                    borderRadius: 8, padding: "8px 4px",
-                    display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
+                    borderRadius: 8, padding: "0 4px", height: 26,
+                    display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 1,
                     animation: isDone ? "goldGlow 2s ease-in-out infinite" : "none",
                   }}>
                     <div data-lbox-label style={{ fontSize: 11, fontWeight: 800, color: isDone ? "#1a1000" : "#fff" }}>L{layer.id}</div>
