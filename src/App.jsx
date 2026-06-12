@@ -359,9 +359,12 @@ body { margin: 0; background: #000000; }
   97%  { box-shadow: 0 0 0 1px rgba(34,197,94,.18),  0 0 5px  rgba(34,197,94,.05);  }
   100% { box-shadow: 0 0 0 1px rgba(59,130,246,.58), 0 0 16px rgba(59,130,246,.22); }
 }
-.dash-glow-a { animation: dashGlowCycle 21s linear infinite; }
-.dash-glow-b { animation: dashGlowCycle 21s linear infinite; animation-delay: -7s; }
-.dash-glow-c { animation: dashGlowCycle 21s linear infinite; animation-delay: -14s; }
+.dash-glow-1 { animation: dashGlowCycle 21s linear infinite; }
+.dash-glow-2 { animation: dashGlowCycle 21s linear infinite -3.5s; }
+.dash-glow-3 { animation: dashGlowCycle 21s linear infinite -7s; }
+.dash-glow-4 { animation: dashGlowCycle 21s linear infinite -10.5s; }
+.dash-glow-5 { animation: dashGlowCycle 21s linear infinite -14s; }
+.dash-glow-6 { animation: dashGlowCycle 21s linear infinite -17.5s; }
 @keyframes statGlowBlue   { 0%,100% { box-shadow: inset 0 1px 0 rgba(59,130,246,.22), 0 0 0 1px rgba(59,130,246,.20), 0 0 10px rgba(59,130,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(59,130,246,.38), 0 0 0 1px rgba(59,130,246,.38), 0 0 16px rgba(59,130,246,.18); } }
 @keyframes statGlowPurple { 0%,100% { box-shadow: inset 0 1px 0 rgba(139,92,246,.22), 0 0 0 1px rgba(139,92,246,.20), 0 0 10px rgba(139,92,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(139,92,246,.38), 0 0 0 1px rgba(139,92,246,.38), 0 0 16px rgba(139,92,246,.18); } }
 @keyframes statGlowCyan   { 0%,100% { box-shadow: inset 0 1px 0 rgba(34,211,238,.22), 0 0 0 1px rgba(34,211,238,.20), 0 0 10px rgba(34,211,238,.08); } 50% { box-shadow: inset 0 1px 0 rgba(34,211,238,.38), 0 0 0 1px rgba(34,211,238,.38), 0 0 16px rgba(34,211,238,.18); } }
@@ -789,7 +792,7 @@ function Hero({ go, stats, animate, openProject }) {
             {leftCards.map((d, i) => (
               <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
                 style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-                className={`hoverlift ${i === 0 ? "dash-glow-a" : "dash-glow-b"}`}>
+                className={`hoverlift ${i === 0 ? "dash-glow-1" : "dash-glow-2"}`}>
                 <span className="shine" />
                 {d.major != null ? (
                   <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
@@ -808,21 +811,21 @@ function Hero({ go, stats, animate, openProject }) {
               </button>
             ))}
             {rightCards.map((d, i) => (
-              <div key={d.l} style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "dash-glow-c" : "dash-glow-a"}>
+              <div key={d.l} style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "dash-glow-3" : "dash-glow-4"}>
                 <span className="shine" />
                 <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
               style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-              className="hoverlift dash-glow-b">
+              className="hoverlift dash-glow-5">
               <span className="shine" />
               <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
                 <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
                 <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
               </span>
             </button>
-            <div style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="dash-glow-c">
+            <div style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="dash-glow-6">
               <span className="shine" />
               <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>
                 {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
