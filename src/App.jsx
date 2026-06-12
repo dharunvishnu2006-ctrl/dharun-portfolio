@@ -335,6 +335,21 @@ body { margin: 0; background: #05060f; }
 .fadeup    { animation: fadeUp .6s ease both; }
 .pu-glow   { animation: fadeUp .6s ease both, puGlow 7s ease-in-out .6s infinite; }
 .dash-calm { animation: fadeUp .6s ease both, dashCalm 8s ease-in-out .6s infinite; }
+@keyframes cardGlowCSX {
+  0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.28), 0 0 12px rgba(59,130,246,.12); }
+  50%     { box-shadow: 0 0 0 1px rgba(59,130,246,.52), 0 0 20px rgba(59,130,246,.24); }
+}
+@keyframes cardGlowAMX {
+  0%,100% { box-shadow: 0 0 0 1px rgba(139,92,246,.28), 0 0 12px rgba(139,92,246,.12); }
+  50%     { box-shadow: 0 0 0 1px rgba(34,211,238,.48), 0 0 20px rgba(34,211,238,.22); }
+}
+@keyframes cardGlowSAI {
+  0%,100% { box-shadow: 0 0 0 1px rgba(34,197,94,.28), 0 0 12px rgba(34,197,94,.12); }
+  50%     { box-shadow: 0 0 0 1px rgba(34,197,94,.52), 0 0 20px rgba(34,197,94,.24); }
+}
+.card-glow-csx { animation: cardGlowCSX 6s ease-in-out infinite; }
+.card-glow-amx { animation: cardGlowAMX 7s ease-in-out infinite; }
+.card-glow-sai { animation: cardGlowSAI 5s ease-in-out infinite; }
 .shine { display: none; }
 button { transition: .2s; }
 button:hover { filter: brightness(1.12); }
@@ -730,7 +745,7 @@ function Hero({ go, stats, animate, openProject }) {
             {projects.filter((p) => p.code !== "P1").map((p) => (
               <div key={p.code}
                 style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden" }}
-                className="hoverlift"
+                className={`hoverlift card-glow-${p.code.toLowerCase()}`}
                 onClick={() => openProject(p)}>
                 {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", flexShrink: 0, background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, fontSize: 48 }}>{p.emoji}</div>}
               </div>
@@ -964,7 +979,7 @@ function ProjectUniverse({ go, openProject }) {
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }} data-pugrid>
         {projects.filter((p) => p.code !== "P1").map((p) => (
-          <div key={p.code} style={{ ...glossyJS(p.accent), borderRadius: 16, padding: 0, cursor: "pointer", transition: ".25s", border: `1px solid ${p.accent}40`, position: "relative", overflow: "hidden" }} className="hoverlift" onClick={() => openProject(p)}>
+          <div key={p.code} style={{ ...glossyJS(p.accent), borderRadius: 16, padding: 0, cursor: "pointer", transition: ".25s", border: `1px solid ${p.accent}40`, position: "relative", overflow: "hidden" }} className={`hoverlift card-glow-${p.code.toLowerCase()}`} onClick={() => openProject(p)}>
             <span className="shine" />
             {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 140, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", fontSize: 52 }}>{p.emoji}</div>}
             <div style={{ padding: "14px 18px 16px" }}>
