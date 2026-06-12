@@ -166,7 +166,7 @@ const s = {
   secSub: { color: C.dim, fontSize: 16, marginTop: 10, maxWidth: 640, lineHeight: 1.6, fontWeight: 500 },
 
   // PROJECT UNIVERSE
-  puPanel: { ...glossy("#6366f1"), background: "transparent", border: "none", backdropFilter: "none", borderRadius: 24, padding: "24px" },
+  puPanel: { ...glossy("#6366f1"), background: "transparent", border: "none", boxShadow: "none", backdropFilter: "none", borderRadius: 24, padding: "24px" },
   puHead: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 10 },
   puTitle: { display: "flex", alignItems: "center", gap: 10, fontFamily: FD, fontSize: 18, fontWeight: 800, color: "#fff", fontStyle: "italic" },
   puLink: { display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: C.cyan, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: FB },
@@ -333,8 +333,8 @@ body { margin: 0; background: #05060f; }
   50%     { box-shadow: 0 4px 22px rgba(59,130,246,.18); }
 }
 .fadeup    { animation: fadeUp .6s ease both; }
-.pu-glow   { animation: fadeUp .6s ease both, puGlow 7s ease-in-out .6s infinite; }
-.dash-calm { animation: fadeUp .6s ease both, dashCalm 8s ease-in-out .6s infinite; }
+.pu-glow   { animation: fadeUp .6s ease both; }
+.dash-calm { animation: fadeUp .6s ease both; }
 @keyframes cardGlowCSX {
   0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.28), 0 0 12px rgba(59,130,246,.12); }
   50%     { box-shadow: 0 0 0 1px rgba(59,130,246,.52), 0 0 20px rgba(59,130,246,.24); }
@@ -394,7 +394,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-col2connect] { display: flex !important; flex-direction: column; flex: 1; }
   .btn-mobile-label { display: none !important; }
   [data-dashlinks-old] { display: none !important; }
-  [data-dashgrid] { flex: 0 !important; }
+  [data-dashgrid] { flex: 1 !important; }
   [data-dashcol4] { justify-content: flex-start !important; }
   [data-dashlinks3] { margin-top: 0 !important; }
   [data-dashlayer] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
@@ -659,7 +659,7 @@ function Hero({ go, stats, animate, openProject }) {
   ];
   return (
     <section style={s.hero}>
-      <div style={s.globe} data-globe><div style={s.globeRings} /><div style={{ ...s.globeRings, transform: "rotate(60deg)", animationDuration: "44s" }} /></div>
+      <div style={{ ...s.globe, display: "none" }} data-globe><div style={s.globeRings} /><div style={{ ...s.globeRings, transform: "rotate(60deg)", animationDuration: "44s" }} /></div>
       <div style={s.heroTop} data-herotop>
 
         {/* COL 1 + COL 2 wrapped in heroMain for responsive collapse */}
@@ -747,7 +747,7 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 3: Project Universe — desktop only */}
-        <div style={{ ...s.dash, background: "transparent", border: "none", backdropFilter: "none", padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="pu-glow">
+        <div style={{ ...s.dash, background: "transparent", border: "none", boxShadow: "none", backdropFilter: "none", padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="pu-glow">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Icon name="rocket" size={14} color={C.cyan} />
@@ -768,12 +768,12 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 4: Journey Dashboard */}
-        <div data-dashcol4 style={{ ...s.dash, background: "transparent", border: "none", backdropFilter: "none", marginRight: 8, gap: 10 }} className="dash-calm">
-          <div style={{ ...s.dashHead, marginBottom: 0 }}>
+        <div data-dashcol4 style={{ ...s.dash, background: "transparent", border: "none", boxShadow: "none", backdropFilter: "none", padding: 14, gap: 0, marginRight: 8 }} className="dash-calm">
+          <div style={{ ...s.dashHead, marginBottom: 10, flexShrink: 0 }}>
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: "none" }} data-dashgrid>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, justifyContent: "space-evenly" }} data-dashgrid>
             {leftCards.map((d, i) => (
               <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
                 style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
