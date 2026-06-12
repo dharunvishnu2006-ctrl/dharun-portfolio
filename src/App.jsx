@@ -776,8 +776,8 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, justifyContent: "space-evenly" }} data-dashgrid>
             {leftCards.map((d, i) => (
               <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
-                style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-                className={`hoverlift ${i === 0 ? "stat-glow-blue" : "stat-glow-purple"}`}>
+                style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
+                className={`hoverlift ${i === 0 ? "card-glow-csx" : "card-glow-amx"}`}>
                 <span className="shine" />
                 {d.major != null ? (
                   <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
@@ -796,21 +796,21 @@ function Hero({ go, stats, animate, openProject }) {
               </button>
             ))}
             {rightCards.map((d, i) => (
-              <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "stat-glow-cyan" : "stat-glow-blue"}>
+              <div key={d.l} style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "card-glow-sai" : "card-glow-csx"}>
                 <span className="shine" />
                 <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
-              style={{ ...s.dashCard, ...glossyJS("#f59e0b"), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-              className="hoverlift stat-glow-gold">
+              style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
+              className="hoverlift card-glow-amx">
               <span className="shine" />
               <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
                 <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
                 <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
               </span>
             </button>
-            <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="stat-glow-purple">
+            <div style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="card-glow-sai">
               <span className="shine" />
               <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>
                 {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
