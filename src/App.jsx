@@ -72,7 +72,7 @@ const FB = "'Outfit', sans-serif";
 const FM = "'JetBrains Mono', monospace";
 
 const C = {
-  bg: "#05060f", text: "#f4f7ff", dim: "#c3cbe8", dim2: "#9aa3cc",
+  bg: "#000000", text: "#f4f7ff", dim: "#c3cbe8", dim2: "#9aa3cc",
   blue: "#3b82f6", cyan: "#22d3ee", purple: "#8b5cf6", magenta: "#e040fb",
   green: "#22c55e", gold: "#fbbf24", border: "rgba(120,150,255,0.2)", borderHi: "rgba(120,150,255,0.45)",
 };
@@ -312,7 +312,7 @@ const s = {
 const css = `
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 * { box-sizing: border-box; }
-body { margin: 0; background: #05060f; }
+body { margin: 0; background: #000000; }
 ::-webkit-scrollbar { height: 9px; width: 9px; }
 ::-webkit-scrollbar-thumb { background: rgba(120,150,255,.4); border-radius: 100px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -678,25 +678,25 @@ function Hero({ go, stats, animate, openProject }) {
             {/* divider + CONNECT — desktop only */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "0 0 0" }} />
             <div data-col2connect style={{ marginBottom: 0 }}>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", ...gradText }}>CONNECT →</div>
-              <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "space-evenly" }}>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", textAlign: "center", ...gradText }}>CONNECT →</div>
+              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS("#ea4335"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "12px 8px" }}
                   className="hoverlift connect-glow">
-                  <Icon name="mail" size={17} color="#ea4335" />
-                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Gmail</span>
+                  <Icon name="mail" size={16} color="#ea4335" />
+                  <span style={{ fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Gmail</span>
                 </a>
                 <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS("#6366f1"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "12px 8px" }}
                   className="hoverlift connect-glow">
-                  <Icon name="github" size={17} color="#a855f7" />
-                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GitHub</span>
+                  <Icon name="github" size={16} color="#a855f7" />
+                  <span style={{ fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GitHub</span>
                 </a>
                 <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS(C.blue), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "12px 8px" }}
                   className="hoverlift connect-glow">
-                  <Icon name="linkedin" size={17} color={C.blue} />
-                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#3b82f6,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>LinkedIn</span>
+                  <Icon name="linkedin" size={16} color={C.blue} />
+                  <span style={{ fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#3b82f6,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>LinkedIn</span>
                 </a>
               </div>
             </div>
@@ -708,7 +708,7 @@ function Hero({ go, stats, animate, openProject }) {
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
             </h1>
-            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18 }}>
+            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000" }}>
               <span style={{ whiteSpace: "nowrap" }}>BSc IT</span>
               <span style={s.roleDot}>•</span>
               <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -725,15 +725,15 @@ function Hero({ go, stats, animate, openProject }) {
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
             <div data-col2becoming>
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", ...gradText }}>BECOMING →</div>
-              <div style={{ background: "#000000", border: "1px solid rgba(120,150,255,.22)", borderRadius: 16, padding: "14px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, flex: 1, alignContent: "space-evenly" }}>
+              <div style={{ background: "#000000", border: "1px solid rgba(120,150,255,.22)", borderRadius: 16, padding: "20px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, minHeight: 210, alignContent: "space-evenly" }}>
                 {[
                   { label: "AI/ML Engineer", icon: "code",   color: C.cyan,    lc: "#ef4444" },
                   { label: "Problem Solver", icon: "target", color: C.purple,   lc: "#f97316" },
                   { label: "Cyber Security", icon: "shield", color: "#ef4444",  lc: "#22c55e" },
                   { label: "Cloud Builder",  icon: "layers", color: C.blue,     lc: "#a855f7" },
                 ].map(({ label, icon, color, lc }) => (
-                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 700, color: lc }}>
-                    <Icon name={icon} size={14} color={color} />{label}
+                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 9, fontSize: 17, fontWeight: 700, color: lc }}>
+                    <Icon name={icon} size={17} color={color} />{label}
                   </span>
                 ))}
               </div>
