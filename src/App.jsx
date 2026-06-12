@@ -1010,7 +1010,7 @@ function TechStack({ stats }) {
     <div style={s.techPanel} className="fadeup">
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8, flexWrap: "wrap", gap: 8 }}>
         <div style={s.techTitle}>TARGET TECH-STACK TO UNLOCK</div>
-        <div style={{ fontFamily: FM, fontSize: 14, fontWeight: 800, color: C.green }}>{doneCount} / {targetSkills.length} unlocked</div>
+        <div style={{ fontFamily: FD, fontSize: 14, fontWeight: 800, color: C.green }}>{doneCount} / {targetSkills.length} unlocked</div>
       </div>
       <div style={{ ...gradText, fontFamily: FD, fontWeight: 800, fontSize: 17, fontStyle: "italic", letterSpacing: "-0.3px", marginBottom: 18, lineHeight: 1.35 }}>
         These are the skills I will master by the end of my one-year mission.
