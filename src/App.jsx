@@ -358,7 +358,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-dashlayer] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
   [data-dashmission] { margin-top: 0 !important; align-self: stretch !important; box-sizing: border-box !important; }
   [data-layerbar], [data-missionbar] { width: 100% !important; box-sizing: border-box !important; }
-  [data-graphbox] { max-width: 65vw; }
+  [data-graphbox] { max-width: 65vw; margin-left: auto; margin-right: auto; }
   [data-graphinner] { display: flex !important; width: 100%; }
   [data-monthabsolute] { display: none !important; }
   [data-graphdaylabels] { flex-shrink: 0; }
