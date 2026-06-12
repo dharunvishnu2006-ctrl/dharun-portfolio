@@ -322,6 +322,7 @@ body { margin: 0; background: #05060f; }
 @keyframes shimmer { 0% { transform: translateX(-120%) skewX(-20deg); } 100% { transform: translateX(220%) skewX(-20deg); } }
 @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @keyframes goldGlow { 0%,100% { box-shadow: 0 0 6px #FFD70066, 0 0 14px #FFA50033; } 50% { box-shadow: 0 0 20px #FFD700cc, 0 0 36px #FFA50088; } }
+@keyframes imgGoldGlow { 0%,100% { filter: drop-shadow(0 0 5px #FFD70077) drop-shadow(0 0 12px #FFA50044); } 50% { filter: drop-shadow(0 0 18px #FFD700dd) drop-shadow(0 0 32px #FFA500aa); } }
 .fadeup { animation: fadeUp .6s ease both; }
 .shine { display: none; }
 button { transition: .2s; }
@@ -957,7 +958,7 @@ function ProjectUniverse({ go, openProject }) {
         {projects.filter((p) => p.code !== "P1").map((p) => (
           <div key={p.code} style={{ ...glossyJS(p.accent), borderRadius: 16, padding: 0, cursor: "pointer", transition: ".25s", border: `1px solid ${p.accent}40`, position: "relative", overflow: "hidden" }} className="hoverlift" onClick={() => openProject(p)}>
             <span className="shine" />
-            {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 140, objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", height: 140, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", fontSize: 52 }}>{p.emoji}</div>}
+            {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 140, objectFit: "cover", display: "block", animation: "imgGoldGlow 2.5s ease-in-out infinite" }} /> : <div style={{ width: "100%", height: 140, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", fontSize: 52 }}>{p.emoji}</div>}
             <div style={{ padding: "14px 18px 16px" }}>
               <div style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
               <div style={{ fontSize: 13, color: "#dbe4ff", fontWeight: 500, marginTop: 5 }}>{p.desc}</div>
