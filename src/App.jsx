@@ -324,13 +324,13 @@ body { margin: 0; background: #05060f; }
 @keyframes goldGlow { 0%,100% { box-shadow: 0 0 6px #FFD70066, 0 0 14px #FFA50033; } 50% { box-shadow: 0 0 20px #FFD700cc, 0 0 36px #FFA50088; } }
 @keyframes goldTextGlow { 0%,100% { text-shadow: 0 0 6px #FFD70077, 0 0 14px #FFA50044; } 50% { text-shadow: 0 0 16px #FFD700ee, 0 0 32px #FFA500aa; } }
 @keyframes puGlow {
-  0%,100% { box-shadow: 0 8px 30px rgba(59,130,246,.15), 0 0 0 1px rgba(59,130,246,.36), inset 0 1px 0 rgba(59,130,246,.18); }
-  38%     { box-shadow: 0 8px 30px rgba(139,92,246,.15), 0 0 0 1px rgba(139,92,246,.36), inset 0 1px 0 rgba(139,92,246,.18); }
-  72%     { box-shadow: 0 8px 30px rgba(34,197,94,.13),  0 0 0 1px rgba(34,197,94,.36),  inset 0 1px 0 rgba(34,197,94,.16); }
+  0%,100% { box-shadow: 0 8px 30px rgba(59,130,246,.15); }
+  38%     { box-shadow: 0 8px 30px rgba(139,92,246,.15); }
+  72%     { box-shadow: 0 8px 30px rgba(34,197,94,.13);  }
 }
 @keyframes dashCalm {
-  0%,100% { box-shadow: 0 4px 18px rgba(59,130,246,.10), 0 0 0 1px rgba(59,130,246,.18), inset 0 1px 0 rgba(59,130,246,.10); }
-  50%     { box-shadow: 0 4px 22px rgba(59,130,246,.18), 0 0 0 1px rgba(59,130,246,.28), inset 0 1px 0 rgba(59,130,246,.14); }
+  0%,100% { box-shadow: 0 4px 18px rgba(59,130,246,.10); }
+  50%     { box-shadow: 0 4px 22px rgba(59,130,246,.18); }
 }
 .fadeup    { animation: fadeUp .6s ease both; }
 .pu-glow   { animation: fadeUp .6s ease both, puGlow 7s ease-in-out .6s infinite; }
