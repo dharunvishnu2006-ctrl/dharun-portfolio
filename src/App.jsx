@@ -166,7 +166,7 @@ const s = {
   secSub: { color: C.dim, fontSize: 16, marginTop: 10, maxWidth: 640, lineHeight: 1.6, fontWeight: 500 },
 
   // PROJECT UNIVERSE
-  puPanel: { ...glossy("#6366f1"), backdropFilter: "blur(14px)", borderRadius: 24, padding: "24px" },
+  puPanel: { ...glossy("#6366f1"), border: "none", backdropFilter: "blur(14px)", borderRadius: 24, padding: "24px" },
   puHead: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 10 },
   puTitle: { display: "flex", alignItems: "center", gap: 10, fontFamily: FD, fontSize: 18, fontWeight: 800, color: "#fff", fontStyle: "italic" },
   puLink: { display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: C.cyan, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: FB },
@@ -350,6 +350,20 @@ body { margin: 0; background: #05060f; }
 .card-glow-csx { animation: cardGlowCSX 6s ease-in-out infinite; }
 .card-glow-amx { animation: cardGlowAMX 7s ease-in-out infinite; }
 .card-glow-sai { animation: cardGlowSAI 5s ease-in-out infinite; }
+@keyframes statGlowBlue   { 0%,100% { box-shadow: inset 0 1px 0 rgba(59,130,246,.22), 0 0 0 1px rgba(59,130,246,.20), 0 0 10px rgba(59,130,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(59,130,246,.38), 0 0 0 1px rgba(59,130,246,.38), 0 0 16px rgba(59,130,246,.18); } }
+@keyframes statGlowPurple { 0%,100% { box-shadow: inset 0 1px 0 rgba(139,92,246,.22), 0 0 0 1px rgba(139,92,246,.20), 0 0 10px rgba(139,92,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(139,92,246,.38), 0 0 0 1px rgba(139,92,246,.38), 0 0 16px rgba(139,92,246,.18); } }
+@keyframes statGlowCyan   { 0%,100% { box-shadow: inset 0 1px 0 rgba(34,211,238,.22), 0 0 0 1px rgba(34,211,238,.20), 0 0 10px rgba(34,211,238,.08); } 50% { box-shadow: inset 0 1px 0 rgba(34,211,238,.38), 0 0 0 1px rgba(34,211,238,.38), 0 0 16px rgba(34,211,238,.18); } }
+@keyframes statGlowGold   { 0%,100% { box-shadow: inset 0 1px 0 rgba(251,191,36,.22), 0 0 0 1px rgba(251,191,36,.20), 0 0 10px rgba(251,191,36,.08); } 50% { box-shadow: inset 0 1px 0 rgba(251,191,36,.38), 0 0 0 1px rgba(251,191,36,.38), 0 0 16px rgba(251,191,36,.18); } }
+.stat-glow-blue   { animation: statGlowBlue   6s ease-in-out infinite; }
+.stat-glow-purple { animation: statGlowPurple 7s ease-in-out infinite; }
+.stat-glow-cyan   { animation: statGlowCyan   5s ease-in-out infinite; }
+.stat-glow-gold   { animation: statGlowGold   8s ease-in-out infinite; }
+@keyframes connectCycle {
+  0%,100% { box-shadow: 0 0 0 1px rgba(34,211,238,.48), 0 4px 16px rgba(34,211,238,.12), inset 0 1px 0 rgba(34,211,238,.15); }
+  42%     { box-shadow: 0 0 0 1px rgba(139,92,246,.48), 0 4px 16px rgba(139,92,246,.12), inset 0 1px 0 rgba(139,92,246,.15); }
+  75%     { box-shadow: 0 0 0 1px rgba(59,130,246,.48),  0 4px 16px rgba(59,130,246,.12),  inset 0 1px 0 rgba(59,130,246,.15); }
+}
+.connect-glow { animation: connectCycle 6s ease-in-out infinite; }
 .shine { display: none; }
 button { transition: .2s; }
 button:hover { filter: brightness(1.12); }
@@ -374,7 +388,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-sidetags] { display: none !important; }
   [data-heromain] { align-items: stretch !important; }
   [data-photocol] { padding-left: 0 !important; }
-  [data-col2box] { background: linear-gradient(150deg,#3b82f628,#3b82f60a 55%,rgba(10,14,30,.7)) !important; border: 1px solid #3b82f666 !important; box-shadow: 0 8px 30px #3b82f622,inset 0 1px 0 #3b82f633 !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
+  [data-col2box] { background: linear-gradient(150deg,rgba(59,130,246,.10),rgba(59,130,246,.03) 55%,rgba(10,14,30,.52)) !important; border: none !important; box-shadow: 0 8px 32px rgba(59,130,246,.10),inset 0 1px 0 rgba(59,130,246,.12) !important; backdrop-filter: blur(18px) !important; -webkit-backdrop-filter: blur(18px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
   [data-col2divider] { display: block !important; }
   [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; width: 100%; }
   [data-col2connect] { display: flex !important; flex-direction: column; flex: 1; }
@@ -705,20 +719,20 @@ function Hero({ go, stats, animate, openProject }) {
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", ...gradText }}>CONNECT →</div>
               <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "space-between" }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS("#ea4335"), display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-                  className="hoverlift">
+                  style={{ ...s.dashCard, ...glossyJS("#ea4335"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift connect-glow">
                   <Icon name="mail" size={17} color="#ea4335" />
                   <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Gmail</span>
                 </a>
                 <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS("#6366f1"), display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-                  className="hoverlift">
+                  style={{ ...s.dashCard, ...glossyJS("#6366f1"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift connect-glow">
                   <Icon name="github" size={17} color="#a855f7" />
                   <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GitHub</span>
                 </a>
                 <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS(C.blue), display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-                  className="hoverlift">
+                  style={{ ...s.dashCard, ...glossyJS(C.blue), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift connect-glow">
                   <Icon name="linkedin" size={17} color={C.blue} />
                   <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#3b82f6,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>LinkedIn</span>
                 </a>
@@ -733,7 +747,7 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 3: Project Universe — desktop only */}
-        <div style={{ ...s.dash, padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="pu-glow">
+        <div style={{ ...s.dash, border: "none", padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="pu-glow">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Icon name="rocket" size={14} color={C.cyan} />
@@ -754,16 +768,16 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 4: Journey Dashboard */}
-        <div data-dashcol4 style={{ ...s.dash, marginRight: 8, gap: 10 }} className="dash-calm">
+        <div data-dashcol4 style={{ ...s.dash, border: "none", marginRight: 8, gap: 10 }} className="dash-calm">
           <div style={{ ...s.dashHead, marginBottom: 0 }}>
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: "none" }} data-dashgrid>
-            {leftCards.map((d) => (
+            {leftCards.map((d, i) => (
               <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
                 style={{ ...s.dashCard, ...glossyJS(d.c), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-                className="hoverlift">
+                className={`hoverlift ${i === 0 ? "stat-glow-blue" : "stat-glow-purple"}`}>
                 <span className="shine" />
                 {d.major != null ? (
                   <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
@@ -781,22 +795,22 @@ function Hero({ go, stats, animate, openProject }) {
                 )}
               </button>
             ))}
-            {rightCards.map((d) => (
-              <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}>
+            {rightCards.map((d, i) => (
+              <div key={d.l} style={{ ...s.dashCard, ...glossyJS(d.c), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "stat-glow-cyan" : "stat-glow-blue"}>
                 <span className="shine" />
                 <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
               style={{ ...s.dashCard, ...glossyJS("#f59e0b"), cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-              className="hoverlift">
+              className="hoverlift stat-glow-gold">
               <span className="shine" />
               <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
                 <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, color: "#fff" }}>Layer &amp; Project Progress</span>
                 <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1 }}>→</span>
               </span>
             </button>
-            <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}>
+            <div style={{ ...s.dashCard, ...glossyJS("#6e40c9"), display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="stat-glow-purple">
               <span className="shine" />
               <span style={{ fontSize: 17, fontWeight: 700, color: "#fff" }}>
                 {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
