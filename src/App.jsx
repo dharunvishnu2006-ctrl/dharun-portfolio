@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import PROFILE_IMG from './j.dharun vishnu potho.jpeg';
-import CSX_LOGO from './cloudshield-x.jpg.png';
-import AMX_LOGO from './autopilot-mlx.jpg.png';
-import SAI_LOGO from './NEW SENTINAL AI INDIA IMAGE.jpeg';
+import CSX_LOGO from './CLOUDSHIELD X.jpeg';
+import AMX_LOGO from './AUTOPILOT ML X.jpeg';
+import SAI_LOGO from './SENTINAL AI.jpeg';
 
 // Supabase client
 const SUPABASE_URL = "https://imfqvebduwnojmbbivrk.supabase.co";
@@ -722,9 +722,6 @@ function Hero({ go, stats, animate, openProject }) {
                 className="hoverlift"
                 onClick={() => openProject(p)}>
                 {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: p.code === "SAI" ? 175 : 160, objectFit: "cover", display: "block", flexShrink: 0 }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, fontSize: 48 }}>{p.emoji}</div>}
-                <div style={{ padding: "5px 14px 6px", flexShrink: 0, ...(p.code !== "SAI" ? { display: "flex", alignItems: "center", justifyContent: "center" } : {}) }}>
-                  <div style={{ fontSize: 16, color: C.gold, fontWeight: 600, textAlign: "center" }}>{p.desc}</div>
-                </div>
               </div>
             ))}
           </div>
@@ -961,7 +958,6 @@ function ProjectUniverse({ go, openProject }) {
             {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 140, objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", height: 140, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", fontSize: 52 }}>{p.emoji}</div>}
             <div style={{ padding: "14px 18px 16px" }}>
               <div style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
-              <div style={{ fontSize: 13, color: "#dbe4ff", fontWeight: 500, marginTop: 5 }}>{p.desc}</div>
             </div>
           </div>
         ))}
@@ -1317,7 +1313,7 @@ function Projects({ openProject }) {
                   {p.subtag && <span style={{ ...s.projTag, background: C.cyan + "33", color: "#fff", border: `1px solid ${C.cyan}88` }}>{p.subtag}</span>}
                 </div>
                 <div style={s.projName}>{p.name}</div>
-                <div style={s.projDesc}>{p.desc}</div>
+                {!PROJECT_LOGOS[p.code] && <div style={s.projDesc}>{p.desc}</div>}
                 <div style={s.projFoot}><Icon name="arrow" size={13} color={p.accent} style={{ marginLeft: "auto" }} /></div>
               </div>
             </div>
