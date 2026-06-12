@@ -676,10 +676,10 @@ function Hero({ go, stats, animate, openProject }) {
               <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="layers" size={14} color={C.blue} /> Cloud Builder</span>
             </div>
             {/* divider + CONNECT — desktop only */}
-            <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "0 0 0" }} />
+            <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "14px 0 0" }} />
             <div data-col2connect style={{ marginBottom: 0 }}>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", textAlign: "center", ...gradText }}>CONNECT →</div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "2px 0 10px", textAlign: "right", ...gradText }}>CONNECT →</div>
+              <div style={{ display: "flex", flexDirection: "row", gap: 10, marginLeft: 10 }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "12px 8px" }}
                   className="hoverlift connect-glow">
@@ -708,7 +708,7 @@ function Hero({ go, stats, animate, openProject }) {
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
             </h1>
-            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000" }}>
+            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box", WebkitTextFillColor: "#f4f7ff" }}>
               <span style={{ whiteSpace: "nowrap" }}>BSc IT</span>
               <span style={s.roleDot}>•</span>
               <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
