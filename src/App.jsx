@@ -1022,17 +1022,15 @@ function TechStack({ stats }) {
             <span
               key={sk.name}
               style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                background: `linear-gradient(135deg, ${sk.color}, ${sk.color}cc)`,
-                border: `1px solid ${sk.color}`,
-                boxShadow: `0 6px 18px ${sk.color}40, inset 0 1px 0 rgba(255,255,255,.25)`,
+                display: "inline-flex", alignItems: "center",
+                background: done ? "#16a34a" : "#1a1a2e",
+                border: done ? "1px solid #22c55e" : "1px solid rgba(120,150,255,0.2)",
+                boxShadow: done ? "0 6px 18px rgba(34,197,94,0.3), inset 0 1px 0 rgba(255,255,255,.15)" : "none",
                 borderRadius: 12, padding: "10px 16px",
                 fontFamily: FD, fontWeight: 800, fontSize: 14, color: "#fff",
-                textShadow: "0 1px 3px rgba(0,0,0,.45)", letterSpacing: ".2px",
-                whiteSpace: "nowrap",
+                letterSpacing: ".2px", whiteSpace: "nowrap",
               }}
             >
-              {done && <Icon name="check" size={13} color="#fff" />}
               {sk.name}
             </span>
           );
