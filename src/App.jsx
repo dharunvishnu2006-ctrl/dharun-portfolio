@@ -351,20 +351,17 @@ body { margin: 0; background: #000000; }
 .card-glow-amx { animation: cardGlowAMX 7s ease-in-out infinite; }
 .card-glow-sai { animation: cardGlowSAI 5s ease-in-out infinite; }
 @keyframes dashGlowCycle {
-  0%   { box-shadow: 0 0 0 1px rgba(59,130,246,.58), 0 0 16px rgba(59,130,246,.22); }
-  31%  { box-shadow: 0 0 0 1px rgba(59,130,246,.18), 0 0 5px  rgba(59,130,246,.05); }
-  33%  { box-shadow: 0 0 0 1px rgba(139,92,246,.58), 0 0 16px rgba(139,92,246,.22); }
-  64%  { box-shadow: 0 0 0 1px rgba(139,92,246,.18), 0 0 5px  rgba(139,92,246,.05); }
-  66%  { box-shadow: 0 0 0 1px rgba(34,197,94,.58),  0 0 16px rgba(34,197,94,.22);  }
-  97%  { box-shadow: 0 0 0 1px rgba(34,197,94,.18),  0 0 5px  rgba(34,197,94,.05);  }
-  100% { box-shadow: 0 0 0 1px rgba(59,130,246,.58), 0 0 16px rgba(59,130,246,.22); }
+  0%   { box-shadow: 0 0 0 1px rgba(59,130,246,.45), 0 0 14px rgba(59,130,246,.18); }
+  33%  { box-shadow: 0 0 0 1px rgba(139,92,246,.45), 0 0 14px rgba(139,92,246,.18); }
+  66%  { box-shadow: 0 0 0 1px rgba(34,197,94,.45),  0 0 14px rgba(34,197,94,.18);  }
+  100% { box-shadow: 0 0 0 1px rgba(59,130,246,.45), 0 0 14px rgba(59,130,246,.18); }
 }
-.dash-glow-1 { animation: dashGlowCycle 21s linear infinite; }
-.dash-glow-2 { animation: dashGlowCycle 21s linear infinite -3.5s; }
-.dash-glow-3 { animation: dashGlowCycle 21s linear infinite -7s; }
-.dash-glow-4 { animation: dashGlowCycle 21s linear infinite -10.5s; }
-.dash-glow-5 { animation: dashGlowCycle 21s linear infinite -14s; }
-.dash-glow-6 { animation: dashGlowCycle 21s linear infinite -17.5s; }
+.dash-glow-1 { animation: dashGlowCycle 21s ease-in-out infinite; }
+.dash-glow-2 { animation: dashGlowCycle 21s ease-in-out infinite -3.5s; }
+.dash-glow-3 { animation: dashGlowCycle 21s ease-in-out infinite -7s; }
+.dash-glow-4 { animation: dashGlowCycle 21s ease-in-out infinite -10.5s; }
+.dash-glow-5 { animation: dashGlowCycle 21s ease-in-out infinite -14s; }
+.dash-glow-6 { animation: dashGlowCycle 21s ease-in-out infinite -17.5s; }
 @keyframes statGlowBlue   { 0%,100% { box-shadow: inset 0 1px 0 rgba(59,130,246,.22), 0 0 0 1px rgba(59,130,246,.20), 0 0 10px rgba(59,130,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(59,130,246,.38), 0 0 0 1px rgba(59,130,246,.38), 0 0 16px rgba(59,130,246,.18); } }
 @keyframes statGlowPurple { 0%,100% { box-shadow: inset 0 1px 0 rgba(139,92,246,.22), 0 0 0 1px rgba(139,92,246,.20), 0 0 10px rgba(139,92,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(139,92,246,.38), 0 0 0 1px rgba(139,92,246,.38), 0 0 16px rgba(139,92,246,.18); } }
 @keyframes statGlowCyan   { 0%,100% { box-shadow: inset 0 1px 0 rgba(34,211,238,.22), 0 0 0 1px rgba(34,211,238,.20), 0 0 10px rgba(34,211,238,.08); } 50% { box-shadow: inset 0 1px 0 rgba(34,211,238,.38), 0 0 0 1px rgba(34,211,238,.38), 0 0 16px rgba(34,211,238,.18); } }
