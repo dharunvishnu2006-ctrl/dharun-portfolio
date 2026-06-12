@@ -2046,7 +2046,7 @@ function LayerProjectProgress({ go, stats, done }) {
   const barStyle = (pct) => ({
     position: "absolute", left: 0, top: 0, bottom: 0,
     width: animate ? pct + "%" : "0%",
-    background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)",
+    background: "linear-gradient(90deg, #16a34a, #22c55e 60%, #22c55e)",
     borderRadius: 13, transition: "width .8s ease",
   });
   const barTrack = {
@@ -2094,8 +2094,8 @@ function LayerProjectProgress({ go, stats, done }) {
                       return (
                         <div data-vbox key={vi} title={v} style={{
                           flex: 1, minWidth: 0,
-                          background: isDone ? "rgba(34,197,94,.18)" : "rgba(255,255,255,.06)",
-                          border: "1px solid " + (isDone ? "#22c55e50" : "rgba(255,255,255,.1)"),
+                          background: isDone ? "#22c55e" : "rgba(255,255,255,.06)",
+                          border: "1px solid " + (isDone ? "#22c55e" : "rgba(255,255,255,.1)"),
                           borderRadius: 6, padding: "6px 4px",
                           display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
                         }}>
@@ -2125,8 +2125,8 @@ function LayerProjectProgress({ go, stats, done }) {
                 return (
                   <div data-lbox key={layer.id} style={{
                     flex: 1, minWidth: 0,
-                    background: isDone ? "rgba(34,197,94,.25)" : "rgba(255,255,255,.08)",
-                    border: "1px solid " + (isDone ? "#22c55e70" : "rgba(255,255,255,.15)"),
+                    background: isDone ? "#22c55e" : "rgba(255,255,255,.08)",
+                    border: "1px solid " + (isDone ? "#22c55e" : "rgba(255,255,255,.15)"),
                     borderRadius: 8, padding: "8px 4px",
                     display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
                   }}>
@@ -2148,7 +2148,7 @@ function LayerProjectProgress({ go, stats, done }) {
           <div style={{ ...glossyJS(C.green), borderRadius: 20, padding: "18px 22px" }}>
             <div style={{ fontFamily: FM, fontSize: 15, fontWeight: 800, color: "#fff", letterSpacing: ".5px", marginBottom: 10 }}>MISSION PROGRESS</div>
             <div style={{ ...barTrack, height: 28 }}>
-              <div style={{ ...barStyle(missionPct), background: "linear-gradient(90deg, #16a34a, #22c55e 70%, #39d353)" }} />
+              <div style={{ ...barStyle(missionPct), background: "linear-gradient(90deg, #16a34a, #22c55e 60%, #22c55e)" }} />
               <div style={{ ...barLabel, fontSize: 13 }}>{missionPct}%</div>
             </div>
           </div>
