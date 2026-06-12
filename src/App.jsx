@@ -322,6 +322,7 @@ body { margin: 0; background: #05060f; }
 @keyframes shimmer { 0% { transform: translateX(-120%) skewX(-20deg); } 100% { transform: translateX(220%) skewX(-20deg); } }
 @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @keyframes goldGlow { 0%,100% { box-shadow: 0 0 6px #FFD70066, 0 0 14px #FFA50033; } 50% { box-shadow: 0 0 20px #FFD700cc, 0 0 36px #FFA50088; } }
+@keyframes goldTextGlow { 0%,100% { text-shadow: 0 0 6px #FFD70077, 0 0 14px #FFA50044; } 50% { text-shadow: 0 0 16px #FFD700ee, 0 0 32px #FFA500aa; } }
 .fadeup { animation: fadeUp .6s ease both; }
 .shine { display: none; }
 button { transition: .2s; }
@@ -2072,6 +2073,7 @@ function LayerProjectProgress({ go, stats, done }) {
           <div>
             <div style={{ fontFamily: FD, fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>Layer &amp; Project Progress</div>
             <div style={{ fontSize: 13, color: C.dim2, marginTop: 2 }}>Live tracker — updates as milestones are ticked</div>
+            <div style={{ fontSize: 17, fontWeight: 700, color: "#FFD700", marginTop: 6, fontFamily: FD, animation: "goldTextGlow 2s ease-in-out infinite" }}>✨ Gold glowing boxes = completed versions &amp; layers</div>
           </div>
         </div>
 
