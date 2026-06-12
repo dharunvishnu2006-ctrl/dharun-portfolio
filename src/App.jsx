@@ -323,7 +323,18 @@ body { margin: 0; background: #05060f; }
 @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @keyframes goldGlow { 0%,100% { box-shadow: 0 0 6px #FFD70066, 0 0 14px #FFA50033; } 50% { box-shadow: 0 0 20px #FFD700cc, 0 0 36px #FFA50088; } }
 @keyframes goldTextGlow { 0%,100% { text-shadow: 0 0 6px #FFD70077, 0 0 14px #FFA50044; } 50% { text-shadow: 0 0 16px #FFD700ee, 0 0 32px #FFA500aa; } }
-.fadeup { animation: fadeUp .6s ease both; }
+@keyframes puGlow {
+  0%,100% { box-shadow: 0 8px 30px rgba(59,130,246,.15), 0 0 0 1px rgba(59,130,246,.36), inset 0 1px 0 rgba(59,130,246,.18); }
+  38%     { box-shadow: 0 8px 30px rgba(139,92,246,.15), 0 0 0 1px rgba(139,92,246,.36), inset 0 1px 0 rgba(139,92,246,.18); }
+  72%     { box-shadow: 0 8px 30px rgba(34,197,94,.13),  0 0 0 1px rgba(34,197,94,.36),  inset 0 1px 0 rgba(34,197,94,.16); }
+}
+@keyframes dashCalm {
+  0%,100% { box-shadow: 0 4px 18px rgba(59,130,246,.10), 0 0 0 1px rgba(59,130,246,.18), inset 0 1px 0 rgba(59,130,246,.10); }
+  50%     { box-shadow: 0 4px 22px rgba(59,130,246,.18), 0 0 0 1px rgba(59,130,246,.28), inset 0 1px 0 rgba(59,130,246,.14); }
+}
+.fadeup    { animation: fadeUp .6s ease both; }
+.pu-glow   { animation: fadeUp .6s ease both, puGlow 7s ease-in-out .6s infinite; }
+.dash-calm { animation: fadeUp .6s ease both, dashCalm 8s ease-in-out .6s infinite; }
 .shine { display: none; }
 button { transition: .2s; }
 button:hover { filter: brightness(1.12); }
@@ -707,7 +718,7 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 3: Project Universe — desktop only */}
-        <div style={{ ...s.dash, padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="fadeup">
+        <div style={{ ...s.dash, padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="pu-glow">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Icon name="rocket" size={14} color={C.cyan} />
@@ -728,7 +739,7 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 4: Journey Dashboard */}
-        <div data-dashcol4 style={{ ...s.dash, marginRight: 8, gap: 10 }} className="fadeup">
+        <div data-dashcol4 style={{ ...s.dash, marginRight: 8, gap: 10 }} className="dash-calm">
           <div style={{ ...s.dashHead, marginBottom: 0 }}>
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
@@ -946,7 +957,7 @@ function MyRepos() {
 
 function ProjectUniverse({ go, openProject }) {
   return (
-    <div style={s.puPanel} className="fadeup">
+    <div style={s.puPanel} className="pu-glow">
       <div style={s.puHead}>
         <div style={s.puTitle}><Icon name="rocket" size={19} color={C.cyan} /> PROJECT UNIVERSE</div>
         <button style={s.puLink} onClick={() => go("projects")}>View All Projects <Icon name="arrow" size={14} /></button>
