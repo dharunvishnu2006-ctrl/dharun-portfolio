@@ -388,7 +388,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-sidetags] { display: none !important; }
   [data-heromain] { align-items: stretch !important; }
   [data-photocol] { padding-left: 0 !important; }
-  [data-col2box] { background: linear-gradient(150deg,rgba(59,130,246,.10),rgba(59,130,246,.03) 55%,rgba(10,14,30,.52)) !important; border: none !important; box-shadow: 0 8px 32px rgba(59,130,246,.10),inset 0 1px 0 rgba(59,130,246,.12) !important; backdrop-filter: blur(18px) !important; -webkit-backdrop-filter: blur(18px) !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
+  [data-col2box] { background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-radius: 24px !important; padding: 18px !important; overflow: hidden !important; }
   [data-col2divider] { display: block !important; }
   [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; width: 100%; }
   [data-col2connect] { display: flex !important; flex-direction: column; flex: 1; }
@@ -665,7 +665,7 @@ function Hero({ go, stats, animate, openProject }) {
         {/* COL 1 + COL 2 wrapped in heroMain for responsive collapse */}
         <div style={s.heroMain} data-heromain className="fadeup">
           {/* COL 1: Photo + skill tags below in 2×2 grid */}
-          <div data-photocol style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 8, marginTop: "-50px", alignSelf: "flex-start" }}>
+          <div data-photocol style={{ ...s.photoCol, alignItems: "flex-start", paddingLeft: 0 }}>
             <div style={s.photoWrap}>
               <img src={PROFILE_IMG} alt="J. Dharun Vishnu" style={s.photo} />
             </div>
@@ -675,21 +675,29 @@ function Hero({ go, stats, animate, openProject }) {
               <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="shield" size={14} color={C.green} /> Cyber security</span>
               <span style={{ ...s.sideTag, fontSize: 14, padding: "10px 16px", justifyContent: "center" }}><Icon name="layers" size={14} color={C.blue} /> Cloud Builder</span>
             </div>
-            {/* divider + BECOMING — desktop only */}
+            {/* divider + CONNECT — desktop only */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "0 0 0" }} />
-            <div data-col2becoming>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", textAlign: "center", ...gradText }}>BECOMING →</div>
-              <div style={{ display: "flex", flexDirection: "column", flex: 1, gap: 10, justifyContent: "space-evenly" }}>
-                {[
-                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan },
-                  { label: "Problem Solver", icon: "target", color: C.purple },
-                  { label: "Cyber Security", icon: "shield", color: "#ef4444" },
-                  { label: "Cloud Builder",  icon: "layers", color: C.blue },
-                ].map(({ label, icon, color }) => (
-                  <span key={label} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, width: "100%", boxSizing: "border-box", background: "rgba(12,16,40,.8)", border: `1px solid ${color}99`, borderRadius: 100, padding: "12px 18px", fontSize: 17, fontWeight: 700, boxShadow: `0 0 16px ${color}22 inset`, ...gradText }}>
-                    <Icon name={icon} size={16} color={color} />{label}
-                  </span>
-                ))}
+            <div data-col2connect style={{ marginBottom: 0 }}>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", ...gradText }}>CONNECT →</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
+                  style={{ ...s.dashCard, ...glossyJS("#ea4335"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift connect-glow">
+                  <Icon name="mail" size={17} color="#ea4335" />
+                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Gmail</span>
+                </a>
+                <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
+                  style={{ ...s.dashCard, ...glossyJS("#6366f1"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift connect-glow">
+                  <Icon name="github" size={17} color="#a855f7" />
+                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
+                  style={{ ...s.dashCard, ...glossyJS(C.blue), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
+                  className="hoverlift connect-glow">
+                  <Icon name="linkedin" size={17} color={C.blue} />
+                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#3b82f6,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>LinkedIn</span>
+                </a>
               </div>
             </div>
           </div>
@@ -713,29 +721,21 @@ function Hero({ go, stats, animate, openProject }) {
               <span style={s.quoteMark}>"</span>
               <div style={s.quoteText}>Building Enterprise AI Systems <span style={s.quoteAccent}>One Layer</span> at a Time.</div>
             </div>
-            {/* divider + CONNECT */}
+            {/* divider + BECOMING */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
-            <div data-col2connect style={{ marginBottom: 0 }}>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", ...gradText }}>CONNECT →</div>
-              <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "space-between" }}>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS("#ea4335"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-                  className="hoverlift connect-glow">
-                  <Icon name="mail" size={17} color="#ea4335" />
-                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Gmail</span>
-                </a>
-                <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS("#6366f1"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-                  className="hoverlift connect-glow">
-                  <Icon name="github" size={17} color="#a855f7" />
-                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GitHub</span>
-                </a>
-                <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, ...glossyJS(C.blue), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
-                  className="hoverlift connect-glow">
-                  <Icon name="linkedin" size={17} color={C.blue} />
-                  <span style={{ fontSize: 15, fontWeight: 700, background: "linear-gradient(90deg,#3b82f6,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>LinkedIn</span>
-                </a>
+            <div data-col2becoming>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", ...gradText }}>BECOMING →</div>
+              <div style={{ background: "rgba(12,16,40,.75)", border: "1px solid rgba(120,150,255,.22)", borderRadius: 16, padding: "14px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                {[
+                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan },
+                  { label: "Problem Solver", icon: "target", color: C.purple },
+                  { label: "Cyber Security", icon: "shield", color: "#ef4444" },
+                  { label: "Cloud Builder",  icon: "layers", color: C.blue },
+                ].map(({ label, icon, color }) => (
+                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 700, color: "#dbe4ff" }}>
+                    <Icon name={icon} size={14} color={color} />{label}
+                  </span>
+                ))}
               </div>
             </div>
             <div style={s.heroBtns} data-herobtns>
