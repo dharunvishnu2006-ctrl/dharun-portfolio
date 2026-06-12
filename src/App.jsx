@@ -2094,8 +2094,8 @@ function LayerProjectProgress({ go, stats, done }) {
                       return (
                         <div data-vbox key={vi} title={v} style={{
                           flex: 1, minWidth: 0,
-                          background: isDone ? "#16a34a" : "rgba(255,255,255,.06)",
-                          border: "1px solid " + (isDone ? "#16a34a" : "rgba(255,255,255,.1)"),
+                          background: isDone ? "#10b981" : "rgba(255,255,255,.06)",
+                          border: "1px solid " + (isDone ? "#10b981" : "rgba(255,255,255,.1)"),
                           borderRadius: 6, padding: "6px 4px",
                           display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
                         }}>
