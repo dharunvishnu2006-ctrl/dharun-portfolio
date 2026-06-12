@@ -2072,7 +2072,7 @@ function LayerProjectProgress({ go, stats, done }) {
           </button>
           <div>
             <div style={{ fontFamily: FD, fontSize: 22, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>Layer &amp; Project Progress</div>
-            <div style={{ fontSize: 13, color: C.dim2, marginTop: 2 }}>Live tracker — updates as milestones are ticked</div>
+            <div style={{ fontSize: 16, color: "#ffffff", marginTop: 2 }}>Live tracker — updates as milestones are ticked</div>
             <div style={{ fontSize: 17, fontWeight: 700, color: "#FFD700", marginTop: 6, fontFamily: FD, animation: "goldTextGlow 2s ease-in-out infinite" }}>✨ Gold glowing boxes = completed versions &amp; layers</div>
           </div>
         </div>
