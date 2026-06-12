@@ -351,13 +351,17 @@ body { margin: 0; background: #000000; }
 .card-glow-amx { animation: cardGlowAMX 7s ease-in-out infinite; }
 .card-glow-sai { animation: cardGlowSAI 5s ease-in-out infinite; }
 @keyframes dashGlowCycle {
-  0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.22), 0 0 8px rgba(59,130,246,.07); }
-  33%     { box-shadow: 0 0 0 1px rgba(139,92,246,.22), 0 0 8px rgba(139,92,246,.07); }
-  66%     { box-shadow: 0 0 0 1px rgba(34,197,94,.22),  0 0 8px rgba(34,197,94,.07);  }
+  0%   { box-shadow: 0 0 0 1px rgba(59,130,246,.58), 0 0 16px rgba(59,130,246,.22); }
+  31%  { box-shadow: 0 0 0 1px rgba(59,130,246,.18), 0 0 5px  rgba(59,130,246,.05); }
+  33%  { box-shadow: 0 0 0 1px rgba(139,92,246,.58), 0 0 16px rgba(139,92,246,.22); }
+  64%  { box-shadow: 0 0 0 1px rgba(139,92,246,.18), 0 0 5px  rgba(139,92,246,.05); }
+  66%  { box-shadow: 0 0 0 1px rgba(34,197,94,.58),  0 0 16px rgba(34,197,94,.22);  }
+  97%  { box-shadow: 0 0 0 1px rgba(34,197,94,.18),  0 0 5px  rgba(34,197,94,.05);  }
+  100% { box-shadow: 0 0 0 1px rgba(59,130,246,.58), 0 0 16px rgba(59,130,246,.22); }
 }
-.dash-glow-a { animation: dashGlowCycle 21s ease-in-out infinite; }
-.dash-glow-b { animation: dashGlowCycle 21s ease-in-out infinite; animation-delay: -7s; }
-.dash-glow-c { animation: dashGlowCycle 21s ease-in-out infinite; animation-delay: -14s; }
+.dash-glow-a { animation: dashGlowCycle 21s linear infinite; }
+.dash-glow-b { animation: dashGlowCycle 21s linear infinite; animation-delay: -7s; }
+.dash-glow-c { animation: dashGlowCycle 21s linear infinite; animation-delay: -14s; }
 @keyframes statGlowBlue   { 0%,100% { box-shadow: inset 0 1px 0 rgba(59,130,246,.22), 0 0 0 1px rgba(59,130,246,.20), 0 0 10px rgba(59,130,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(59,130,246,.38), 0 0 0 1px rgba(59,130,246,.38), 0 0 16px rgba(59,130,246,.18); } }
 @keyframes statGlowPurple { 0%,100% { box-shadow: inset 0 1px 0 rgba(139,92,246,.22), 0 0 0 1px rgba(139,92,246,.20), 0 0 10px rgba(139,92,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(139,92,246,.38), 0 0 0 1px rgba(139,92,246,.38), 0 0 16px rgba(139,92,246,.18); } }
 @keyframes statGlowCyan   { 0%,100% { box-shadow: inset 0 1px 0 rgba(34,211,238,.22), 0 0 0 1px rgba(34,211,238,.20), 0 0 10px rgba(34,211,238,.08); } 50% { box-shadow: inset 0 1px 0 rgba(34,211,238,.38), 0 0 0 1px rgba(34,211,238,.38), 0 0 16px rgba(34,211,238,.18); } }
