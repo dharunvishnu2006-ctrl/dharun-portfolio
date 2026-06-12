@@ -166,7 +166,7 @@ const s = {
   secSub: { color: C.dim, fontSize: 16, marginTop: 10, maxWidth: 640, lineHeight: 1.6, fontWeight: 500 },
 
   // PROJECT UNIVERSE
-  puPanel: { ...glossy("#6366f1"), border: "none", backdropFilter: "blur(14px)", borderRadius: 24, padding: "24px" },
+  puPanel: { ...glossy("#6366f1"), background: "transparent", border: "none", backdropFilter: "none", borderRadius: 24, padding: "24px" },
   puHead: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 10 },
   puTitle: { display: "flex", alignItems: "center", gap: 10, fontFamily: FD, fontSize: 18, fontWeight: 800, color: "#fff", fontStyle: "italic" },
   puLink: { display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: C.cyan, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: FB },
@@ -747,7 +747,7 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 3: Project Universe — desktop only */}
-        <div style={{ ...s.dash, border: "none", padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="pu-glow">
+        <div style={{ ...s.dash, background: "transparent", border: "none", backdropFilter: "none", padding: 14, display: "flex", flexDirection: "column", overflowY: "auto" }} data-herocol3 className="pu-glow">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Icon name="rocket" size={14} color={C.cyan} />
@@ -768,7 +768,7 @@ function Hero({ go, stats, animate, openProject }) {
         </div>
 
         {/* COL 4: Journey Dashboard */}
-        <div data-dashcol4 style={{ ...s.dash, border: "none", marginRight: 8, gap: 10 }} className="dash-calm">
+        <div data-dashcol4 style={{ ...s.dash, background: "transparent", border: "none", backdropFilter: "none", marginRight: 8, gap: 10 }} className="dash-calm">
           <div style={{ ...s.dashHead, marginBottom: 0 }}>
             <div style={{ ...s.dashTitle, whiteSpace: "nowrap" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
