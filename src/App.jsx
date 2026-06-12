@@ -721,7 +721,7 @@ function Hero({ go, stats, animate, openProject }) {
                 style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden" }}
                 className="hoverlift"
                 onClick={() => openProject(p)}>
-                {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: p.code === "SAI" ? 175 : 160, objectFit: "cover", display: "block", flexShrink: 0 }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, fontSize: 48 }}>{p.emoji}</div>}
+                {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", flexShrink: 0, background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, fontSize: 48 }}>{p.emoji}</div>}
               </div>
             ))}
           </div>
@@ -955,7 +955,7 @@ function ProjectUniverse({ go, openProject }) {
         {projects.filter((p) => p.code !== "P1").map((p) => (
           <div key={p.code} style={{ ...glossyJS(p.accent), borderRadius: 16, padding: 0, cursor: "pointer", transition: ".25s", border: `1px solid ${p.accent}40`, position: "relative", overflow: "hidden" }} className="hoverlift" onClick={() => openProject(p)}>
             <span className="shine" />
-            {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 140, objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", height: 140, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", fontSize: 52 }}>{p.emoji}</div>}
+            {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 140, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", fontSize: 52 }}>{p.emoji}</div>}
             <div style={{ padding: "14px 18px 16px" }}>
               <div style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
             </div>
