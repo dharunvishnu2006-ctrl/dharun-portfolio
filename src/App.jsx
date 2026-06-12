@@ -423,8 +423,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-graphcell] { width: 100% !important; height: auto !important; aspect-ratio: 1; }
   [data-vbox-line1], [data-vbox-line2] { display: none !important; }
   [data-lbox-label], [data-lbox-name] { display: none !important; }
-  [data-monthflex] { font-size: 14px !important; color: #ffffff !important; font-weight: 700 !important; }
-  [data-daylabelcell] { font-size: 14px !important; color: #ffffff !important; font-weight: 700 !important; }
+  [data-monthflex] { font-size: 14px !important; font-weight: 700 !important; }
+  [data-daylabelcell] { font-size: 14px !important; font-weight: 700 !important; }
   [data-graphlegend] div { width: calc((65vw - 266px) / 53) !important; height: calc((65vw - 266px) / 53) !important; }
   [data-graphlegend] span { font-size: calc((65vw - 266px) / 53) !important; }
 }
@@ -865,6 +865,14 @@ function GithubGraph() {
   const LEVELS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const CELL = 12, GAP = 3;
+  const RAINBOW_GRADS = [
+    "linear-gradient(90deg,#ef4444,#f97316)",
+    "linear-gradient(90deg,#f97316,#fbbf24)",
+    "linear-gradient(90deg,#fbbf24,#22c55e)",
+    "linear-gradient(90deg,#22c55e,#22d3ee)",
+    "linear-gradient(90deg,#22d3ee,#3b82f6)",
+    "linear-gradient(90deg,#3b82f6,#a855f7)",
+  ];
 
   const weeks = React.useMemo(() => {
     if (!data) return [];
@@ -913,13 +921,13 @@ function GithubGraph() {
                 <div data-monthabsolute key={i} style={{ position: "absolute", left: m.index * (CELL + GAP), fontSize: 10, color: "#8b949e" }}>{m.label}</div>
               ))}
               {monthRanges.map((m, i) => (
-                <div data-monthflex key={`f${i}`} style={{ flex: m.weeks, fontSize: 10, color: "#8b949e", overflow: "hidden" }}>{m.label}</div>
+                <div data-monthflex key={`f${i}`} style={{ flex: m.weeks, fontSize: 10, overflow: "hidden", background: RAINBOW_GRADS[i % RAINBOW_GRADS.length], WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{m.label}</div>
               ))}
             </div>
             <div data-graphweeks style={{ display: "flex", gap: GAP }}>
               <div data-graphdaylabels style={{ display: "flex", flexDirection: "column", gap: GAP, marginRight: 4, width: 26 }}>
                 {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
-                  <div data-daylabelcell key={i} style={{ height: CELL, fontSize: 9, color: "#8b949e", lineHeight: `${CELL}px` }}>{d}</div>
+                  <div data-daylabelcell key={i} style={d ? { height: CELL, fontSize: 9, lineHeight: `${CELL}px`, background: RAINBOW_GRADS[i % RAINBOW_GRADS.length], WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" } : { height: CELL, fontSize: 9, lineHeight: `${CELL}px` }}>{d}</div>
                 ))}
               </div>
               {weeks.map((week, wi) => (
