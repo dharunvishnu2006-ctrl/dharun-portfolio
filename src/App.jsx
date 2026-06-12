@@ -351,9 +351,9 @@ body { margin: 0; background: #000000; }
 .card-glow-amx { animation: cardGlowAMX 7s ease-in-out infinite; }
 .card-glow-sai { animation: cardGlowSAI 5s ease-in-out infinite; }
 @keyframes dashGlowCycle {
-  0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.42), 0 0 14px rgba(59,130,246,.16); }
-  33%     { box-shadow: 0 0 0 1px rgba(139,92,246,.42), 0 0 14px rgba(139,92,246,.16); }
-  66%     { box-shadow: 0 0 0 1px rgba(34,197,94,.42),  0 0 14px rgba(34,197,94,.16);  }
+  0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.22), 0 0 8px rgba(59,130,246,.07); }
+  33%     { box-shadow: 0 0 0 1px rgba(139,92,246,.22), 0 0 8px rgba(139,92,246,.07); }
+  66%     { box-shadow: 0 0 0 1px rgba(34,197,94,.22),  0 0 8px rgba(34,197,94,.07);  }
 }
 .dash-glow-a { animation: dashGlowCycle 21s ease-in-out infinite; }
 .dash-glow-b { animation: dashGlowCycle 21s ease-in-out infinite; animation-delay: -7s; }
