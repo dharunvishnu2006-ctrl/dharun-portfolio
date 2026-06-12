@@ -708,13 +708,13 @@ function Hero({ go, stats, animate, openProject }) {
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
             </h1>
-            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box", WebkitTextFillColor: "#f4f7ff" }}>
-              <span style={{ whiteSpace: "nowrap" }}>BSc IT</span>
-              <span style={s.roleDot}>•</span>
+            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box" }}>
+              <span style={{ whiteSpace: "nowrap", background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>BSc IT</span>
+              <span style={{ ...s.roleDot, WebkitTextFillColor: "#fbbf24" }}>•</span>
               <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                <span>Creator of CloudShield X</span>
-                <span>AutoPilot ML X</span>
-                <span>SentinelAI India</span>
+                <span style={{ background: "linear-gradient(90deg,#f97316,#fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Creator of CloudShield X</span>
+                <span style={{ background: "linear-gradient(90deg,#22c55e,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>AutoPilot ML X</span>
+                <span style={{ background: "linear-gradient(90deg,#3b82f6,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>SentinelAI India</span>
               </span>
             </div>
             <div style={s.quoteBox} data-quotebox>
