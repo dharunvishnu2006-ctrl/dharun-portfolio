@@ -679,7 +679,7 @@ function Hero({ go, stats, animate, openProject }) {
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "0 0 0" }} />
             <div data-col2connect style={{ marginBottom: 0 }}>
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 8px", ...gradText }}>CONNECT →</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "space-evenly" }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, ...glossyJS("#ea4335"), border: "1px solid transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 9, textDecoration: "none", padding: "12px 14px" }}
                   className="hoverlift connect-glow">
@@ -725,14 +725,14 @@ function Hero({ go, stats, animate, openProject }) {
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
             <div data-col2becoming>
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", ...gradText }}>BECOMING →</div>
-              <div style={{ background: "rgba(12,16,40,.75)", border: "1px solid rgba(120,150,255,.22)", borderRadius: 16, padding: "14px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div style={{ background: "#000000", border: "1px solid rgba(120,150,255,.22)", borderRadius: 16, padding: "14px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, flex: 1, alignContent: "space-evenly" }}>
                 {[
-                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan },
-                  { label: "Problem Solver", icon: "target", color: C.purple },
-                  { label: "Cyber Security", icon: "shield", color: "#ef4444" },
-                  { label: "Cloud Builder",  icon: "layers", color: C.blue },
-                ].map(({ label, icon, color }) => (
-                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 700, color: "#dbe4ff" }}>
+                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan,    lc: "#ef4444" },
+                  { label: "Problem Solver", icon: "target", color: C.purple,   lc: "#f97316" },
+                  { label: "Cyber Security", icon: "shield", color: "#ef4444",  lc: "#22c55e" },
+                  { label: "Cloud Builder",  icon: "layers", color: C.blue,     lc: "#a855f7" },
+                ].map(({ label, icon, color, lc }) => (
+                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 700, color: lc }}>
                     <Icon name={icon} size={14} color={color} />{label}
                   </span>
                 ))}
