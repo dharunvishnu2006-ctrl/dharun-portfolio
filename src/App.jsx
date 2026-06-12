@@ -679,7 +679,7 @@ function Hero({ go, stats, animate, openProject }) {
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "14px 0 0" }} />
             <div data-col2connect style={{ marginBottom: 0 }}>
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "2px 0 10px", marginLeft: 18, textAlign: "left", ...gradText }}>CONNECT →</div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 10, marginLeft: 18 }}>
+              <div style={{ display: "flex", flexDirection: "row", gap: 18, marginLeft: 18 }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "12px 8px" }}
                   className="hoverlift connect-glow">
