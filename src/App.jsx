@@ -608,7 +608,7 @@ function Hero({ go, stats, animate, openProject }) {
   }, []);
 
   const leftCards = [
-    { major: majorProjs, mini: miniProjs, c: "#8b5cf6", page: "myprojects" },
+    { major: majorProjs, mini: miniProjs, c: "#8b5cf6", page: "projects" },
     { n: crt, l: "Certificates", c: "#e040fb", page: "certs" },
   ];
   const rightCards = [
