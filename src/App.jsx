@@ -362,6 +362,8 @@ body { margin: 0; background: #000000; }
 .dash-glow-4 { animation: dashGlowCycle 21s ease-in-out infinite -10.5s; }
 .dash-glow-5 { animation: dashGlowCycle 21s ease-in-out infinite -14s; }
 .dash-glow-6 { animation: dashGlowCycle 21s ease-in-out infinite -17.5s; }
+.dash-glow-7 { animation: dashGlowCycle 21s ease-in-out infinite -5s; }
+.dash-glow-8 { animation: dashGlowCycle 21s ease-in-out infinite -12s; }
 @keyframes statGlowBlue   { 0%,100% { box-shadow: inset 0 1px 0 rgba(59,130,246,.22), 0 0 0 1px rgba(59,130,246,.20), 0 0 10px rgba(59,130,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(59,130,246,.38), 0 0 0 1px rgba(59,130,246,.38), 0 0 16px rgba(59,130,246,.18); } }
 @keyframes statGlowPurple { 0%,100% { box-shadow: inset 0 1px 0 rgba(139,92,246,.22), 0 0 0 1px rgba(139,92,246,.20), 0 0 10px rgba(139,92,246,.08); } 50% { box-shadow: inset 0 1px 0 rgba(139,92,246,.38), 0 0 0 1px rgba(139,92,246,.38), 0 0 16px rgba(139,92,246,.18); } }
 @keyframes statGlowCyan   { 0%,100% { box-shadow: inset 0 1px 0 rgba(34,211,238,.22), 0 0 0 1px rgba(34,211,238,.20), 0 0 10px rgba(34,211,238,.08); } 50% { box-shadow: inset 0 1px 0 rgba(34,211,238,.38), 0 0 0 1px rgba(34,211,238,.38), 0 0 16px rgba(34,211,238,.18); } }
@@ -720,7 +722,7 @@ function Hero({ go, stats, animate, openProject }) {
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
             </h1>
-            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box" }}>
+            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000", border: "none", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box" }} className="dash-glow-7">
               <span style={{ whiteSpace: "nowrap", background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>BSc IT</span>
               <span style={{ ...s.roleDot, WebkitTextFillColor: "#fbbf24" }}>•</span>
               <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -737,7 +739,7 @@ function Hero({ go, stats, animate, openProject }) {
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
             <div data-col2becoming>
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", ...gradText }}>BECOMING →</div>
-              <div style={{ background: "#000000", border: "1px solid rgba(120,150,255,.22)", borderRadius: 16, padding: "20px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, minHeight: 210, alignContent: "space-evenly" }}>
+              <div style={{ background: "#000000", border: "none", borderRadius: 16, padding: "20px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, minHeight: 150, alignContent: "space-evenly" }} className="dash-glow-8">
                 {[
                   { label: "AI/ML Engineer", icon: "code",   color: C.cyan,    lc: "#ef4444" },
                   { label: "Problem Solver", icon: "target", color: C.purple,   lc: "#f97316" },
