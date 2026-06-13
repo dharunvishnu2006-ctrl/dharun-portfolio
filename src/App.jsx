@@ -394,6 +394,11 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-col2divider] { display: block !important; }
   [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; width: 100%; }
   [data-col2connect] { display: flex !important; flex-direction: column; flex: 1; }
+  [data-sidetags] { display: none !important; }
+}
+@media (min-width: 861px) and (max-width: 1080px) {
+  [data-pustandalone] { order: 2; }
+  [data-dashcol4] { order: 3; }
 }
 @media (max-width: 1080px) {
   [data-herotop] { grid-template-columns: 1fr !important; }
@@ -859,6 +864,8 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
           </div>
         </div>
+        {/* Standalone ProjectUniverse — hidden at full desktop (≥1081px), ordered before Journey Dashboard at intermediate widths via CSS */}
+        <div data-pustandalone><ProjectUniverse go={go} openProject={openProject} /></div>
       </div>
     </section>
   );
@@ -1206,8 +1213,6 @@ function Home({ go, stats, openProject, admin, repos, setRepos }) {
   return (
     <div style={s.shell}>
       <Hero go={go} stats={stats} animate={animate} openProject={openProject} />
-      {/* Standalone ProjectUniverse — shown on mobile/tablet only (hidden on desktop via CSS) */}
-      <div style={{ marginTop: 20 }} data-pustandalone><ProjectUniverse go={go} openProject={openProject} /></div>
       {/* Bottom: full-width graph, then horizontal-scroll repos */}
       <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 20 }}>
         <GithubGraph />
