@@ -1396,7 +1396,7 @@ function Projects({ openProject }) {
                   <span style={{ ...s.projTag, background: (tc[p.tag] || C.blue) + "33", color: "#fff", border: `1px solid ${(tc[p.tag] || C.blue)}88` }}>{p.tag}</span>
                   {p.subtag && <span style={{ ...s.projTag, background: C.cyan + "33", color: "#fff", border: `1px solid ${C.cyan}88` }}>{p.subtag}</span>}
                 </div>
-                <div style={s.projName}>{p.name}</div>
+                <div style={{ ...s.projName, color: { CSX: "#3b82f6", AMX: "#8b5cf6", SAI: "#22c55e" }[p.code] || "#fff" }}>{p.name}</div>
                 {!PROJECT_LOGOS[p.code] && <div style={s.projDesc}>{p.desc}</div>}
                 <div style={s.projFoot}><Icon name="arrow" size={13} color={p.accent} style={{ marginLeft: "auto" }} /></div>
               </div>
