@@ -387,8 +387,13 @@ button:hover { filter: brightness(1.12); }
 .qaitem * { pointer-events: none; }
 .techbadge:hover { transform: translateY(-5px) scale(1.06); }
 input:focus { border-color: rgba(120,150,255,.65) !important; }
-@media (min-width: 861px) {
+@media (min-width: 1081px) {
   [data-pustandalone] { display: none !important; }
+}
+@media (min-width: 861px) and (max-width: 1023px) {
+  [data-col2divider] { display: block !important; }
+  [data-col2becoming] { display: flex !important; flex-direction: column; flex: 1; width: 100%; }
+  [data-col2connect] { display: flex !important; flex-direction: column; flex: 1; }
 }
 @media (max-width: 1080px) {
   [data-herotop] { grid-template-columns: 1fr !important; }
