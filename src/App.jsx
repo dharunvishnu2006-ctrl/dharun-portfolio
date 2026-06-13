@@ -478,7 +478,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-sidetags] { display: none !important; }
 }
 @media (max-width: 860px) {
-  .hero-btn-primary { background: #000000 !important; animation: dashGlowCycle 21s ease-in-out infinite !important; }
+  .hero-btn-primary { background: #000000 !important; animation: dashGlowCycle 21s ease-in-out infinite !important; color: #f97316 !important; }
+  .hero-btn-primary .btn-ej-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
   .hero-btn-viewprojects .btn-vp-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
   .hero-btn-connect .btn-mobile-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
   .hero-btn-viewprojects { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -7s !important; color: #f97316 !important; }
@@ -774,7 +775,7 @@ function Hero({ go, stats, animate, openProject }) {
               </div>
             </div>
             <div style={s.heroBtns} data-herobtns>
-              <button style={s.btnPrimary} className="hero-btn-primary" onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
+              <button style={s.btnPrimary} className="hero-btn-primary" onClick={() => go("journey")}><Icon name="rocket" size={16} /> <span className="btn-ej-label">Explore Journey</span></button>
               <button style={s.btnGlass} className="hero-btn-viewprojects" onClick={() => go("projects")}><Icon name="grid" size={16} /> <span className="btn-vp-label">View Projects</span></button>
               <button style={s.btnGlass} className="hero-btn-connect" onClick={() => go("contact")}><Icon name="doc" size={16} /><span className="btn-desktop-label">Download CV</span><span className="btn-mobile-label">Connect</span></button>
             </div>
