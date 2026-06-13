@@ -477,6 +477,18 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-pugrid] { grid-template-columns: 1fr !important; }
   [data-sidetags] { display: none !important; }
 }
+@media (max-width: 860px) {
+  .hero-btn-primary { background: #000000 !important; box-shadow: none !important; border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite !important; }
+  .hero-btn-viewprojects .btn-vp-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
+  .hero-btn-connect .btn-mobile-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
+  .hero-btn-viewprojects { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -7s !important; }
+  .hero-btn-connect { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -14s !important; }
+  .pu-title-text { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
+  .card-glow-csx .pu-card-name { color: #3b82f6 !important; -webkit-text-fill-color: #3b82f6 !important; }
+  .card-glow-amx .pu-card-name { color: #8b5cf6 !important; -webkit-text-fill-color: #8b5cf6 !important; }
+  .card-glow-sai .pu-card-name { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
+  [data-monthabsolute] { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
+}
 `;
 
 // ============ ICONS ============
@@ -762,9 +774,9 @@ function Hero({ go, stats, animate, openProject }) {
               </div>
             </div>
             <div style={s.heroBtns} data-herobtns>
-              <button style={s.btnPrimary} onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
-              <button style={s.btnGlass} onClick={() => go("projects")}><Icon name="grid" size={16} /> View Projects</button>
-              <button style={s.btnGlass} onClick={() => go("contact")}><Icon name="doc" size={16} /><span className="btn-desktop-label">Download CV</span><span className="btn-mobile-label">Connect</span></button>
+              <button style={s.btnPrimary} className="hero-btn-primary" onClick={() => go("journey")}><Icon name="rocket" size={16} /> Explore Journey</button>
+              <button style={s.btnGlass} className="hero-btn-viewprojects" onClick={() => go("projects")}><Icon name="grid" size={16} /> <span className="btn-vp-label">View Projects</span></button>
+              <button style={s.btnGlass} className="hero-btn-connect" onClick={() => go("contact")}><Icon name="doc" size={16} /><span className="btn-desktop-label">Download CV</span><span className="btn-mobile-label">Connect</span></button>
             </div>
           </div>
         </div>
@@ -1019,7 +1031,7 @@ function ProjectUniverse({ go, openProject }) {
   return (
     <div style={s.puPanel} className="pu-glow">
       <div style={s.puHead}>
-        <div style={s.puTitle}><Icon name="rocket" size={19} color={C.cyan} /> PROJECT UNIVERSE</div>
+        <div style={s.puTitle}><Icon name="rocket" size={19} color={C.cyan} /><span className="pu-title-text"> PROJECT UNIVERSE</span></div>
         <button style={s.puLink} onClick={() => go("projects")}>View All Projects <Icon name="arrow" size={14} /></button>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }} data-pugrid>
@@ -1028,7 +1040,7 @@ function ProjectUniverse({ go, openProject }) {
             <span className="shine" />
             {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 140, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", fontSize: 52 }}>{p.emoji}</div>}
             <div style={{ padding: "14px 18px 16px" }}>
-              <div style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
+              <div className="pu-card-name" style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
             </div>
           </div>
         ))}
