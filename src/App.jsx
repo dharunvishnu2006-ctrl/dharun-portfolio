@@ -1377,7 +1377,7 @@ function Roadmap({ progress, admin, openLogin }) {
 
 // ============ PROJECTS ============
 function Projects({ openProject }) {
-  const pc = { CSX: C.blue, AMX: C.purple, SAI: C.green, P1: C.green };
+  const pc = { CSX: C.blue, AMX: C.purple, SAI: C.green, P1: "#f43f5e" };
   return (
     <div style={s.shell}>
       <div style={s.sec}>
@@ -1393,11 +1393,11 @@ function Projects({ openProject }) {
               {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", display: "block", borderRadius: "20px 20px 0 0" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", borderRadius: "20px 20px 0 0", fontSize: 64 }}>{p.emoji}</div>}
               <div style={{ padding: "16px 22px 20px" }}>
                 <div style={s.projTop}>
-                  <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: "#fff", border: `1px solid ${pc[p.code] || C.gold}88` }}>{p.tag}</span>
-                  {p.subtag && <span style={{ ...s.projTag, background: (p.code === "P1" ? C.gold : C.cyan) + "33", color: "#fff", border: `1px solid ${p.code === "P1" ? C.gold : C.cyan}88` }}>{p.subtag}</span>}
+                  <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: pc[p.code] || C.gold, border: `1px solid ${pc[p.code] || C.gold}88` }}>{p.tag}</span>
+                  {p.subtag && <span style={{ ...s.projTag, background: (p.code === "P1" ? "#f43f5e" : C.cyan) + "33", color: p.code === "P1" ? "#f43f5e" : C.cyan, border: `1px solid ${p.code === "P1" ? "#f43f5e" : C.cyan}88` }}>{p.subtag}</span>}
                 </div>
-                <div style={{ ...s.projName, color: { CSX: "#3b82f6", AMX: "#8b5cf6", SAI: "#22c55e" }[p.code] || "#fff" }}>{p.name}</div>
-                {!PROJECT_LOGOS[p.code] && <div style={{ ...s.projDesc, color: "#bbf7d0" }}>{p.desc}</div>}
+                <div style={{ ...s.projName, color: { CSX: "#3b82f6", AMX: "#8b5cf6", SAI: "#22c55e", P1: "#f43f5e" }[p.code] || "#fff" }}>{p.name}</div>
+                {!PROJECT_LOGOS[p.code] && <div style={{ ...s.projDesc, color: "#f43f5e" }}>{p.desc}</div>}
                 <div style={s.projFoot}><Icon name="arrow" size={13} color={p.accent} style={{ marginLeft: "auto" }} /></div>
               </div>
             </div>
