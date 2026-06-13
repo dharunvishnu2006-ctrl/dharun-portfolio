@@ -41,9 +41,6 @@ const DATA = {"layers":[{"id":1,"name":"Python for Everybody","steps":"1–80","
 
 const { layers, steps, projects, courses, certs, tech, skillmap, milestones, events } = DATA;
 const PROJECT_LOGOS = { CSX: CSX_LOGO, AMX: AMX_LOGO, SAI: SAI_LOGO };
-const PU_CARD_COLORS = { CSX: "#3b82f6", AMX: "#8b5cf6", SAI: "#22c55e" };
-const PU_CARD_TAGLINES = { CSX: "Secure • Monitor • Protect", AMX: "Train • Deploy • Heal", SAI: "Detect • Respond • Defend" };
-const PU_CARD_SUBTITLES = { CSX: ["Enterprise Cloud Security", "CSPM Platform"], AMX: ["Self-Healing MLOps", "Platform"], SAI: ["Unified AI Security", "Command Centre"] };
 
 // ===== TARGET TECH-STACK TO UNLOCK =====
 // each pill is one technology Dharun will master across the one-year mission.
@@ -392,16 +389,6 @@ button:hover { filter: brightness(1.12); }
 input:focus { border-color: rgba(120,150,255,.65) !important; }
 @media (min-width: 1081px) {
   [data-pustandalone] { display: none !important; }
-}
-@media (min-width: 1280px) {
-  [data-herotop] { grid-template-columns: 2fr 1.25fr 0.75fr !important; }
-  .dash-txt-desktop { display: flex !important; }
-  .dash-txt-mobile { display: none !important; }
-  .pu-card-desktop { display: flex !important; flex: 1; }
-  .pu-card-default { display: none !important; }
-  [data-herocol3] { padding-left: 12px !important; padding-right: 12px !important; padding-bottom: 0 !important; }
-  [data-pu-cardlist] { justify-content: flex-start !important; gap: 14px !important; }
-  [data-pu-card] { flex: 1; display: flex; flex-direction: column; min-height: 0; }
 }
 @media (min-width: 861px) and (max-width: 1023px) {
   [data-col2divider] { display: block !important; }
@@ -814,35 +801,13 @@ function Hero({ go, stats, animate, openProject }) {
             </div>
             <button style={{ ...s.puLink, fontSize: 12 }} onClick={() => go("projects")}>View All <Icon name="arrow" size={11} /></button>
           </div>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", gap: 8 }} data-pu-cardlist>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", gap: 8 }}>
             {projects.filter((p) => p.code !== "P1").map((p) => (
               <div key={p.code}
-                data-pu-card
-                style={{ ...glossyJS(p.accent), borderRadius: 14, overflow: "hidden", cursor: "pointer", transition: ".2s" }}
+                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden" }}
                 className={`hoverlift card-glow-${p.code.toLowerCase()}`}
                 onClick={() => openProject(p)}>
-                {/* Default layout: image-only (shown at 1081–1279px) */}
-                <div className="pu-card-default" style={{ display: "flex", flexDirection: "column" }}>
-                  {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", flexShrink: 0, background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, fontSize: 48 }}>{p.emoji}</div>}
-                </div>
-                {/* Desktop layout: logo-left / text-right, full-height card (≥1280px only) */}
-                <div className="pu-card-desktop" style={{ display: "none", flexDirection: "row", width: "100%" }}>
-                  {PROJECT_LOGOS[p.code] ? (
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0a1a", flexShrink: 0, width: "40%", alignSelf: "stretch", padding: 0 }}>
-                      <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
-                    </div>
-                  ) : (
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, width: "40%", alignSelf: "stretch", fontSize: 48 }}>{p.emoji}</div>
-                  )}
-                  <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", padding: "14px 20px 14px 32px", minWidth: 0 }}>
-                    <div style={{ fontFamily: FD, fontSize: 16, fontWeight: 800, color: PU_CARD_COLORS[p.code] || p.accent, fontStyle: "italic" }}>{p.name}</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                      <div style={{ fontSize: 12.5, fontWeight: 600, color: PU_CARD_COLORS[p.code] || p.accent, lineHeight: 1.4 }}>{PU_CARD_SUBTITLES[p.code][0]}</div>
-                      <div style={{ fontSize: 12.5, fontWeight: 600, color: PU_CARD_COLORS[p.code] || p.accent, lineHeight: 1.4 }}>{PU_CARD_SUBTITLES[p.code][1]}</div>
-                    </div>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: PU_CARD_COLORS[p.code] || p.accent, letterSpacing: ".3px" }}>{PU_CARD_TAGLINES[p.code]}</div>
-                  </div>
-                </div>
+                {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", flexShrink: 0, background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, fontSize: 48 }}>{p.emoji}</div>}
               </div>
             ))}
           </div>
@@ -861,74 +826,39 @@ function Hero({ go, stats, animate, openProject }) {
                 className={`hoverlift ${i === 0 ? "dash-glow-1" : "dash-glow-2"}`}>
                 <span className="shine" />
                 {d.major != null ? (
-                  <>
-                    <span className="dash-txt-desktop" style={{ display: "none", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                      <span style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", flex: 1, gap: 2 }}>
-                        <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[i] }}>{d.major} Major Projects</span>
-                        <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[i] }}>{d.mini} Mini Project</span>
-                      </span>
-                      <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i], marginLeft: 8 }}>→</span>
-                    </span>
-                    <span className="dash-txt-mobile" style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
-                      <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                        <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.major} · Major Projects</span>
-                        <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
-                      </span>
-                      <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.mini} · Mini Project</span>
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="dash-txt-desktop" style={{ display: "none", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                      <span style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", flex: 1, gap: 2 }}>
-                        <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[i] }}>{d.n}+</span>
-                        <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[i] }}>{d.l}</span>
-                      </span>
-                      <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i], marginLeft: 8 }}>→</span>
-                    </span>
-                    <span className="dash-txt-mobile" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                      <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.n} · {d.l}</span>
+                  <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                      <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.major} · Major Projects</span>
                       <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
                     </span>
-                  </>
+                    <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.mini} · Mini Project</span>
+                  </span>
+                ) : (
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                    <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.n} · {d.l}</span>
+                    <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
+                  </span>
                 )}
               </button>
             ))}
             {rightCards.map((d, i) => (
               <div key={d.l} style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "dash-glow-3" : "dash-glow-4"}>
                 <span className="shine" />
-                <span className="dash-txt-desktop" style={{ display: "none", flexDirection: "column", alignItems: "flex-end", width: "100%", gap: 2 }}>
-                  <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[i + 2] }}>{d.n}</span>
-                  <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[i + 2] }}>{d.l}</span>
-                </span>
-                <span className="dash-txt-mobile" style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i + 2] }}>{d.n} · {d.l}</span>
+                <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i + 2] }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
               style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
               className="hoverlift dash-glow-5">
               <span className="shine" />
-              <span className="dash-txt-desktop" style={{ display: "none", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                <span style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", flex: 1, gap: 2 }}>
-                  <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[4] }}>Layer &amp; Project</span>
-                  <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[4] }}>Progress</span>
-                </span>
-                <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[4], marginLeft: 8 }}>→</span>
-              </span>
-              <span className="dash-txt-mobile" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+              <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
                 <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[4] }}>Layer &amp; Project Progress</span>
                 <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[4] }}>→</span>
               </span>
             </button>
             <div style={{ ...s.dashCard, background: "#000000", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="dash-glow-6">
               <span className="shine" />
-              <span className="dash-txt-desktop" style={{ display: "none", flexDirection: "column", alignItems: "flex-end", width: "100%", gap: 2 }}>
-                <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[5] }}>
-                  {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"}
-                </span>
-                <span style={{ fontSize: 17, fontWeight: 700, textAlign: "right", ...DASH_GRADS[5] }}>Git Commits</span>
-              </span>
-              <span className="dash-txt-mobile" style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[5] }}>
+              <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[5] }}>
                 {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
               </span>
             </div>
