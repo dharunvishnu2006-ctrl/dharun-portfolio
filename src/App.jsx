@@ -478,11 +478,11 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-sidetags] { display: none !important; }
 }
 @media (max-width: 860px) {
-  .hero-btn-primary { background: #000000 !important; box-shadow: none !important; border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite !important; }
+  .hero-btn-primary { background: #000000 !important; animation: dashGlowCycle 21s ease-in-out infinite !important; }
   .hero-btn-viewprojects .btn-vp-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
   .hero-btn-connect .btn-mobile-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
-  .hero-btn-viewprojects { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -7s !important; }
-  .hero-btn-connect { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -14s !important; }
+  .hero-btn-viewprojects { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -7s !important; color: #f97316 !important; }
+  .hero-btn-connect { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -14s !important; color: #f97316 !important; }
   .pu-title-text { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
   .card-glow-csx .pu-card-name { color: #3b82f6 !important; -webkit-text-fill-color: #3b82f6 !important; }
   .card-glow-amx .pu-card-name { color: #8b5cf6 !important; -webkit-text-fill-color: #8b5cf6 !important; }
