@@ -41,6 +41,8 @@ const DATA = {"layers":[{"id":1,"name":"Python for Everybody","steps":"1–80","
 
 const { layers, steps, projects, courses, certs, tech, skillmap, milestones, events } = DATA;
 const PROJECT_LOGOS = { CSX: CSX_LOGO, AMX: AMX_LOGO, SAI: SAI_LOGO };
+const PU_CARD_COLORS = { CSX: "#3b82f6", AMX: "#8b5cf6", SAI: "#22c55e" };
+const PU_CARD_TAGLINES = { CSX: "Secure • Monitor • Protect", AMX: "Train • Deploy • Heal", SAI: "Detect • Respond • Defend" };
 
 // ===== TARGET TECH-STACK TO UNLOCK =====
 // each pill is one technology Dharun will master across the one-year mission.
@@ -394,6 +396,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-herotop] { grid-template-columns: 2fr 1.25fr 0.75fr !important; }
   .dash-txt-desktop { display: flex !important; }
   .dash-txt-mobile { display: none !important; }
+  .pu-card-desktop { display: flex !important; }
+  .pu-card-default { display: none !important; }
 }
 @media (min-width: 861px) and (max-width: 1023px) {
   [data-col2divider] { display: block !important; }
@@ -809,10 +813,22 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", gap: 8 }}>
             {projects.filter((p) => p.code !== "P1").map((p) => (
               <div key={p.code}
-                style={{ ...glossyJS(p.accent), display: "flex", flexDirection: "column", borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${p.accent}40`, overflow: "hidden" }}
+                style={{ ...glossyJS(p.accent), borderRadius: 14, overflow: "hidden", cursor: "pointer", transition: ".2s" }}
                 className={`hoverlift card-glow-${p.code.toLowerCase()}`}
                 onClick={() => openProject(p)}>
-                {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", flexShrink: 0, background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, fontSize: 48 }}>{p.emoji}</div>}
+                {/* Default layout: image-only (shown at 1081–1279px) */}
+                <div className="pu-card-default" style={{ display: "flex", flexDirection: "column" }}>
+                  {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", flexShrink: 0, background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, fontSize: 48 }}>{p.emoji}</div>}
+                </div>
+                {/* Desktop layout: logo-left / text-right (≥1280px only) */}
+                <div className="pu-card-desktop" style={{ display: "none", alignItems: "center", padding: "10px 14px 10px 10px", gap: 12 }}>
+                  {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: 72, height: 72, objectFit: "contain", flexShrink: 0, borderRadius: 8, background: "#0a0a1a" }} /> : <div style={{ width: 72, height: 72, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, borderRadius: 8, fontSize: 36 }}>{p.emoji}</div>}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4, flex: 1, minWidth: 0 }}>
+                    <div style={{ fontFamily: FD, fontSize: 15, fontWeight: 800, color: PU_CARD_COLORS[p.code] || p.accent, fontStyle: "italic" }}>{p.name}</div>
+                    <div style={{ fontSize: 11.5, color: "#dbe4ff", fontWeight: 500, lineHeight: 1.35 }}>{p.desc}</div>
+                    <div style={{ fontSize: 11.5, fontWeight: 700, color: PU_CARD_COLORS[p.code] || p.accent, letterSpacing: ".3px" }}>{PU_CARD_TAGLINES[p.code]}</div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
