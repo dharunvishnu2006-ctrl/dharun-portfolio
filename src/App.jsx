@@ -477,7 +477,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-pugrid] { grid-template-columns: 1fr !important; }
   [data-sidetags] { display: none !important; }
 }
-@media (max-width: 860px) {
+@media (max-width: 1023px) {
   .hero-btn-primary { background: #000000 !important; animation: dashGlowCycle 21s ease-in-out infinite !important; color: #f97316 !important; }
   .hero-btn-primary .btn-ej-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
   .hero-btn-viewprojects .btn-vp-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
