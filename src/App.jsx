@@ -1377,14 +1377,14 @@ function Roadmap({ progress, admin, openLogin }) {
 
 // ============ PROJECTS ============
 function Projects({ openProject }) {
-  const tc = { Flagship: C.gold, Masterpiece: C.magenta, "Mini Project": C.green };
+  const pc = { CSX: C.blue, AMX: C.purple, SAI: C.green, P1: C.green };
   return (
     <div style={s.shell}>
       <div style={s.sec}>
         <div style={s.secHead}>
-          <div style={s.secKicker}><Icon name="rocket" size={14} color={C.cyan} /> PROJECT ECOSYSTEM</div>
+          <div style={s.secKicker}><Icon name="rocket" size={14} color={C.cyan} /> PROJECT GALLERY</div>
           <h2 style={s.secTitle}>4 Production Projects</h2>
-          <p style={s.secSub}>Two flagships, one masterpiece, one ecosystem project. Tap any project to open it.</p>
+          <p style={s.secSub}>Two flagships, one masterpiece, one mini project. Tap any project to open it.</p>
         </div>
         <div style={s.projGrid}>
           {projects.map((p) => (
@@ -1393,11 +1393,11 @@ function Projects({ openProject }) {
               {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", display: "block", borderRadius: "20px 20px 0 0" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", borderRadius: "20px 20px 0 0", fontSize: 64 }}>{p.emoji}</div>}
               <div style={{ padding: "16px 22px 20px" }}>
                 <div style={s.projTop}>
-                  <span style={{ ...s.projTag, background: (tc[p.tag] || C.blue) + "33", color: "#fff", border: `1px solid ${(tc[p.tag] || C.blue)}88` }}>{p.tag}</span>
-                  {p.subtag && <span style={{ ...s.projTag, background: C.cyan + "33", color: "#fff", border: `1px solid ${C.cyan}88` }}>{p.subtag}</span>}
+                  <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: "#fff", border: `1px solid ${pc[p.code] || C.gold}88` }}>{p.tag}</span>
+                  {p.subtag && <span style={{ ...s.projTag, background: (p.code === "P1" ? C.gold : C.cyan) + "33", color: "#fff", border: `1px solid ${p.code === "P1" ? C.gold : C.cyan}88` }}>{p.subtag}</span>}
                 </div>
                 <div style={{ ...s.projName, color: { CSX: "#3b82f6", AMX: "#8b5cf6", SAI: "#22c55e" }[p.code] || "#fff" }}>{p.name}</div>
-                {!PROJECT_LOGOS[p.code] && <div style={s.projDesc}>{p.desc}</div>}
+                {!PROJECT_LOGOS[p.code] && <div style={{ ...s.projDesc, color: "#bbf7d0" }}>{p.desc}</div>}
                 <div style={s.projFoot}><Icon name="arrow" size={13} color={p.accent} style={{ marginLeft: "auto" }} /></div>
               </div>
             </div>
