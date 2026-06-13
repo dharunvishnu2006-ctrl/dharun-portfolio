@@ -115,7 +115,7 @@ const s = {
 
   // HERO
   hero: { position: "relative", padding: "40px 0 18px" },
-  heroTop: { display: "grid", gridTemplateColumns: "2fr 1.25fr 0.75fr", gap: 16, alignItems: "stretch" },
+  heroTop: { display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 16, alignItems: "stretch" },
   heroMain: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "flex-start", position: "relative", overflow: "visible" },
 
   // animated globe behind hero
@@ -389,6 +389,9 @@ button:hover { filter: brightness(1.12); }
 input:focus { border-color: rgba(120,150,255,.65) !important; }
 @media (min-width: 1081px) {
   [data-pustandalone] { display: none !important; }
+}
+@media (min-width: 1280px) {
+  [data-herotop] { grid-template-columns: 2fr 1.25fr 0.75fr !important; }
   .dash-txt-desktop { display: flex !important; }
   .dash-txt-mobile { display: none !important; }
 }
