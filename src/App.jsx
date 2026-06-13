@@ -399,8 +399,8 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   .dash-txt-mobile { display: none !important; }
   .pu-card-desktop { display: flex !important; flex: 1; }
   .pu-card-default { display: none !important; }
-  [data-herocol3] { padding-left: 4px !important; padding-right: 4px !important; }
-  [data-pu-cardlist] { justify-content: flex-start !important; gap: 6px !important; }
+  [data-herocol3] { padding-left: 12px !important; padding-right: 12px !important; padding-bottom: 0 !important; }
+  [data-pu-cardlist] { justify-content: flex-start !important; gap: 14px !important; }
   [data-pu-card] { flex: 1; display: flex; flex-direction: column; min-height: 0; }
 }
 @media (min-width: 861px) and (max-width: 1023px) {
@@ -828,13 +828,13 @@ function Hero({ go, stats, animate, openProject }) {
                 {/* Desktop layout: logo-left / text-right, full-height card (≥1280px only) */}
                 <div className="pu-card-desktop" style={{ display: "none", flexDirection: "row", width: "100%" }}>
                   {PROJECT_LOGOS[p.code] ? (
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0a1a", flexShrink: 0, width: "40%", alignSelf: "stretch", padding: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0a1a", flexShrink: 0, width: "40%", alignSelf: "stretch", padding: 0 }}>
                       <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                     </div>
                   ) : (
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", flexShrink: 0, width: "40%", alignSelf: "stretch", fontSize: 48 }}>{p.emoji}</div>
                   )}
-                  <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", padding: "14px 16px", minWidth: 0 }}>
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", padding: "14px 20px 14px 32px", minWidth: 0 }}>
                     <div style={{ fontFamily: FD, fontSize: 16, fontWeight: 800, color: PU_CARD_COLORS[p.code] || p.accent, fontStyle: "italic" }}>{p.name}</div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                       <div style={{ fontSize: 12.5, fontWeight: 600, color: PU_CARD_COLORS[p.code] || p.accent, lineHeight: 1.4 }}>{PU_CARD_SUBTITLES[p.code][0]}</div>
