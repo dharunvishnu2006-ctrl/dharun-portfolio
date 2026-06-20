@@ -83,7 +83,7 @@ const gradText = { background: RAINBOW, WebkitBackgroundClip: "text", WebkitText
 
 // glossy colored box factory
 const glossy = (hex) => ({
-  background: `linear-gradient(150deg, ${hex}28, ${hex}0a 55%, rgba(10,14,30,0.7))`,
+  background: `linear-gradient(150deg, ${hex}28, ${hex}0a 55%, rgba(10,14,30,0.45))`,
   border: `1px solid ${hex}66`,
   boxShadow: `0 8px 30px ${hex}22, inset 0 1px 0 ${hex}33`,
 });
@@ -874,7 +874,7 @@ function Hero({ go, stats, animate, openProject }) {
 // helper to inline glossy (since `glossy` defined in styles file scope)
 function glossyJS(hex) {
   return {
-    background: `linear-gradient(150deg, ${hex}33, ${hex}10 55%, rgba(10,14,30,0.6))`,
+    background: `linear-gradient(150deg, ${hex}33, ${hex}10 55%, rgba(10,14,30,0.45))`,
     border: `1px solid ${hex}66`,
     boxShadow: `inset 0 1px 0 ${hex}44`,
   };
