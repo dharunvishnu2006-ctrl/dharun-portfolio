@@ -140,8 +140,8 @@ const s = {
   roleDot: { WebkitTextFillColor: C.magenta },
   quoteBox: { display: "flex", gap: 12, marginTop: 22, maxWidth: 460 },
   quoteMark: { fontFamily: "Georgia, serif", fontSize: 52, lineHeight: 0.8, color: C.cyan, fontWeight: 700, opacity: 0.9, marginTop: -6, textShadow: "0 0 16px rgba(34,211,238,.5)" },
-  quoteText: { fontSize: 24, ...gradText, lineHeight: 1.5, fontWeight: 600, fontStyle: "italic" },
-  quoteAccent: { background: "linear-gradient(110deg,#fbbf24,#e040fb,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontWeight: 800, textShadow: "none" },
+  quoteText: { fontSize: 24, color: "#fff", lineHeight: 1.5, fontWeight: 600, fontStyle: "italic" },
+  quoteAccent: { color: "#22d3ee", WebkitTextFillColor: "#22d3ee", fontWeight: 800, textShadow: "none" },
   heroBtns: { display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 },
   btnPrimary: { display: "inline-flex", alignItems: "center", gap: 9, background: "linear-gradient(135deg,#2563eb,#7c3aed)", color: "#fff", border: "none", padding: "13px 22px", borderRadius: 14, fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: FB, boxShadow: "0 8px 28px rgba(59,130,246,.45), inset 0 1px 0 rgba(255,255,255,.25)", transition: ".2s" },
   btnGlass: { display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(120,150,255,.1)", color: "#eaf0ff", border: "1px solid " + C.borderHi, padding: "13px 22px", borderRadius: 14, fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s" },
@@ -488,17 +488,17 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-sidetags] { display: none !important; }
 }
 @media (max-width: 1023px) {
-  .hero-btn-primary { background: #000000 !important; animation: dashGlowCycle 21s ease-in-out infinite !important; color: #f97316 !important; }
-  .hero-btn-primary .btn-ej-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
-  .hero-btn-viewprojects .btn-vp-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
-  .hero-btn-connect .btn-mobile-label { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
-  .hero-btn-viewprojects { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -7s !important; color: #f97316 !important; }
-  .hero-btn-connect { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -14s !important; color: #f97316 !important; }
-  .pu-title-text { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
+  .hero-btn-primary { background: #000000 !important; animation: dashGlowCycle 21s ease-in-out infinite !important; color: #fff !important; }
+  .hero-btn-primary .btn-ej-label { color: #fff !important; -webkit-text-fill-color: #fff !important; background: none !important; }
+  .hero-btn-viewprojects .btn-vp-label { color: #fff !important; -webkit-text-fill-color: #fff !important; background: none !important; }
+  .hero-btn-connect .btn-mobile-label { color: #fff !important; -webkit-text-fill-color: #fff !important; background: none !important; }
+  .hero-btn-viewprojects { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -7s !important; color: #fff !important; }
+  .hero-btn-connect { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -14s !important; color: #fff !important; }
+  .pu-title-text { color: #22d3ee !important; -webkit-text-fill-color: #22d3ee !important; background: none !important; }
   .card-glow-csx .pu-card-name { color: #3b82f6 !important; -webkit-text-fill-color: #3b82f6 !important; }
   .card-glow-amx .pu-card-name { color: #8b5cf6 !important; -webkit-text-fill-color: #8b5cf6 !important; }
   .card-glow-sai .pu-card-name { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
-  [data-monthabsolute] { background: linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; }
+  [data-monthabsolute] { color: #8b949e !important; -webkit-text-fill-color: #8b949e !important; background: none !important; }
 }
 `;
 
@@ -686,14 +686,14 @@ function Hero({ go, stats, animate, openProject }) {
     return () => { cancelled = true; };
   }, []);
 
-  const fullRainbow = { background: "linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" };
+  const fullRainbow = { color: "#22d3ee" };
   const DASH_GRADS = [
-    { background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
-    { background: "linear-gradient(90deg,#f97316,#fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
-    { background: "linear-gradient(90deg,#fbbf24,#22c55e)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
-    { background: "linear-gradient(90deg,#22c55e,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
-    { background: "linear-gradient(90deg,#22d3ee,#3b82f6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
-    { background: "linear-gradient(90deg,#3b82f6,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" },
+    { color: "#fff" },
+    { color: "#fff" },
+    { color: "#fff" },
+    { color: "#fff" },
+    { color: "#fff" },
+    { color: "#fff" },
   ];
   const leftCards = [
     { major: majorProjs, mini: miniProjs, c: "#8b5cf6", page: "projects" },
@@ -724,7 +724,7 @@ function Hero({ go, stats, animate, openProject }) {
             {/* divider + CONNECT — desktop only */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "22px 0 0" }} />
             <div data-col2connect style={{ marginBottom: 0 }}>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "4px 0 12px", marginLeft: 18, textAlign: "left", ...gradText }}>CONNECT →</div>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "4px 0 12px", marginLeft: 18, textAlign: "left", color: "#22d3ee" }}>CONNECT →</div>
               <div style={{ display: "flex", flexDirection: "row", gap: 24, marginLeft: 18 }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
@@ -754,13 +754,13 @@ function Hero({ go, stats, animate, openProject }) {
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
             </h1>
-            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000", border: "none", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box" }} className="dash-glow-7">
-              <span style={{ whiteSpace: "nowrap", background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>BSc IT</span>
-              <span style={{ ...s.roleDot, WebkitTextFillColor: "#fbbf24" }}>•</span>
+            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "#000000", border: "none", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box", WebkitTextFillColor: "#fff" }} className="dash-glow-7">
+              <span style={{ whiteSpace: "nowrap", color: "#fff" }}>BSc IT</span>
+              <span style={{ ...s.roleDot, WebkitTextFillColor: "#fff" }}>•</span>
               <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                <span style={{ background: "linear-gradient(90deg,#f97316,#fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Creator of CloudShield X</span>
-                <span style={{ background: "linear-gradient(90deg,#22c55e,#22d3ee)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>AutoPilot ML X</span>
-                <span style={{ background: "linear-gradient(90deg,#3b82f6,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>SentinelAI India</span>
+                <span style={{ color: "#fff" }}>Creator of CloudShield X</span>
+                <span style={{ color: "#fff" }}>AutoPilot ML X</span>
+                <span style={{ color: "#fff" }}>SentinelAI India</span>
               </span>
             </div>
             <div style={s.quoteBox} data-quotebox>
@@ -770,13 +770,13 @@ function Hero({ go, stats, animate, openProject }) {
             {/* divider + BECOMING */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
             <div data-col2becoming>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", ...gradText }}>BECOMING →</div>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", color: "#22d3ee" }}>BECOMING →</div>
               <div style={{ background: "#000000", border: "none", borderRadius: 16, padding: "20px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, minHeight: 150, alignContent: "space-evenly" }} className="dash-glow-8">
                 {[
-                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan,    lc: "#ef4444" },
-                  { label: "Problem Solver", icon: "target", color: C.purple,   lc: "#f97316" },
-                  { label: "Cyber Security", icon: "shield", color: "#ef4444",  lc: "#22c55e" },
-                  { label: "Cloud Builder",  icon: "layers", color: C.blue,     lc: "#a855f7" },
+                  { label: "AI/ML Engineer", icon: "code",   color: C.cyan,    lc: "#fff" },
+                  { label: "Problem Solver", icon: "target", color: C.purple,   lc: "#fff" },
+                  { label: "Cyber Security", icon: "shield", color: "#ef4444",  lc: "#fff" },
+                  { label: "Cloud Builder",  icon: "layers", color: C.blue,     lc: "#fff" },
                 ].map(({ label, icon, color, lc }) => (
                   <span key={label} style={{ display: "flex", alignItems: "center", gap: 9, fontSize: 17, fontWeight: 700, color: lc }}>
                     <Icon name={icon} size={17} color={color} />{label}
@@ -797,7 +797,7 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Icon name="rocket" size={14} color={C.cyan} />
-              <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", ...fullRainbow }}>PROJECT UNIVERSE</span>
+              <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", color: "#22d3ee" }}>PROJECT UNIVERSE</span>
             </div>
             <button style={{ ...s.puLink, fontSize: 12 }} onClick={() => go("projects")}>View All <Icon name="arrow" size={11} /></button>
           </div>
@@ -816,7 +816,7 @@ function Hero({ go, stats, animate, openProject }) {
         {/* COL 4: Journey Dashboard */}
         <div data-dashcol4 style={{ ...s.dash, background: "transparent", border: "none", boxShadow: "none", backdropFilter: "none", padding: 14, gap: 0, marginRight: 8 }} className="dash-calm">
           <div style={{ ...s.dashHead, marginBottom: 10, flexShrink: 0 }}>
-            <div style={{ ...s.dashTitle, whiteSpace: "nowrap", ...fullRainbow }}>JOURNEY DASHBOARD</div>
+            <div style={{ ...s.dashTitle, whiteSpace: "nowrap", color: "#22d3ee" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, justifyContent: "space-evenly" }} data-dashgrid>
@@ -943,7 +943,7 @@ function GithubGraph() {
   return (
     <div data-graphbox style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
       <div style={{ fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-        <Icon name="github" size={16} color="#7ee787" /><span style={{ background: "linear-gradient(90deg,#ef4444,#f97316,#fbbf24,#22c55e,#22d3ee,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GITHUB COMMIT GRAPH</span>
+        <Icon name="github" size={16} color="#7ee787" /><span style={{ color: "#22d3ee" }}>GITHUB COMMIT GRAPH</span>
       </div>
       <div data-graphscroll style={{ background: "#0d1117", borderRadius: 8, padding: "16px", overflowX: "auto" }}>
         {err && <div style={{ color: "#8b949e", fontSize: 13 }}>Could not load commit data right now.</div>}
@@ -955,13 +955,13 @@ function GithubGraph() {
                 <div data-monthabsolute key={i} style={{ position: "absolute", left: m.index * (CELL + GAP), fontSize: 10, color: "#8b949e" }}>{m.label}</div>
               ))}
               {monthRanges.map((m, i) => (
-                <div data-monthflex key={`f${i}`} style={{ flex: m.weeks, fontSize: 10, overflow: "hidden", background: RAINBOW_GRADS[i % RAINBOW_GRADS.length], WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{m.label}</div>
+                <div data-monthflex key={`f${i}`} style={{ flex: m.weeks, fontSize: 10, overflow: "hidden", color: "#8b949e" }}>{m.label}</div>
               ))}
             </div>
             <div data-graphweeks style={{ display: "flex", gap: GAP }}>
               <div data-graphdaylabels style={{ display: "flex", flexDirection: "column", gap: GAP, marginRight: 4, width: 26 }}>
                 {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
-                  <div data-daylabelcell key={i} style={d ? { height: CELL, fontSize: 9, lineHeight: `${CELL}px`, background: RAINBOW_GRADS[i % RAINBOW_GRADS.length], WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" } : { height: CELL, fontSize: 9, lineHeight: `${CELL}px` }}>{d}</div>
+                  <div data-daylabelcell key={i} style={d ? { height: CELL, fontSize: 9, lineHeight: `${CELL}px`, color: "#8b949e" } : { height: CELL, fontSize: 9, lineHeight: `${CELL}px` }}>{d}</div>
                 ))}
               </div>
               {weeks.map((week, wi) => (
@@ -982,11 +982,11 @@ function GithubGraph() {
         )}
       </div>
       <div data-graphlegend style={{ display: "flex", alignItems: "center", gap: 4, justifyContent: "flex-end", marginTop: 10 }}>
-        <span style={{ fontSize: 11, marginRight: 4, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Less</span>
+        <span style={{ fontSize: 11, marginRight: 4, color: "#8b949e" }}>Less</span>
         {LEVELS.map((color, i) => (
           <div key={i} style={{ width: 12, height: 12, borderRadius: 2, background: color }} />
         ))}
-        <span style={{ fontSize: 11, marginLeft: 4, background: "linear-gradient(90deg,#3b82f6,#a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>More</span>
+        <span style={{ fontSize: 11, marginLeft: 4, color: "#8b949e" }}>More</span>
       </div>
     </div>
   );
