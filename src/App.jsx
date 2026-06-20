@@ -2269,6 +2269,123 @@ function LayerProjectProgress({ go, stats, done }) {
   );
 }
 
+// ============ STARFIELD CANVAS ============
+function StarfieldCanvas() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    const COLORS = ["#00f0ff", "#a855f7", "#22c55e"];
+    const COUNT = 130;
+
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    const particles = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: 0.5 + Math.random() * 2,
+      vx: (Math.random() - 0.5) * 18,
+      vy: (Math.random() - 0.5) * 18,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      baseOpacity: 0.3 + Math.random() * 0.7,
+      phase: Math.random() * Math.PI * 2,
+      twinkleSpeed: 0.2 + Math.random() * 0.6,
+      ox: 0, oy: 0,
+      tx: 0, ty: 0,
+    }));
+
+    const mouse = { x: W / 2, y: H / 2 };
+
+    const onMouseMove = (e) => {
+      const prevX = mouse.x;
+      const prevY = mouse.y;
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      const mdx = mouse.x - prevX;
+      const mdy = mouse.y - prevY;
+      particles.forEach((p) => {
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 160 && dist > 0) {
+          const strength = (1 - dist / 160) * 12;
+          p.tx += (dx / dist) * strength + mdx * 0.15;
+          p.ty += (dy / dist) * strength + mdy * 0.15;
+        }
+      });
+    };
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+
+    const onResize = () => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+    };
+    window.addEventListener("resize", onResize);
+
+    let rafId;
+    let lastTs = 0;
+
+    const tick = (ts) => {
+      const dt = lastTs ? Math.min((ts - lastTs) / 1000, 0.05) : 0.016;
+      lastTs = ts;
+
+      ctx.clearRect(0, 0, W, H);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+
+        if (p.x < -4) p.x = W + 4;
+        else if (p.x > W + 4) p.x = -4;
+        if (p.y < -4) p.y = H + 4;
+        else if (p.y > H + 4) p.y = -4;
+
+        p.ox += (p.tx - p.ox) * 0.07;
+        p.oy += (p.ty - p.oy) * 0.07;
+        p.tx *= 0.88;
+        p.ty *= 0.88;
+
+        const twinkle = 0.5 + 0.5 * Math.sin(p.phase + ts * 0.001 * p.twinkleSpeed * Math.PI * 2);
+        const opacity = p.baseOpacity * (0.35 + 0.65 * twinkle);
+
+        ctx.globalAlpha = opacity;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x + p.ox, p.y + p.oy, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", zIndex: -10, pointerEvents: "none" }}
+    />
+  );
+}
+
 // ============ APP ============
 export default function App() {
   const [page, setPage] = useState("home");
@@ -2333,6 +2450,7 @@ export default function App() {
 
   return (
     <div style={s.app}>
+      <StarfieldCanvas />
       <style>{css}</style>
       <div style={s.bgFx} />
       <div style={s.grid} />
