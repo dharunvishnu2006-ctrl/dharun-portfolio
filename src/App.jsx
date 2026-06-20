@@ -187,7 +187,7 @@ const s = {
   quoteBig: { fontFamily: FD, fontSize: 21, fontWeight: 700, color: "#fff", lineHeight: 1.4, position: "relative", fontStyle: "italic" },
   quoteBy: { fontSize: 15, ...gradText, fontWeight: 800, marginTop: 16, position: "relative", fontStyle: "italic" },
 
-  techPanel: { ...glossy("#3b82f6"), background: "rgba(0,0,0,0.25)", backdropFilter: "none", borderRadius: 24, padding: "24px 24px 26px", marginTop: 18 },
+  techPanel: { ...glossy("#3b82f6"), background: "rgba(0,0,0,0.25)", border: "none", backdropFilter: "none", borderRadius: 24, padding: "24px 24px 26px", marginTop: 18 },
   techTitle: { fontFamily: FD, fontSize: 13.5, fontWeight: 800, color: "#fff", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 20 },
   techRow: { display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "space-between" },
   techItem: { display: "flex", flexDirection: "column", alignItems: "center", gap: 9, flex: "1 1 auto", minWidth: 76 },
@@ -278,7 +278,7 @@ const s = {
   verName: { fontFamily: FD, fontSize: 22, fontWeight: 800, fontStyle: "italic", marginTop: 0, position: "relative" },
 
   // CONTACT
-  contactPanel: { ...glossy("#3b82f6"), background: "rgba(0,0,0,0.25)", backdropFilter: "none", borderRadius: 24, padding: "44px", textAlign: "center", position: "relative", overflow: "hidden" },
+  contactPanel: { ...glossy("#3b82f6"), background: "rgba(0,0,0,0.25)", border: "none", backdropFilter: "none", borderRadius: 24, padding: "44px", textAlign: "center", position: "relative", overflow: "hidden" },
   contactTitle: { fontFamily: FD, fontSize: 30, fontWeight: 800, ...gradText, position: "relative", fontStyle: "italic" },
   contactSub: { color: C.dim, fontSize: 16, marginTop: 10, marginBottom: 26, position: "relative", fontWeight: 500 },
   contactBtns: { display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", position: "relative" },
