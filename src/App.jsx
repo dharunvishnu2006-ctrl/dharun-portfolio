@@ -2425,8 +2425,14 @@ function StarfieldCanvas() {
 }
 
 // ============ APP ============
+const VALID_PAGES = new Set(["home","journey","roadmap","projects","myprojects","commits","versions","certs","contact","techstack","layerprogress"]);
+function getPageFromUrl() {
+  const hash = window.location.hash.slice(1);
+  return VALID_PAGES.has(hash) ? hash : "home";
+}
+
 export default function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(getPageFromUrl);
   const [admin, setAdmin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showPw, setShowPw] = useState(false);
@@ -2483,7 +2489,24 @@ export default function App() {
     return { steps: stepCount, days: maxDay, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct, layersStarted, currentLayerPct: currentLayer.pct, currentLayerName: currentLayer.name, currentLayerId: currentLayer.id };
   }, [done, certLinks]);
 
-  const go = (id) => { setPage(id); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  // Wire up browser history so back/forward buttons navigate within the site
+  useEffect(() => {
+    window.history.replaceState({ page: getPageFromUrl() }, "");
+    const onPop = (e) => {
+      const id = (e.state && VALID_PAGES.has(e.state.page)) ? e.state.page : getPageFromUrl();
+      setPage(id);
+      window.scrollTo({ top: 0 });
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const go = (id) => {
+    if (id === page) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    setPage(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.history.pushState({ page: id }, "", id === "home" ? window.location.pathname : "#" + id);
+  };
   const openProject = (p) => setActiveProject(p);
 
   return (
