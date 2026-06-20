@@ -2150,7 +2150,7 @@ function LayerProjectProgress({ go, stats, done }) {
     borderRadius: 13, transition: "width .8s ease",
   });
   const barTrack = {
-    position: "relative", height: 26, borderRadius: 13,
+    position: "relative", height: 13, borderRadius: 13,
     background: "rgba(10,14,30,.6)", border: "1px solid " + C.border,
     overflow: "hidden", width: "100%",
   };
@@ -2209,9 +2209,11 @@ function LayerProjectProgress({ go, stats, done }) {
                     })}
                   </div>
                 </div>
-                <div style={barTrack}>
-                  <div style={barStyle(p.progress)} />
-                  <div style={barLabel}>{p.progress}%</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ ...barTrack, flex: 1 }}>
+                    <div style={barStyle(p.progress)} />
+                  </div>
+                  <span style={{ fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)", flexShrink: 0 }}>{p.progress}%</span>
                 </div>
               </div>
             </div>
@@ -2240,9 +2242,12 @@ function LayerProjectProgress({ go, stats, done }) {
                 );
               })}
             </div>
-            <div style={barTrack}>
-              <div style={barStyle(curLayerPct)} />
-              <div style={barLabel}>Layer {stats.currentLayerId} · {curLayerPct}%</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)", flexShrink: 0, whiteSpace: "nowrap" }}>Layer {stats.currentLayerId} · {LAYER_NAMES[stats.currentLayerId - 1]}</span>
+              <div style={{ ...barTrack, flex: 1 }}>
+                <div style={barStyle(curLayerPct)} />
+              </div>
+              <span style={{ fontFamily: FD, fontWeight: 800, fontSize: 11, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)", flexShrink: 0 }}>{curLayerPct}%</span>
             </div>
             </div>
           </div>
@@ -2250,9 +2255,11 @@ function LayerProjectProgress({ go, stats, done }) {
           {/* Section 5: Mission Progress */}
           <div style={{ ...glossyJS(C.green), borderRadius: 20, padding: "18px 22px" }}>
             <div style={{ fontFamily: FM, fontSize: 15, fontWeight: 800, color: "#fff", letterSpacing: ".5px", marginBottom: 10 }}>MISSION PROGRESS</div>
-            <div style={{ ...barTrack, height: 28 }}>
-              <div style={{ ...barStyle(missionPct), background: "linear-gradient(90deg, #16a34a, #22c55e 60%, #22c55e)" }} />
-              <div style={{ ...barLabel, fontSize: 13 }}>{missionPct}%</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ ...barTrack, height: 14, flex: 1 }}>
+                <div style={{ ...barStyle(missionPct), background: "linear-gradient(90deg, #16a34a, #22c55e 60%, #22c55e)" }} />
+              </div>
+              <span style={{ fontFamily: FD, fontWeight: 800, fontSize: 13, color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,.6)", flexShrink: 0 }}>{missionPct}%</span>
             </div>
           </div>
 
