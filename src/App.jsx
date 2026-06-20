@@ -2278,27 +2278,32 @@ function StarfieldCanvas() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
-    const COLORS = ["#00f0ff", "#a855f7", "#22c55e"];
-    const COUNT = 130;
+    const COLORS = ["#00f0ff", "#a855f7", "#22c55e", "#ec4899", "#fbbf24", "#ffffff"];
+    const COUNT = 275;
+    const TAU = Math.PI * 2;
+    const BRIGHT_RATIO = 0.13; // ~36 bright stars
 
     let W = window.innerWidth;
     let H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
 
-    const particles = Array.from({ length: COUNT }, () => ({
+    const mkParticle = (bright) => ({
       x: Math.random() * W,
       y: Math.random() * H,
-      r: 0.5 + Math.random() * 2,
+      r: bright ? 2.0 : 0.5 + Math.random() * 1.0,
       vx: (Math.random() - 0.5) * 18,
       vy: (Math.random() - 0.5) * 18,
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      baseOpacity: 0.3 + Math.random() * 0.7,
-      phase: Math.random() * Math.PI * 2,
-      twinkleSpeed: 0.2 + Math.random() * 0.6,
-      ox: 0, oy: 0,
-      tx: 0, ty: 0,
-    }));
+      phase: Math.random() * TAU,
+      twinkleSpeed: 0.3 + Math.random() * 0.7,
+      ox: 0, oy: 0, tx: 0, ty: 0,
+    });
+
+    const brightCount = Math.floor(COUNT * BRIGHT_RATIO);
+    const dimParticles = Array.from({ length: COUNT - brightCount }, () => mkParticle(false));
+    const brightParticles = Array.from({ length: brightCount }, () => mkParticle(true));
+    const allParticles = [...dimParticles, ...brightParticles];
 
     const mouse = { x: W / 2, y: H / 2 };
 
@@ -2309,7 +2314,8 @@ function StarfieldCanvas() {
       mouse.y = e.clientY;
       const mdx = mouse.x - prevX;
       const mdy = mouse.y - prevY;
-      particles.forEach((p) => {
+      for (let i = 0; i < allParticles.length; i++) {
+        const p = allParticles[i];
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -2318,7 +2324,7 @@ function StarfieldCanvas() {
           p.tx += (dx / dist) * strength + mdx * 0.15;
           p.ty += (dy / dist) * strength + mdy * 0.15;
         }
-      });
+      }
     };
     window.addEventListener("mousemove", onMouseMove, { passive: true });
 
@@ -2333,38 +2339,55 @@ function StarfieldCanvas() {
     let rafId;
     let lastTs = 0;
 
+    const updateParticle = (p, dt) => {
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      if (p.x < -4) p.x = W + 4;
+      else if (p.x > W + 4) p.x = -4;
+      if (p.y < -4) p.y = H + 4;
+      else if (p.y > H + 4) p.y = -4;
+      p.ox += (p.tx - p.ox) * 0.07;
+      p.oy += (p.ty - p.oy) * 0.07;
+      p.tx *= 0.88;
+      p.ty *= 0.88;
+    };
+
     const tick = (ts) => {
       const dt = lastTs ? Math.min((ts - lastTs) / 1000, 0.05) : 0.016;
       lastTs = ts;
+      const tsMs = ts * 0.001;
 
       ctx.clearRect(0, 0, W, H);
 
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        p.x += p.vx * dt;
-        p.y += p.vy * dt;
-
-        if (p.x < -4) p.x = W + 4;
-        else if (p.x > W + 4) p.x = -4;
-        if (p.y < -4) p.y = H + 4;
-        else if (p.y > H + 4) p.y = -4;
-
-        p.ox += (p.tx - p.ox) * 0.07;
-        p.oy += (p.ty - p.oy) * 0.07;
-        p.tx *= 0.88;
-        p.ty *= 0.88;
-
-        const twinkle = 0.5 + 0.5 * Math.sin(p.phase + ts * 0.001 * p.twinkleSpeed * Math.PI * 2);
-        const opacity = p.baseOpacity * (0.35 + 0.65 * twinkle);
-
-        ctx.globalAlpha = opacity;
+      // Pass 1: tiny dim particles — no shadowBlur for performance
+      ctx.shadowBlur = 0;
+      for (let i = 0; i < dimParticles.length; i++) {
+        const p = dimParticles[i];
+        updateParticle(p, dt);
+        const twinkle = (1 + Math.sin(p.phase + tsMs * p.twinkleSpeed * TAU)) * 0.5;
+        ctx.globalAlpha = 0.1 + 0.9 * twinkle;
         ctx.fillStyle = p.color;
         ctx.beginPath();
-        ctx.arc(p.x + p.ox, p.y + p.oy, p.r, 0, Math.PI * 2);
+        ctx.arc(p.x + p.ox, p.y + p.oy, p.r, 0, TAU);
         ctx.fill();
       }
 
+      // Pass 2: bright star particles — shadowBlur glow per particle
+      for (let i = 0; i < brightParticles.length; i++) {
+        const p = brightParticles[i];
+        updateParticle(p, dt);
+        const twinkle = (1 + Math.sin(p.phase + tsMs * p.twinkleSpeed * TAU)) * 0.5;
+        const opacity = 0.1 + 0.9 * twinkle;
+        ctx.globalAlpha = opacity;
+        ctx.fillStyle = p.color;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 10 * twinkle;
+        ctx.beginPath();
+        ctx.arc(p.x + p.ox, p.y + p.oy, p.r, 0, TAU);
+        ctx.fill();
+      }
+
+      ctx.shadowBlur = 0;
       ctx.globalAlpha = 1;
       rafId = requestAnimationFrame(tick);
     };
