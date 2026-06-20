@@ -83,7 +83,7 @@ const gradText = { background: RAINBOW, WebkitBackgroundClip: "text", WebkitText
 
 // glossy colored box factory
 const glossy = (hex) => ({
-  background: `linear-gradient(150deg, ${hex}28, ${hex}0a 55%, rgba(10,14,30,0.45))`,
+  background: `linear-gradient(150deg, ${hex}28, ${hex}0a 55%, rgba(10,14,30,0.20))`,
   border: `1px solid ${hex}66`,
   boxShadow: `0 8px 30px ${hex}22, inset 0 1px 0 ${hex}33`,
 });
@@ -187,7 +187,7 @@ const s = {
   quoteBig: { fontFamily: FD, fontSize: 21, fontWeight: 700, color: "#fff", lineHeight: 1.4, position: "relative", fontStyle: "italic" },
   quoteBy: { fontSize: 15, ...gradText, fontWeight: 800, marginTop: 16, position: "relative", fontStyle: "italic" },
 
-  techPanel: { ...glossy("#3b82f6"), background: "rgba(0,0,0,0.4)", backdropFilter: "none", borderRadius: 24, padding: "24px 24px 26px", marginTop: 18 },
+  techPanel: { ...glossy("#3b82f6"), background: "rgba(0,0,0,0.25)", backdropFilter: "none", borderRadius: 24, padding: "24px 24px 26px", marginTop: 18 },
   techTitle: { fontFamily: FD, fontSize: 13.5, fontWeight: 800, color: "#fff", letterSpacing: "1px", textTransform: "uppercase", marginBottom: 20 },
   techRow: { display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "space-between" },
   techItem: { display: "flex", flexDirection: "column", alignItems: "center", gap: 9, flex: "1 1 auto", minWidth: 76 },
@@ -278,7 +278,7 @@ const s = {
   verName: { fontFamily: FD, fontSize: 22, fontWeight: 800, fontStyle: "italic", marginTop: 0, position: "relative" },
 
   // CONTACT
-  contactPanel: { ...glossy("#3b82f6"), background: "rgba(0,0,0,0.4)", backdropFilter: "none", borderRadius: 24, padding: "44px", textAlign: "center", position: "relative", overflow: "hidden" },
+  contactPanel: { ...glossy("#3b82f6"), background: "rgba(0,0,0,0.25)", backdropFilter: "none", borderRadius: 24, padding: "44px", textAlign: "center", position: "relative", overflow: "hidden" },
   contactTitle: { fontFamily: FD, fontSize: 30, fontWeight: 800, ...gradText, position: "relative", fontStyle: "italic" },
   contactSub: { color: C.dim, fontSize: 16, marginTop: 10, marginBottom: 26, position: "relative", fontWeight: 500 },
   contactBtns: { display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", position: "relative" },
@@ -727,19 +727,19 @@ function Hero({ go, stats, animate, openProject }) {
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "4px 0 12px", marginLeft: 18, textAlign: "left", color: "#fff" }}>CONNECT →</div>
               <div style={{ display: "flex", flexDirection: "row", gap: 24, marginLeft: 18 }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, background: "rgba(0,0,0,0.45)", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
+                  style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
                   className="hoverlift connect-glow">
                   <Icon name="mail" size={16} color="#fff" />
                   <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>Gmail</span>
                 </a>
                 <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, background: "rgba(0,0,0,0.45)", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
+                  style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
                   className="hoverlift connect-glow">
                   <Icon name="github" size={16} color="#fff" />
                   <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>GitHub</span>
                 </a>
                 <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
-                  style={{ ...s.dashCard, background: "rgba(0,0,0,0.45)", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
+                  style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
                   className="hoverlift connect-glow">
                   <Icon name="linkedin" size={16} color="#fff" />
                   <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
@@ -754,7 +754,7 @@ function Hero({ go, stats, animate, openProject }) {
             <h1 style={s.heroName} data-heroname>
               <span style={s.heroNameGrad}>J. DHARUN VISHNU</span>
             </h1>
-            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "rgba(0,0,0,0.45)", border: "none", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box", WebkitTextFillColor: "#fff" }} className="dash-glow-7">
+            <div style={{ ...s.rolePill, alignItems: "flex-start", borderRadius: 18, background: "rgba(0,0,0,0.25)", border: "none", WebkitBackgroundClip: "padding-box", backgroundClip: "padding-box", WebkitTextFillColor: "#fff" }} className="dash-glow-7">
               <span style={{ whiteSpace: "nowrap", color: "#fff" }}>BSc IT</span>
               <span style={{ ...s.roleDot, WebkitTextFillColor: "#fff" }}>•</span>
               <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -771,7 +771,7 @@ function Hero({ go, stats, animate, openProject }) {
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
             <div data-col2becoming>
               <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", color: "#fff" }}>BECOMING →</div>
-              <div style={{ background: "rgba(0,0,0,0.45)", border: "none", borderRadius: 16, padding: "20px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, minHeight: 150, alignContent: "space-evenly" }} className="dash-glow-8">
+              <div style={{ background: "rgba(0,0,0,0.25)", border: "none", borderRadius: 16, padding: "20px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, minHeight: 150, alignContent: "space-evenly" }} className="dash-glow-8">
                 {[
                   { label: "AI/ML Engineer", icon: "code",   color: C.cyan,    lc: "#fff" },
                   { label: "Problem Solver", icon: "target", color: C.purple,   lc: "#fff" },
@@ -822,7 +822,7 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, justifyContent: "space-evenly" }} data-dashgrid>
             {leftCards.map((d, i) => (
               <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
-                style={{ ...s.dashCard, background: "rgba(0,0,0,0.45)", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
+                style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
                 className={`hoverlift ${i === 0 ? "dash-glow-1" : "dash-glow-2"}`}>
                 <span className="shine" />
                 {d.major != null ? (
@@ -842,13 +842,13 @@ function Hero({ go, stats, animate, openProject }) {
               </button>
             ))}
             {rightCards.map((d, i) => (
-              <div key={d.l} style={{ ...s.dashCard, background: "rgba(0,0,0,0.45)", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "dash-glow-3" : "dash-glow-4"}>
+              <div key={d.l} style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "dash-glow-3" : "dash-glow-4"}>
                 <span className="shine" />
                 <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i + 2] }}>{d.n} · {d.l}</span>
               </div>
             ))}
             <button onClick={() => go("layerprogress")}
-              style={{ ...s.dashCard, background: "rgba(0,0,0,0.45)", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
+              style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
               className="hoverlift dash-glow-5">
               <span className="shine" />
               <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
@@ -856,7 +856,7 @@ function Hero({ go, stats, animate, openProject }) {
                 <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[4] }}>→</span>
               </span>
             </button>
-            <div style={{ ...s.dashCard, background: "rgba(0,0,0,0.45)", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="dash-glow-6">
+            <div style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="dash-glow-6">
               <span className="shine" />
               <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[5] }}>
                 {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
@@ -874,7 +874,7 @@ function Hero({ go, stats, animate, openProject }) {
 // helper to inline glossy (since `glossy` defined in styles file scope)
 function glossyJS(hex) {
   return {
-    background: `linear-gradient(150deg, ${hex}33, ${hex}10 55%, rgba(10,14,30,0.45))`,
+    background: `linear-gradient(150deg, ${hex}33, ${hex}10 55%, rgba(10,14,30,0.20))`,
     border: `1px solid ${hex}66`,
     boxShadow: `inset 0 1px 0 ${hex}44`,
   };
@@ -945,7 +945,7 @@ function GithubGraph() {
       <div style={{ fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
         <Icon name="github" size={16} color="#7ee787" /><span style={{ color: "#fff" }}>GITHUB COMMIT GRAPH</span>
       </div>
-      <div data-graphscroll style={{ background: "rgba(13,17,23,0.65)", borderRadius: 8, padding: "16px", overflowX: "auto" }}>
+      <div data-graphscroll style={{ background: "rgba(13,17,23,0.25)", borderRadius: 8, padding: "16px", overflowX: "auto" }}>
         {err && <div style={{ color: "#8b949e", fontSize: 13 }}>Could not load commit data right now.</div>}
         {!err && !data && <div style={{ color: "#8b949e", fontSize: 13 }}>Loading commit graph…</div>}
         {!err && data && (
