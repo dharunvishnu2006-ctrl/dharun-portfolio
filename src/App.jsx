@@ -2279,19 +2279,23 @@ function StarfieldCanvas() {
     const ctx = canvas.getContext("2d");
 
     const COLORS = ["#00f0ff", "#a855f7", "#22c55e", "#ec4899", "#fbbf24", "#ffffff"];
-    const COUNT = 275;
     const TAU = Math.PI * 2;
-    const BRIGHT_RATIO = 0.13; // ~36 bright stars
+    const MOBILE_BP = 768;
 
     let W = window.innerWidth;
     let H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
 
-    const mkParticle = (bright) => ({
+    // Device-responsive config: mobile gets fewer/smaller particles, desktop gets more small ones
+    const getCfg = (w) => w < MOBILE_BP
+      ? { dimCount: 148, brightCount: 22, brightR: 1.5 }
+      : { dimCount: 300, brightCount: 36, brightR: 2.0 };
+
+    const mkParticle = (bright, brightR) => ({
       x: Math.random() * W,
       y: Math.random() * H,
-      r: bright ? 2.0 : 0.5 + Math.random() * 1.0,
+      r: bright ? brightR : 0.5 + Math.random() * 1.0,
       vx: (Math.random() - 0.5) * 18,
       vy: (Math.random() - 0.5) * 18,
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
@@ -2300,10 +2304,14 @@ function StarfieldCanvas() {
       ox: 0, oy: 0, tx: 0, ty: 0,
     });
 
-    const brightCount = Math.floor(COUNT * BRIGHT_RATIO);
-    const dimParticles = Array.from({ length: COUNT - brightCount }, () => mkParticle(false));
-    const brightParticles = Array.from({ length: brightCount }, () => mkParticle(true));
-    const allParticles = [...dimParticles, ...brightParticles];
+    const buildParticles = (w) => {
+      const { dimCount, brightCount, brightR } = getCfg(w);
+      const dim    = Array.from({ length: dimCount    }, () => mkParticle(false, brightR));
+      const bright = Array.from({ length: brightCount }, () => mkParticle(true,  brightR));
+      return { dim, bright, all: [...dim, ...bright] };
+    };
+
+    let { dim: dimParticles, bright: brightParticles, all: allParticles } = buildParticles(W);
 
     const mouse = { x: W / 2, y: H / 2 };
 
@@ -2328,11 +2336,18 @@ function StarfieldCanvas() {
     };
     window.addEventListener("mousemove", onMouseMove, { passive: true });
 
+    let wasMobile = W < MOBILE_BP;
     const onResize = () => {
       W = window.innerWidth;
       H = window.innerHeight;
       canvas.width = W;
       canvas.height = H;
+      // Rebuild only when crossing the breakpoint to avoid per-resize churn
+      const isMobile = W < MOBILE_BP;
+      if (isMobile !== wasMobile) {
+        wasMobile = isMobile;
+        ({ dim: dimParticles, bright: brightParticles, all: allParticles } = buildParticles(W));
+      }
     };
     window.addEventListener("resize", onResize);
 
@@ -2359,7 +2374,7 @@ function StarfieldCanvas() {
 
       ctx.clearRect(0, 0, W, H);
 
-      // Pass 1: tiny dim particles — no shadowBlur for performance
+      // Pass 1: dim particles — no shadowBlur for performance
       ctx.shadowBlur = 0;
       for (let i = 0; i < dimParticles.length; i++) {
         const p = dimParticles[i];
