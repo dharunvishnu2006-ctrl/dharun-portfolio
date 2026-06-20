@@ -141,7 +141,7 @@ const s = {
   quoteBox: { display: "flex", gap: 12, marginTop: 22, maxWidth: 460 },
   quoteMark: { fontFamily: "Georgia, serif", fontSize: 52, lineHeight: 0.8, color: C.cyan, fontWeight: 700, opacity: 0.9, marginTop: -6, textShadow: "0 0 16px rgba(34,211,238,.5)" },
   quoteText: { fontSize: 24, color: "#fff", lineHeight: 1.5, fontWeight: 600, fontStyle: "italic" },
-  quoteAccent: { color: "#22d3ee", WebkitTextFillColor: "#22d3ee", fontWeight: 800, textShadow: "none" },
+  quoteAccent: { color: "#fff", WebkitTextFillColor: "#fff", fontWeight: 800, textShadow: "none" },
   heroBtns: { display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 },
   btnPrimary: { display: "inline-flex", alignItems: "center", gap: 9, background: "linear-gradient(135deg,#2563eb,#7c3aed)", color: "#fff", border: "none", padding: "13px 22px", borderRadius: 14, fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: FB, boxShadow: "0 8px 28px rgba(59,130,246,.45), inset 0 1px 0 rgba(255,255,255,.25)", transition: ".2s" },
   btnGlass: { display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(120,150,255,.1)", color: "#eaf0ff", border: "1px solid " + C.borderHi, padding: "13px 22px", borderRadius: 14, fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s" },
@@ -729,20 +729,20 @@ function Hero({ go, stats, animate, openProject }) {
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
                   className="hoverlift connect-glow">
-                  <Icon name="mail" size={16} color="#ea4335" />
-                  <span style={{ fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#ef4444,#f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Gmail</span>
+                  <Icon name="mail" size={16} color="#fff" />
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>Gmail</span>
                 </a>
                 <a href="https://github.com/dharunvishnu2006-ctrl" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
                   className="hoverlift connect-glow">
-                  <Icon name="github" size={16} color="#a855f7" />
-                  <span style={{ fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#a855f7,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>GitHub</span>
+                  <Icon name="github" size={16} color="#fff" />
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>GitHub</span>
                 </a>
                 <a href="https://www.linkedin.com/in/dharun-vishnu/" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
                   className="hoverlift connect-glow">
-                  <Icon name="linkedin" size={16} color={C.blue} />
-                  <span style={{ fontSize: 14, fontWeight: 700, background: "linear-gradient(90deg,#3b82f6,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>LinkedIn</span>
+                  <Icon name="linkedin" size={16} color="#fff" />
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>LinkedIn</span>
                 </a>
               </div>
             </div>
