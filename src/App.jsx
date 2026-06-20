@@ -169,7 +169,7 @@ const s = {
   puPanel: { ...glossy("#6366f1"), background: "transparent", border: "none", boxShadow: "none", backdropFilter: "none", borderRadius: 24, padding: "24px" },
   puHead: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 10 },
   puTitle: { display: "flex", alignItems: "center", gap: 10, fontFamily: FD, fontSize: 18, fontWeight: 800, color: "#fff", fontStyle: "italic" },
-  puLink: { display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: C.cyan, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: FB },
+  puLink: { display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", color: "#fff", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: FB },
   puGrid: { display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 14 },
   puCard: { position: "relative", borderRadius: 20, padding: "24px 18px", overflow: "hidden", cursor: "pointer", transition: ".25s", textAlign: "center" },
   puCrest: { minHeight: 66, display: "grid", placeItems: "center", margin: "0 auto 12px", position: "relative" },
@@ -494,7 +494,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   .hero-btn-connect .btn-mobile-label { color: #fff !important; -webkit-text-fill-color: #fff !important; background: none !important; }
   .hero-btn-viewprojects { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -7s !important; color: #fff !important; }
   .hero-btn-connect { border: 1px solid transparent !important; animation: dashGlowCycle 21s ease-in-out infinite -14s !important; color: #fff !important; }
-  .pu-title-text { color: #22d3ee !important; -webkit-text-fill-color: #22d3ee !important; background: none !important; }
+  .pu-title-text { color: #fff !important; -webkit-text-fill-color: #fff !important; background: none !important; }
   .card-glow-csx .pu-card-name { color: #3b82f6 !important; -webkit-text-fill-color: #3b82f6 !important; }
   .card-glow-amx .pu-card-name { color: #8b5cf6 !important; -webkit-text-fill-color: #8b5cf6 !important; }
   .card-glow-sai .pu-card-name { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
@@ -724,7 +724,7 @@ function Hero({ go, stats, animate, openProject }) {
             {/* divider + CONNECT — desktop only */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "22px 0 0" }} />
             <div data-col2connect style={{ marginBottom: 0 }}>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "4px 0 12px", marginLeft: 18, textAlign: "left", color: "#22d3ee" }}>CONNECT →</div>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "4px 0 12px", marginLeft: 18, textAlign: "left", color: "#fff" }}>CONNECT →</div>
               <div style={{ display: "flex", flexDirection: "row", gap: 24, marginLeft: 18 }}>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dharunvishnu2006@gmail.com" target="_blank" rel="noopener noreferrer"
                   style={{ ...s.dashCard, background: "#000000", border: "1px solid transparent", display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, textDecoration: "none", padding: "16px 10px" }}
@@ -770,7 +770,7 @@ function Hero({ go, stats, animate, openProject }) {
             {/* divider + BECOMING */}
             <hr data-col2divider style={{ border: "none", borderTop: "1px solid rgba(120,150,255,.2)", margin: "10px 0 0" }} />
             <div data-col2becoming>
-              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", color: "#22d3ee" }}>BECOMING →</div>
+              <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", margin: "8px 0 10px", color: "#fff" }}>BECOMING →</div>
               <div style={{ background: "#000000", border: "none", borderRadius: 16, padding: "20px 16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, minHeight: 150, alignContent: "space-evenly" }} className="dash-glow-8">
                 {[
                   { label: "AI/ML Engineer", icon: "code",   color: C.cyan,    lc: "#fff" },
@@ -797,7 +797,7 @@ function Hero({ go, stats, animate, openProject }) {
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <Icon name="rocket" size={14} color={C.cyan} />
-              <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", color: "#22d3ee" }}>PROJECT UNIVERSE</span>
+              <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", color: "#fff" }}>PROJECT UNIVERSE</span>
             </div>
             <button style={{ ...s.puLink, fontSize: 12 }} onClick={() => go("projects")}>View All <Icon name="arrow" size={11} /></button>
           </div>
@@ -816,7 +816,7 @@ function Hero({ go, stats, animate, openProject }) {
         {/* COL 4: Journey Dashboard */}
         <div data-dashcol4 style={{ ...s.dash, background: "transparent", border: "none", boxShadow: "none", backdropFilter: "none", padding: 14, gap: 0, marginRight: 8 }} className="dash-calm">
           <div style={{ ...s.dashHead, marginBottom: 10, flexShrink: 0 }}>
-            <div style={{ ...s.dashTitle, whiteSpace: "nowrap", color: "#22d3ee" }}>JOURNEY DASHBOARD</div>
+            <div style={{ ...s.dashTitle, whiteSpace: "nowrap", color: "#fff" }}>JOURNEY DASHBOARD</div>
             <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, justifyContent: "space-evenly" }} data-dashgrid>
@@ -943,7 +943,7 @@ function GithubGraph() {
   return (
     <div data-graphbox style={{ ...glossyJS("#161b22"), borderRadius: 20, padding: "24px", marginTop: 8 }} className="fadeup">
       <div style={{ fontWeight: 800, fontSize: 14, letterSpacing: "1px", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-        <Icon name="github" size={16} color="#7ee787" /><span style={{ color: "#22d3ee" }}>GITHUB COMMIT GRAPH</span>
+        <Icon name="github" size={16} color="#7ee787" /><span style={{ color: "#fff" }}>GITHUB COMMIT GRAPH</span>
       </div>
       <div data-graphscroll style={{ background: "#0d1117", borderRadius: 8, padding: "16px", overflowX: "auto" }}>
         {err && <div style={{ color: "#8b949e", fontSize: 13 }}>Could not load commit data right now.</div>}
@@ -1106,7 +1106,7 @@ function TechStack({ stats }) {
         <div style={s.techTitle}>TARGET TECH-STACK TO UNLOCK</div>
         <div style={{ fontFamily: FD, fontSize: 14, fontWeight: 800, color: C.green }}>{doneCount} / {targetSkills.length} unlocked</div>
       </div>
-      <div style={{ ...gradText, fontFamily: FD, fontWeight: 800, fontSize: 17, fontStyle: "italic", letterSpacing: "-0.3px", marginBottom: 18, lineHeight: 1.35 }}>
+      <div style={{ color: "#fff", fontFamily: FD, fontWeight: 800, fontSize: 17, fontStyle: "italic", letterSpacing: "-0.3px", marginBottom: 18, lineHeight: 1.35 }}>
         These are the skills I will master by the end of my one-year mission.
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 11 }}>
