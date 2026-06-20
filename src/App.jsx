@@ -89,7 +89,7 @@ const glossy = (hex) => ({
 });
 
 const s = {
-  app: { background: C.bg, color: C.text, minHeight: "100vh", fontFamily: FB, overflowX: "hidden", position: "relative" },
+  app: { color: C.text, minHeight: "100vh", fontFamily: FB, overflowX: "hidden", position: "relative" },
   bgFx: { position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
     background: "radial-gradient(ellipse 70% 50% at 50% -8%, rgba(59,130,246,0.22), transparent 60%), radial-gradient(ellipse 55% 45% at 92% 18%, rgba(139,92,246,0.18), transparent 55%), radial-gradient(ellipse 50% 45% at 6% 65%, rgba(224,64,251,0.12), transparent 60%)" },
   grid: { position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, opacity: 0.5,
