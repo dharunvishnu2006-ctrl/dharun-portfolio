@@ -831,7 +831,7 @@ function Hero({ go, stats, animate, openProject }) {
                       <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.major} · Major Projects</span>
                       <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
                     </span>
-                    <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.mini} · Mini Project</span>
+                    <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.mini} · Foundation Build</span>
                   </span>
                 ) : (
                   <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
