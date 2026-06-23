@@ -3,7 +3,6 @@ import PROFILE_IMG from './j.dharun vishnu potho.jpeg';
 import CSX_LOGO from './CLOUDSHIELD X.jpeg';
 import AMX_LOGO from './AUTOPILOT ML X.jpeg';
 import SAI_LOGO from './SENTINAL AI.jpeg';
-import CERT_DATA from './data/certificates.json';
 
 // Supabase client
 const SUPABASE_URL = "https://imfqvebduwnojmbbivrk.supabase.co";
@@ -1634,71 +1633,7 @@ function useAwsStatus() {
   return { getStatus, cycleStatus };
 }
 
-// ============ COURSE CERT COMPONENTS ============
-// Source of truth: src/data/certificates.json (committed to git).
-// Admin adds certs via the UI on local dev → Vite plugin writes files + runs git push.
-// On the deployed site the JSON is baked into the bundle — same on every device.
-
-// Read-only display card (shown to everyone from committed JSON data)
-function CertCard({ cert }) {
-  const { name, imagePath, verifyLink } = cert;
-  if (!imagePath) return null;
-  return (
-    <div
-      style={{ position: "relative", ...glossyJS("#4f46e5"), borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", cursor: verifyLink ? "pointer" : "default", border: "1px solid rgba(99,102,241,.55)" }}
-      className="hoverlift"
-      onClick={() => verifyLink && window.open(verifyLink, "_blank", "noreferrer")}
-    >
-      <span className="shine" />
-      <img src={imagePath} alt={name} style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
-      <div style={{ padding: "10px 14px", background: "rgba(0,0,0,.2)" }}>
-        <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, color: "#fff", lineHeight: 1.3 }}>{name}</div>
-        {verifyLink && <div style={{ fontSize: 11, color: "#a5b4fc", fontWeight: 600, marginTop: 4 }}>Click to verify →</div>}
-      </div>
-    </div>
-  );
-}
-
-// Editable card for a cert that is pending save (admin-only, new certs in-flight)
-function PendingCertCard({ cert, onUpdate, onRemove }) {
-  const fileRef = useRef();
-  const [hover, setHover] = useState(false);
-  const src = cert.imageBase64 || "";
-  return (
-    <div style={{ position: "relative", ...glossyJS("#4f46e5"), borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", border: "1px dashed rgba(99,102,241,.55)" }}>
-      <span className="shine" />
-      <div
-        style={{ position: "relative", background: "rgba(0,0,0,.35)" }}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        {src
-          ? <img src={src} alt="" style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
-          : <div style={{ minHeight: 180, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10 }}>
-              <Icon name="image" size={36} color={C.dim2} />
-              <span style={{ fontSize: 11.5, color: C.dim2, fontWeight: 600 }}>No image yet</span>
-            </div>
-        }
-        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,.55)", opacity: (!src || hover) ? 1 : 0, transition: "opacity .2s", pointerEvents: (!src || hover) ? "all" : "none" }}>
-          <button onClick={() => fileRef.current.click()} style={{ background: "rgba(99,102,241,.92)", border: "none", borderRadius: 12, padding: "9px 18px", color: "#fff", fontSize: 13, fontWeight: 700, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 7 }}>
-            <Icon name="upload" size={14} color="#fff" /> {src ? "Change Image" : "Upload Certificate"}
-          </button>
-        </div>
-        <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" style={{ display: "none" }}
-          onChange={(e) => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = (ev) => onUpdate(cert.id, "imageBase64", ev.target.result); r.readAsDataURL(f); }} />
-      </div>
-      <div style={{ padding: "10px 14px", background: "rgba(0,0,0,.2)", display: "flex", flexDirection: "column", gap: 6 }}>
-        <input style={{ ...s.linkInput, padding: "7px 10px", fontSize: 13, fontWeight: 700 }} placeholder="Certificate name…" value={cert.name} onChange={(e) => onUpdate(cert.id, "name", e.target.value)} />
-        <div style={{ display: "flex", gap: 6 }}>
-          <input style={{ ...s.linkInput, padding: "7px 10px", fontSize: 12, flex: 1 }} placeholder="Coursera verify URL…" value={cert.verifyLink} onChange={(e) => onUpdate(cert.id, "verifyLink", e.target.value)} />
-          <button onClick={() => onRemove(cert.id)} style={{ flexShrink: 0, background: "rgba(239,68,68,.2)", border: "1px solid rgba(239,68,68,.4)", borderRadius: 10, color: "#fca5a5", cursor: "pointer", padding: "0 10px", fontSize: 16, fontWeight: 700 }}>×</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Dead hook stub — kept so nothing else breaks during the transition; remove after deploy
+// ============ COURSE CERT STORAGE HOOK ============
 const COURSE_CERTS_KEY = "dharun-course-certs-v1";
 function useCourseCerts() {
   const [courseCerts, setCourseCerts] = useState(null);
@@ -1706,30 +1641,11 @@ function useCourseCerts() {
     try {
       const stored = localStorage.getItem(COURSE_CERTS_KEY);
       if (stored) {
-        const parsed = JSON.parse(stored);
-        const localIds = new Set(parsed.map(c => c.id));
-        const defMap = Object.fromEntries(COURSE_CERTS_DEFAULTS.map(d => [d.id, d]));
-        // Merge: for certs in both, prefer local but fill empty fields from defaults
-        const merged = parsed.map(c => {
-          const def = defMap[c.id];
-          if (!def) return c;
-          return { ...c, image: c.image || def.image, link: c.link || def.link, name: c.name || def.name };
-        });
-        // Add any certs in certData.js that aren't in localStorage yet
-        const newFromDefaults = COURSE_CERTS_DEFAULTS.filter(d => !localIds.has(d.id));
-        setCourseCerts([...merged, ...newFromDefaults]);
+        setCourseCerts(JSON.parse(stored));
       } else {
-        // New device: seed from certData.js (committed data)
-        const initial = COURSE_CERTS_DEFAULTS.length > 0
-          ? COURSE_CERTS_DEFAULTS.map(d => ({ ...d }))
-          : [{ id: "cc-1", image: "", name: "", link: "" }];
-        setCourseCerts(initial);
+        setCourseCerts([{ id: "cc-1", image: "", name: "", link: "" }]);
       }
-    } catch(e) {
-      setCourseCerts(COURSE_CERTS_DEFAULTS.length > 0
-        ? COURSE_CERTS_DEFAULTS.map(d => ({ ...d }))
-        : [{ id: "cc-1", image: "", name: "", link: "" }]);
-    }
+    } catch(e) { setCourseCerts([]); }
   }, []);
   useEffect(() => {
     if (courseCerts === null) return;
@@ -1829,148 +1745,11 @@ function CourseCertCard({ cert, admin, onUpdate, onRemove }) {
   );
 }
 
-// ============ CERTS (replaced below) — placeholder so old AdminExportPanel is gone ============
-function _AdminExportPanel_REMOVED() { return null; }
-function __PLACEHOLDER_AdminExportPanel({ courseCerts }) {
-  const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const textRef = useRef();
-
-  const generateCode = () => {
-    const entries = (courseCerts || []).map(c => {
-      const img = c.image ? `"${c.image}"` : '""';
-      return `  {\n    id: "${c.id}",\n    name: ${JSON.stringify(c.name || "")},\n    link: ${JSON.stringify(c.link || "")},\n    image: ${img}\n  }`;
-    }).join(",\n");
-    return `const COURSE_CERTS_DEFAULTS = [\n${entries}\n];\n\nexport default COURSE_CERTS_DEFAULTS;`;
-  };
-
-  const handleCopy = () => {
-    const code = generateCode();
-    navigator.clipboard.writeText(code).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    }).catch(() => {
-      if (textRef.current) { textRef.current.select(); document.execCommand("copy"); setCopied(true); setTimeout(() => setCopied(false), 2500); }
-    });
-  };
-
-  return (
-    <div style={{ marginTop: 32, ...glossyJS("#1e1b4b"), borderRadius: 18, padding: "18px 20px", border: "1px solid rgba(99,102,241,.35)" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-        <div>
-          <div style={{ fontSize: 13.5, fontWeight: 800, color: "#a5b4fc" }}>📱 Make certificates visible on all devices</div>
-          <div style={{ fontSize: 12, color: C.dim2, marginTop: 4 }}>
-            Export this data → paste into <code style={{ color: "#c4b5fd", background: "rgba(99,102,241,.15)", padding: "1px 6px", borderRadius: 5 }}>src/certData.js</code> → git push
-          </div>
-        </div>
-        <button
-          onClick={() => setOpen(o => !o)}
-          style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(99,102,241,.25)", border: "1px solid rgba(99,102,241,.5)", borderRadius: 11, padding: "9px 16px", color: "#c4b5fd", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: FB }}
-        >
-          <Icon name="code" size={14} color="#c4b5fd" /> {open ? "Hide Export" : "Export Certificate Data"}
-        </button>
-      </div>
-
-      {open && (
-        <div style={{ marginTop: 16 }}>
-          <div style={{ fontSize: 12, color: C.dim2, marginBottom: 8, fontWeight: 600 }}>
-            Steps: 1) Copy code below &nbsp;→&nbsp; 2) Open <code style={{ color: "#c4b5fd" }}>src/certData.js</code> &nbsp;→&nbsp; 3) Replace the array &nbsp;→&nbsp; 4) <code style={{ color: "#c4b5fd" }}>git add . && git commit -m "Update cert data" && git push</code>
-          </div>
-          <div style={{ position: "relative" }}>
-            <textarea
-              ref={textRef}
-              readOnly
-              value={generateCode()}
-              style={{
-                width: "100%", boxSizing: "border-box", minHeight: 160, background: "rgba(0,0,0,.5)",
-                border: "1px solid rgba(99,102,241,.3)", borderRadius: 12, padding: "12px 14px",
-                color: "#e2e8f0", fontSize: 11.5, fontFamily: FM, lineHeight: 1.6, resize: "vertical", outline: "none"
-              }}
-            />
-            <button
-              onClick={handleCopy}
-              style={{
-                position: "absolute", top: 10, right: 10, display: "inline-flex", alignItems: "center", gap: 5,
-                background: copied ? "rgba(34,197,94,.3)" : "rgba(99,102,241,.4)", border: "none",
-                borderRadius: 9, padding: "6px 12px", color: copied ? "#86efac" : "#c4b5fd",
-                fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s"
-              }}
-            >
-              {copied ? <><Icon name="check" size={12} color="#86efac" /> Copied!</> : <><Icon name="doc" size={12} color="#c4b5fd" /> Copy</>}
-            </button>
-          </div>
-          <div style={{ marginTop: 10, fontSize: 11.5, color: "#fbbf24", fontWeight: 600 }}>
-            ⚠️ The image data (base64) can be large — that's normal. After git push, all devices load from the code, not localStorage.
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function Certs({ admin, certLinks, setCertLink, stats, getAwsStatus, cycleAwsStatus }) {
-  // CERT_DATA = committed JSON — same on every device
-  const earned = CERT_DATA.filter(c => c.imagePath && c.verifyLink).length;
-  const [pendingCerts, setPendingCerts] = useState([]);
-  const [saveState, setSaveState] = useState("idle"); // idle|saving|deploying|done|error
-  const [errMsg, setErrMsg] = useState("");
-  const [localDev, setLocalDev] = useState(null); // null=checking, true/false
-  const [migrateData, setMigrateData] = useState(null); // old localStorage certs, if found
-
-  // Detect if local Vite dev server with cert API is running
-  useEffect(() => {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 2000);
-    fetch("/api/certs/ping", { signal: ctrl.signal })
-      .then(r => { clearTimeout(t); setLocalDev(r.ok); })
-      .catch(() => { clearTimeout(t); setLocalDev(false); });
-  }, []);
-
-  // Check for old localStorage data that needs migrating (only relevant when JSON is empty)
-  useEffect(() => {
-    if (!admin || CERT_DATA.length > 0) return;
-    try {
-      const raw = localStorage.getItem(COURSE_CERTS_KEY);
-      if (!raw) return;
-      const parsed = JSON.parse(raw);
-      if (parsed.some(c => c.image && c.name)) setMigrateData(parsed);
-    } catch (_) {}
-  }, [admin]);
-
-  const addPending = () => setPendingCerts(p => [...p, { id: "new-" + Date.now(), name: "", imageBase64: "", verifyLink: "" }]);
-  const updatePending = (id, field, val) => setPendingCerts(p => p.map(c => c.id === id ? { ...c, [field]: val } : c));
-  const removePending = (id) => setPendingCerts(p => p.filter(c => c.id !== id));
-
-  const runSaveAndDeploy = async (certsPayload, commitMsg) => {
-    setSaveState("saving"); setErrMsg("");
-    try {
-      const sr = await fetch("/api/certs/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ certs: certsPayload }) });
-      if (!sr.ok) throw new Error("Save failed: " + (await sr.text()));
-      setSaveState("deploying");
-      const dr = await fetch("/api/certs/deploy", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: commitMsg }) });
-      if (!dr.ok) throw new Error("Deploy failed: " + (await dr.text()));
-      setSaveState("done");
-      setPendingCerts([]);
-      setMigrateData(null);
-      setTimeout(() => window.location.reload(), 1800);
-    } catch (e) { setSaveState("error"); setErrMsg(String(e)); }
-  };
-
-  const handleSavePending = () => {
-    const existingForSave = CERT_DATA.map(c => ({ id: c.id, name: c.name, imagePath: c.imagePath, verifyLink: c.verifyLink, imageBase64: "" }));
-    const seq = CERT_DATA.length;
-    const pendingForSave = pendingCerts.map((c, i) => ({ id: `cert-${seq + i + 1}`, name: c.name, imageBase64: c.imageBase64, imagePath: "", verifyLink: c.verifyLink }));
-    runSaveAndDeploy([...existingForSave, ...pendingForSave], "Add new certificate");
-  };
-
-  const handleMigrate = () => {
-    if (!migrateData) return;
-    const migrated = migrateData.map((c, i) => ({ id: `cert-${i + 1}`, name: c.name || "", imageBase64: c.image || "", imagePath: "", verifyLink: c.link || c.verifyLink || "" }));
-    runSaveAndDeploy(migrated, "Migrate existing course certificates to static JSON");
-  };
-
-  const totalCards = CERT_DATA.length + pendingCerts.length;
-  const certLabel = totalCards === 1 ? "1 Certificate" : totalCards + " Certificates";
+function Certs({ admin, certLinks, setCertLink, stats, courseCerts, addCert, updateCert, removeCert, getAwsStatus, cycleAwsStatus }) {
+  const earned = (courseCerts || []).filter(c => c.image && c.link && c.link.trim()).length;
+  const visibleCourseCerts = admin ? (courseCerts || []) : (courseCerts || []).filter(c => c.image);
+  const certCount = (courseCerts || []).length;
+  const certLabel = certCount === 1 ? "1 Certificate" : certCount + " Certificates";
 
   const STATUS_CFG = {
     "planned":     { dot: "●", dotColor: "#fbbf24", label: "Planned",     textColor: "#fbbf24" },
@@ -2051,63 +1830,19 @@ function Certs({ admin, certLinks, setCertLink, stats, getAwsStatus, cycleAwsSta
         <div style={{ marginTop: 44, marginBottom: 8 }}>
           <h3 style={{ ...s.secTitle, fontSize: 24 }}>Course Certificates <span style={{ fontSize: 16, color: C.dim2, fontWeight: 600 }}>· {certLabel}</span></h3>
         </div>
-
-        {/* Committed certificates (same on every device) */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(320px,1fr))", gap: 16, marginTop: 16 }}>
-          {CERT_DATA.map(cert => <CertCard key={cert.id} cert={cert} />)}
+          {visibleCourseCerts.map(cert => (
+            <CourseCertCard key={cert.id} cert={cert} admin={admin} onUpdate={updateCert} onRemove={removeCert} />
+          ))}
         </div>
-
-        {/* Pending new certs (admin-only, not yet saved) */}
-        {admin && pendingCerts.length > 0 && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(320px,1fr))", gap: 16, marginTop: 16 }}>
-            {pendingCerts.map(c => <PendingCertCard key={c.id} cert={c} onUpdate={updatePending} onRemove={removePending} />)}
-          </div>
-        )}
-
-        {/* Admin controls */}
         {admin && (
-          <div style={{ marginTop: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
-
-            {/* Add Certificate button */}
-            <button onClick={addPending} style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(99,102,241,.18)", border: "1px dashed rgba(99,102,241,.6)", borderRadius: 14, padding: "12px 26px", color: "#a5b4fc", fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s" }}>
+          <div style={{ marginTop: 18, display: "flex", justifyContent: "center" }}>
+            <button
+              onClick={addCert}
+              style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(99,102,241,.18)", border: "1px dashed rgba(99,102,241,.6)", borderRadius: 14, padding: "12px 26px", color: "#a5b4fc", fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s" }}
+            >
               <Icon name="plus" size={17} color="#a5b4fc" /> Add Certificate
             </button>
-
-            {/* Save & Deploy — visible when there are pending certs */}
-            {pendingCerts.length > 0 && (
-              <div style={{ ...glossyJS("#16213e"), border: "1px solid rgba(99,102,241,.4)", borderRadius: 16, padding: "16px 20px", width: "100%", maxWidth: 520, textAlign: "center" }}>
-                {localDev === null && <div style={{ color: C.dim2, fontSize: 13 }}>Checking local server…</div>}
-                {localDev === false && (
-                  <div style={{ fontSize: 13, color: "#fbbf24" }}>
-                    <strong>Run locally to save:</strong> <code style={{ color: "#c4b5fd" }}>npm run dev</code><br />
-                    <span style={{ color: C.dim2, fontSize: 12 }}>Certificate images can only be saved to the codebase from your local machine.</span>
-                  </div>
-                )}
-                {localDev === true && saveState === "idle" && (
-                  <button onClick={handleSavePending} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg,#4f46e5,#7c3aed)", border: "none", borderRadius: 13, padding: "12px 28px", color: "#fff", fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: FB }}>
-                    <Icon name="upload" size={16} color="#fff" /> Save & Deploy ({pendingCerts.length} cert{pendingCerts.length > 1 ? "s" : ""})
-                  </button>
-                )}
-                {saveState === "saving" && <div style={{ color: "#a5b4fc", fontSize: 14, fontWeight: 700 }}>💾 Saving certificate images…</div>}
-                {saveState === "deploying" && <div style={{ color: "#a5b4fc", fontSize: 14, fontWeight: 700 }}>🚀 Running git push…</div>}
-                {saveState === "done" && <div style={{ color: "#86efac", fontSize: 14, fontWeight: 700 }}>✓ Deployed! Reloading…</div>}
-                {saveState === "error" && <div style={{ color: "#fca5a5", fontSize: 13 }}><strong>Error:</strong> {errMsg}<br /><button onClick={() => setSaveState("idle")} style={{ marginTop: 8, background: "none", border: "1px solid #fca5a5", borderRadius: 8, color: "#fca5a5", padding: "4px 12px", cursor: "pointer", fontSize: 12 }}>Retry</button></div>}
-              </div>
-            )}
-
-            {/* One-time migration panel: shows only when old localStorage data exists and JSON is empty */}
-            {migrateData && localDev !== null && (
-              <div style={{ ...glossyJS("#1e1a0e"), border: "1px solid rgba(251,191,36,.4)", borderRadius: 16, padding: "16px 20px", width: "100%", maxWidth: 520, textAlign: "center" }}>
-                <div style={{ fontSize: 13.5, fontWeight: 700, color: "#fbbf24", marginBottom: 8 }}>📦 Found {migrateData.length} certificate(s) saved on this device</div>
-                {localDev ? (
-                  <button onClick={handleMigrate} disabled={saveState !== "idle"} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(251,191,36,.2)", border: "1px solid rgba(251,191,36,.5)", borderRadius: 12, padding: "10px 22px", color: "#fbbf24", fontSize: 13.5, fontWeight: 700, cursor: "pointer", fontFamily: FB }}>
-                    <Icon name="upload" size={15} color="#fbbf24" /> Migrate to Codebase & Deploy
-                  </button>
-                ) : (
-                  <div style={{ fontSize: 12, color: "#fbbf24" }}>Run <code>npm run dev</code> locally to migrate these certificates to the codebase.</div>
-                )}
-              </div>
-            )}
           </div>
         )}
       </div>
@@ -2825,6 +2560,7 @@ export default function App() {
   const progress = useProgress();
   const done = progress.done;
   const { certLinks, setCertLink } = useCertLinks();
+  const { courseCerts, addCert, updateCert, removeCert } = useCourseCerts();
   const { getStatus: getAwsStatus, cycleStatus: cycleAwsStatus } = useAwsStatus();
 
   const stats = useMemo(() => {
@@ -2845,10 +2581,10 @@ export default function App() {
     const allDoneDays = doneSteps.map((x) => x.day).concat(doneEventDays);
     const maxDay = allDoneDays.length ? Math.max(...allDoneDays) : 0;
     const projectsDone = projects.filter((p) => p.day <= maxDay && maxDay > 0).length;
-    // Certificates earned = course certs in the JSON with both imagePath and verifyLink set.
+    // Certificates earned = course certs with both an uploaded image and a verify link.
     // AWS roadmap cards are never counted regardless of their status badge.
-    const totalCerts = CERT_DATA.length;
-    const certsDone = CERT_DATA.filter(c => c.imagePath && c.verifyLink).length;
+    const totalCerts = 0;
+    const certsDone = (courseCerts || []).filter(c => c.image && c.link && c.link.trim()).length;
     const layerStats = layers.map((layer) => {
       const lSteps = steps.filter((x) => x.layer === layer.id);
       const lDone = lSteps.filter((x) => done.has(x.num)).length;
@@ -2867,7 +2603,7 @@ export default function App() {
     const currentLayer = layerStats.find((l) => l.pct < 100) || layerStats[layerStats.length - 1];
     const maxStep = doneSteps.length ? Math.max(...doneSteps.map((x) => x.num)) : 0;
     return { steps: stepCount, days: maxDay, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct, layersStarted, currentLayerPct: currentLayer.pct, currentLayerName: currentLayer.name, currentLayerId: currentLayer.id };
-  }, [done, certLinks]);
+  }, [done, certLinks, courseCerts]);
 
   // Wire up browser history so back/forward buttons navigate within the site
   useEffect(() => {
@@ -2920,7 +2656,7 @@ export default function App() {
         {page === "myprojects" && <MyProjects openProject={openProject} links={links} stats={stats} />}
         {page === "commits" && <Commits stats={stats} />}
         {page === "versions" && <Versions openProject={openProject} />}
-        {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} getAwsStatus={getAwsStatus} cycleAwsStatus={cycleAwsStatus} />}
+        {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} courseCerts={courseCerts} addCert={addCert} updateCert={updateCert} removeCert={removeCert} getAwsStatus={getAwsStatus} cycleAwsStatus={cycleAwsStatus} />}
         {page === "contact" && <Contact />}
         {page === "techstack" && <TechStack stats={stats} />}
         {page === "layerprogress" && <LayerProjectProgress go={go} stats={stats} done={done} />}
