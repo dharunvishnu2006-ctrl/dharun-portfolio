@@ -1744,8 +1744,7 @@ function CourseCertCard({ cert, admin, onUpdate, onRemove }) {
 }
 
 function Certs({ admin, certLinks, setCertLink, stats, courseCerts, addCert, updateCert, removeCert, getAwsStatus, cycleAwsStatus }) {
-  const earned = (stats && stats.certs) || 0;
-  const total = (stats && stats.totalCerts) || 0;
+  const earned = (courseCerts || []).filter(c => c.image && c.link && c.link.trim()).length;
   const visibleCourseCerts = admin ? courseCerts : (courseCerts || []).filter(c => c.image);
   const certCount = (courseCerts || []).length;
   const certLabel = certCount === 1 ? "1 Certificate" : certCount + " Certificates";
@@ -1765,7 +1764,7 @@ function Certs({ admin, certLinks, setCertLink, stats, courseCerts, addCert, upd
           <p style={s.secSub}>AWS certifications and Coursera course certificates, all in one place.</p>
           <div style={{ marginTop: 14, display: "inline-flex", alignItems: "center", gap: 8, ...glossyJS(C.green), borderRadius: 100, padding: "7px 16px", border: "1px solid rgba(34,197,94,.4)" }}>
             <Icon name="award" size={14} color={C.green} />
-            <span style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{earned} / {total} certificates earned</span>
+            <span style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{earned} {earned === 1 ? "Certificate" : "Certificates"} Earned</span>
           </div>
         </div>
 
@@ -2580,12 +2579,10 @@ export default function App() {
     const allDoneDays = doneSteps.map((x) => x.day).concat(doneEventDays);
     const maxDay = allDoneDays.length ? Math.max(...allDoneDays) : 0;
     const projectsDone = projects.filter((p) => p.day <= maxDay && maxDay > 0).length;
-    // Certificates: total = 3 AWS certs + number of course cert cards added.
-    // earned = AWS certs with pasted links + course certs that have a verify link.
-    const totalCerts = (certs ? certs.length : 0) + (courseCerts || []).length;
-    const awsCertsDone = Object.keys(certLinks || {}).filter(k => k.startsWith("aws-")).length;
-    const courseCertsDoneCount = (courseCerts || []).filter(c => c.link && c.link.trim()).length;
-    const certsDone = awsCertsDone + courseCertsDoneCount;
+    // Certificates earned = only course cert cards that have both an image and a verify link.
+    // AWS roadmap cards are never counted here regardless of their status badge.
+    const totalCerts = 0; // unused — no total shown in UI
+    const certsDone = (courseCerts || []).filter(c => c.image && c.link && c.link.trim()).length;
     const layerStats = layers.map((layer) => {
       const lSteps = steps.filter((x) => x.layer === layer.id);
       const lDone = lSteps.filter((x) => done.has(x.num)).length;
