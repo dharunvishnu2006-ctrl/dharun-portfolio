@@ -3,6 +3,7 @@ import PROFILE_IMG from './j.dharun vishnu potho.jpeg';
 import CSX_LOGO from './CLOUDSHIELD X.jpeg';
 import AMX_LOGO from './AUTOPILOT ML X.jpeg';
 import SAI_LOGO from './SENTINAL AI.jpeg';
+import COURSE_CERTS_DEFAULTS from './certData.js';
 
 // Supabase client
 const SUPABASE_URL = "https://imfqvebduwnojmbbivrk.supabase.co";
@@ -1634,15 +1635,43 @@ function useAwsStatus() {
 }
 
 // ============ COURSE CERT STORAGE HOOK ============
+// Source of truth priority:
+//   1. certData.js (committed to git — visible on ALL devices)
+//   2. localStorage (admin in-progress edits, device-local overrides)
+// Merge rule: for certs present in both, localStorage wins field-by-field
+// but certData.js fills in any field that localStorage left empty.
+// Certs in certData.js but absent from localStorage are added to the list
+// (picks up new certs admin committed after this device last visited).
 const COURSE_CERTS_KEY = "dharun-course-certs-v1";
 function useCourseCerts() {
   const [courseCerts, setCourseCerts] = useState(null);
   useEffect(() => {
     try {
       const stored = localStorage.getItem(COURSE_CERTS_KEY);
-      setCourseCerts(stored ? JSON.parse(stored) : [{ id: "cc-1", image: "", name: "", link: "" }]);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        const localIds = new Set(parsed.map(c => c.id));
+        const defMap = Object.fromEntries(COURSE_CERTS_DEFAULTS.map(d => [d.id, d]));
+        // Merge: for certs in both, prefer local but fill empty fields from defaults
+        const merged = parsed.map(c => {
+          const def = defMap[c.id];
+          if (!def) return c;
+          return { ...c, image: c.image || def.image, link: c.link || def.link, name: c.name || def.name };
+        });
+        // Add any certs in certData.js that aren't in localStorage yet
+        const newFromDefaults = COURSE_CERTS_DEFAULTS.filter(d => !localIds.has(d.id));
+        setCourseCerts([...merged, ...newFromDefaults]);
+      } else {
+        // New device: seed from certData.js (committed data)
+        const initial = COURSE_CERTS_DEFAULTS.length > 0
+          ? COURSE_CERTS_DEFAULTS.map(d => ({ ...d }))
+          : [{ id: "cc-1", image: "", name: "", link: "" }];
+        setCourseCerts(initial);
+      }
     } catch(e) {
-      setCourseCerts([{ id: "cc-1", image: "", name: "", link: "" }]);
+      setCourseCerts(COURSE_CERTS_DEFAULTS.length > 0
+        ? COURSE_CERTS_DEFAULTS.map(d => ({ ...d }))
+        : [{ id: "cc-1", image: "", name: "", link: "" }]);
     }
   }, []);
   useEffect(() => {
@@ -1739,6 +1768,84 @@ function CourseCertCard({ cert, admin, onUpdate, onRemove }) {
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+// ============ ADMIN EXPORT PANEL ============
+function AdminExportPanel({ courseCerts }) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const textRef = useRef();
+
+  const generateCode = () => {
+    const entries = (courseCerts || []).map(c => {
+      const img = c.image ? `"${c.image}"` : '""';
+      return `  {\n    id: "${c.id}",\n    name: ${JSON.stringify(c.name || "")},\n    link: ${JSON.stringify(c.link || "")},\n    image: ${img}\n  }`;
+    }).join(",\n");
+    return `const COURSE_CERTS_DEFAULTS = [\n${entries}\n];\n\nexport default COURSE_CERTS_DEFAULTS;`;
+  };
+
+  const handleCopy = () => {
+    const code = generateCode();
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }).catch(() => {
+      if (textRef.current) { textRef.current.select(); document.execCommand("copy"); setCopied(true); setTimeout(() => setCopied(false), 2500); }
+    });
+  };
+
+  return (
+    <div style={{ marginTop: 32, ...glossyJS("#1e1b4b"), borderRadius: 18, padding: "18px 20px", border: "1px solid rgba(99,102,241,.35)" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+        <div>
+          <div style={{ fontSize: 13.5, fontWeight: 800, color: "#a5b4fc" }}>📱 Make certificates visible on all devices</div>
+          <div style={{ fontSize: 12, color: C.dim2, marginTop: 4 }}>
+            Export this data → paste into <code style={{ color: "#c4b5fd", background: "rgba(99,102,241,.15)", padding: "1px 6px", borderRadius: 5 }}>src/certData.js</code> → git push
+          </div>
+        </div>
+        <button
+          onClick={() => setOpen(o => !o)}
+          style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(99,102,241,.25)", border: "1px solid rgba(99,102,241,.5)", borderRadius: 11, padding: "9px 16px", color: "#c4b5fd", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: FB }}
+        >
+          <Icon name="code" size={14} color="#c4b5fd" /> {open ? "Hide Export" : "Export Certificate Data"}
+        </button>
+      </div>
+
+      {open && (
+        <div style={{ marginTop: 16 }}>
+          <div style={{ fontSize: 12, color: C.dim2, marginBottom: 8, fontWeight: 600 }}>
+            Steps: 1) Copy code below &nbsp;→&nbsp; 2) Open <code style={{ color: "#c4b5fd" }}>src/certData.js</code> &nbsp;→&nbsp; 3) Replace the array &nbsp;→&nbsp; 4) <code style={{ color: "#c4b5fd" }}>git add . && git commit -m "Update cert data" && git push</code>
+          </div>
+          <div style={{ position: "relative" }}>
+            <textarea
+              ref={textRef}
+              readOnly
+              value={generateCode()}
+              style={{
+                width: "100%", boxSizing: "border-box", minHeight: 160, background: "rgba(0,0,0,.5)",
+                border: "1px solid rgba(99,102,241,.3)", borderRadius: 12, padding: "12px 14px",
+                color: "#e2e8f0", fontSize: 11.5, fontFamily: FM, lineHeight: 1.6, resize: "vertical", outline: "none"
+              }}
+            />
+            <button
+              onClick={handleCopy}
+              style={{
+                position: "absolute", top: 10, right: 10, display: "inline-flex", alignItems: "center", gap: 5,
+                background: copied ? "rgba(34,197,94,.3)" : "rgba(99,102,241,.4)", border: "none",
+                borderRadius: 9, padding: "6px 12px", color: copied ? "#86efac" : "#c4b5fd",
+                fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s"
+              }}
+            >
+              {copied ? <><Icon name="check" size={12} color="#86efac" /> Copied!</> : <><Icon name="doc" size={12} color="#c4b5fd" /> Copy</>}
+            </button>
+          </div>
+          <div style={{ marginTop: 10, fontSize: 11.5, color: "#fbbf24", fontWeight: 600 }}>
+            ⚠️ The image data (base64) can be large — that's normal. After git push, all devices load from the code, not localStorage.
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1843,6 +1950,7 @@ function Certs({ admin, certLinks, setCertLink, stats, courseCerts, addCert, upd
             </button>
           </div>
         )}
+        {admin && <AdminExportPanel courseCerts={courseCerts} />}
       </div>
     </div>
   );
