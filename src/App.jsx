@@ -546,6 +546,9 @@ const Icon = ({ name, size = 18, color = "currentColor", style, sw = 1.8 }) => {
     play: <path d="M5 3l14 9-14 9V3z" />,
     link: <><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1" /><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1" /></>,
     sparkle: <path d="M12 3l1.9 5.6L19 10l-5.1 1.4L12 17l-1.9-5.6L5 10l5.1-1.4z" />,
+    upload: <><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></>,
+    plus: <><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></>,
+    image: <><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></>,
   };
   return <svg {...p}>{I[name]}</svg>;
 };
@@ -1607,62 +1610,129 @@ function Journey({ progress }) {
   );
 }
 
-// ============ CERTS ============
-// One row per subcourse certificate. Tap to open (admin: paste link / public: open link).
-function CertRow({ ck, label, sub, accent, admin, certLinks, setCertLink }) {
-  const url = certLinks ? certLinks[ck] : "";
-  const done = !!url;
-  const [open, setOpen] = useState(false);
+// ============ COURSE CERT STORAGE HOOK ============
+const COURSE_CERTS_KEY = "dharun-course-certs-v1";
+function useCourseCerts() {
+  const [courseCerts, setCourseCerts] = useState(null);
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(COURSE_CERTS_KEY);
+      setCourseCerts(stored ? JSON.parse(stored) : [{ id: "cc-1", image: "", name: "", link: "" }]);
+    } catch(e) {
+      setCourseCerts([{ id: "cc-1", image: "", name: "", link: "" }]);
+    }
+  }, []);
+  useEffect(() => {
+    if (courseCerts === null) return;
+    try { localStorage.setItem(COURSE_CERTS_KEY, JSON.stringify(courseCerts)); } catch(e) {}
+  }, [courseCerts]);
+  const addCert = () => setCourseCerts(prev => [...(prev || []), { id: "cc-" + Date.now(), image: "", name: "", link: "" }]);
+  const updateCert = (id, field, value) => setCourseCerts(prev => (prev || []).map(c => c.id === id ? { ...c, [field]: value } : c));
+  const removeCert = (id) => setCourseCerts(prev => (prev || []).filter(c => c.id !== id));
+  return { courseCerts: courseCerts || [], addCert, updateCert, removeCert };
+}
+
+// ============ COURSE CERT CARD ============
+function CourseCertCard({ cert, admin, onUpdate, onRemove }) {
+  const fileRef = useRef();
+  const [hoverImg, setHoverImg] = useState(false);
+  const { id, image, name, link } = cert;
+  if (!admin && !image) return null;
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => onUpdate(id, "image", ev.target.result);
+    reader.readAsDataURL(file);
+  };
+  const handleClick = () => { if (!admin && link) window.open(link, "_blank", "noreferrer"); };
+  const cardBorder = image ? "1px solid rgba(99,102,241,.55)" : "1px solid " + C.border;
   return (
-    <div style={{
-      ...glossyJS(done ? C.green : accent),
-      borderRadius: 13, padding: "11px 14px", position: "relative", overflow: "hidden",
-      border: done ? "1px solid rgba(34,197,94,.5)" : "1px solid " + C.border,
-    }}>
-      <div onClick={() => setOpen((o) => !o)} style={{ display: "flex", alignItems: "center", gap: 11, cursor: "pointer" }}>
-        <span style={{
-          width: 20, height: 20, borderRadius: 100, flexShrink: 0, display: "grid", placeItems: "center",
-          background: done ? C.green : "rgba(120,150,255,.14)", boxShadow: done ? "0 0 9px " + C.green : "none",
-        }}>
-          {done ? <Icon name="check" size={11} color="#04140a" /> : <span style={{ fontSize: 10, color: C.dim2, fontWeight: 800 }}>{sub}</span>}
-        </span>
-        <span style={{ flex: 1, fontSize: 13.5, color: done ? "#fff" : C.dim, fontFamily: FM, fontWeight: done ? 700 : 500, lineHeight: 1.35 }}>{label}</span>
-        {done && !open && (
-          <a href={url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
-            style={{ display: "inline-flex", alignItems: "center", gap: 5, flexShrink: 0, color: "#86efac", fontSize: 11.5, fontWeight: 800, textDecoration: "none" }}>
-            <Icon name="award" size={12} color={C.green} /> Certified
-          </a>
+    <div
+      style={{ position: "relative", ...glossyJS("#4f46e5"), borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", height: 250, cursor: (!admin && link) ? "pointer" : "default", border: cardBorder }}
+      className="hoverlift"
+      onClick={handleClick}
+    >
+      <span className="shine" />
+      {/* Image area */}
+      <div
+        style={{ flex: 1, position: "relative", background: "rgba(0,0,0,.35)", overflow: "hidden" }}
+        onMouseEnter={() => admin && setHoverImg(true)}
+        onMouseLeave={() => admin && setHoverImg(false)}
+      >
+        {image
+          ? <img src={image} alt={name || "Certificate"} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          : <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10 }}>
+              <Icon name="image" size={36} color={C.dim2} />
+              {admin && <span style={{ fontSize: 11.5, color: C.dim2, fontWeight: 600 }}>No image yet</span>}
+            </div>
+        }
+        {/* Admin upload overlay */}
+        {admin && (
+          <div style={{
+            position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+            background: "rgba(0,0,0,.55)", opacity: (!image || hoverImg) ? 1 : 0, transition: "opacity .2s", pointerEvents: (!image || hoverImg) ? "all" : "none",
+          }}>
+            <button
+              onClick={(e) => { e.stopPropagation(); fileRef.current.click(); }}
+              style={{ background: "rgba(99,102,241,.92)", border: "none", borderRadius: 12, padding: "9px 18px", color: "#fff", fontSize: 13, fontWeight: 700, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 7 }}
+            >
+              <Icon name="upload" size={14} color="#fff" /> {image ? "Change Image" : "Upload Certificate"}
+            </button>
+          </div>
+        )}
+        <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" style={{ display: "none" }} onChange={handleFile} />
+      </div>
+      {/* Name + link area */}
+      <div style={{ padding: "10px 14px", background: "rgba(0,0,0,.2)", display: "flex", flexDirection: "column", gap: 6 }}>
+        {admin ? (
+          <>
+            <input
+              style={{ ...s.linkInput, padding: "7px 10px", fontSize: 13, fontWeight: 700 }}
+              placeholder="Certificate name…"
+              value={name}
+              onClick={(e) => e.stopPropagation()}
+              onChange={(e) => onUpdate(id, "name", e.target.value)}
+            />
+            <div style={{ display: "flex", gap: 6 }}>
+              <input
+                style={{ ...s.linkInput, padding: "7px 10px", fontSize: 12, flex: 1 }}
+                placeholder="Coursera verify URL…"
+                value={link}
+                onClick={(e) => e.stopPropagation()}
+                onChange={(e) => onUpdate(id, "link", e.target.value)}
+              />
+              <button
+                onClick={(e) => { e.stopPropagation(); onRemove(id); }}
+                title="Remove card"
+                style={{ flexShrink: 0, background: "rgba(239,68,68,.2)", border: "1px solid rgba(239,68,68,.4)", borderRadius: 10, color: "#fca5a5", cursor: "pointer", padding: "0 10px", fontSize: 16, fontWeight: 700 }}
+              >×</button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, color: "#fff", lineHeight: 1.3 }}>{name}</div>
+            {link && <div style={{ fontSize: 11, color: "#a5b4fc", fontWeight: 600 }}>Click to verify →</div>}
+          </>
         )}
       </div>
-      {open && (
-        <div style={{ marginTop: 10 }}>
-          {admin ? (
-            <div style={s.linkInputRow}>
-              <span style={{ fontSize: 11.5, color: C.dim2, fontWeight: 600 }}>Paste certificate link</span>
-              <input style={s.linkInput} placeholder="https://coursera.org/verify/..." value={url || ""}
-                onChange={(e) => setCertLink(ck, e.target.value)} />
-            </div>
-          ) : done ? (
-            <a href={url} target="_blank" rel="noreferrer" style={{ fontSize: 12.5, color: "#86efac", fontWeight: 700, wordBreak: "break-all" }}>{url}</a>
-          ) : (
-            <div style={{ fontSize: 12, color: C.dim2 }}>Certificate not added yet.</div>
-          )}
-        </div>
-      )}
     </div>
   );
 }
 
-function Certs({ admin, certLinks, setCertLink, stats }) {
+function Certs({ admin, certLinks, setCertLink, stats, courseCerts, addCert, updateCert, removeCert }) {
   const earned = (stats && stats.certs) || 0;
   const total = (stats && stats.totalCerts) || 0;
+  const visibleCourseCerts = admin ? courseCerts : (courseCerts || []).filter(c => c.image);
+  const certCount = (courseCerts || []).length;
+  const certLabel = certCount === 1 ? "1 Certificate" : certCount + " Certificates";
   return (
     <div style={s.shell}>
       <div style={s.sec}>
         <div style={s.secHead}>
           <div style={s.secKicker}><Icon name="award" size={14} color={C.gold} /> CERTIFICATE VAULT</div>
           <h2 style={s.secTitle}>Certifications &amp; Courses</h2>
-          <p style={s.secSub}>Every course certificate, tracked one by one. Tap any item to add its link — the Home counter updates automatically.</p>
+          <p style={s.secSub}>AWS certifications and Coursera course certificates, all in one place.</p>
           <div style={{ marginTop: 14, display: "inline-flex", alignItems: "center", gap: 8, ...glossyJS(C.green), borderRadius: 100, padding: "7px 16px", border: "1px solid rgba(34,197,94,.4)" }}>
             <Icon name="award" size={14} color={C.green} />
             <span style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{earned} / {total} certificates earned</span>
@@ -1699,37 +1769,25 @@ function Certs({ admin, certLinks, setCertLink, stats }) {
           })}
         </div>
 
-        {/* 8 Courses + subcourse certificates */}
-        <div style={{ marginTop: 40, marginBottom: 4 }}>
-          <h3 style={{ ...s.secTitle, fontSize: 24 }}>8 Courses · Sub-Course Certificates</h3>
+        {/* Course Certificates */}
+        <div style={{ marginTop: 44, marginBottom: 8 }}>
+          <h3 style={{ ...s.secTitle, fontSize: 24 }}>Course Certificates <span style={{ fontSize: 16, color: C.dim2, fontWeight: 600 }}>· {certLabel}</span></h3>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 18, marginTop: 16 }}>
-          {courses.map((c) => {
-            const subs = c.subs || [];
-            const courseDone = subs.filter((_, i) => certLinks && certLinks["c" + c.n + "-s" + i]).length;
-            return (
-              <div key={c.n} style={{ ...glossyJS("#6366f1"), borderRadius: 18, padding: "18px 20px", position: "relative", overflow: "hidden" }}>
-                <span className="shine" />
-                <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 14, position: "relative" }}>
-                  <div style={s.courseNum}>{String(c.n).padStart(2, "0")}</div>
-                  <div style={{ flex: 1 }}>
-                    <div style={s.courseName}>{c.name}</div>
-                    <div style={s.courseBy}><Icon name="cap" size={13} color={C.blue} /> {c.by}</div>
-                  </div>
-                  <span style={{ flexShrink: 0, fontSize: 12.5, fontWeight: 800, color: courseDone === subs.length && subs.length ? "#86efac" : C.dim2 }}>
-                    {courseDone}/{subs.length}
-                  </span>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8, position: "relative" }}>
-                  {subs.map((label, i) => (
-                    <CertRow key={i} ck={"c" + c.n + "-s" + i} sub={i + 1} label={label} accent={C.blue}
-                      admin={admin} certLinks={certLinks} setCertLink={setCertLink} />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(320px,1fr))", gap: 16, marginTop: 16 }}>
+          {visibleCourseCerts.map(cert => (
+            <CourseCertCard key={cert.id} cert={cert} admin={admin} onUpdate={updateCert} onRemove={removeCert} />
+          ))}
         </div>
+        {admin && (
+          <div style={{ marginTop: 18, display: "flex", justifyContent: "center" }}>
+            <button
+              onClick={addCert}
+              style={{ display: "inline-flex", alignItems: "center", gap: 9, background: "rgba(99,102,241,.18)", border: "1px dashed rgba(99,102,241,.6)", borderRadius: 14, padding: "12px 26px", color: "#a5b4fc", fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: FB, transition: ".2s" }}
+            >
+              <Icon name="plus" size={17} color="#a5b4fc" /> Add Certificate
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -2445,6 +2503,7 @@ export default function App() {
   const progress = useProgress();
   const done = progress.done;
   const { certLinks, setCertLink } = useCertLinks();
+  const { courseCerts, addCert, updateCert, removeCert } = useCourseCerts();
 
   const stats = useMemo(() => {
     const doneSteps = steps.filter((x) => done.has(x.num));
@@ -2464,11 +2523,12 @@ export default function App() {
     const allDoneDays = doneSteps.map((x) => x.day).concat(doneEventDays);
     const maxDay = allDoneDays.length ? Math.max(...allDoneDays) : 0;
     const projectsDone = projects.filter((p) => p.day <= maxDay && maxDay > 0).length;
-    // Certificates: total = all subcourse certs (across 8 courses) + 3 AWS certs.
-    // earned = number of certificate links actually pasted (persisted in certLinks).
-    const totalSubCerts = (courses || []).reduce((sum, c) => sum + ((c.subs && c.subs.length) || 0), 0);
-    const totalCerts = totalSubCerts + (certs ? certs.length : 0);
-    const certsDone = Object.keys(certLinks || {}).length;
+    // Certificates: total = 3 AWS certs + number of course cert cards added.
+    // earned = AWS certs with pasted links + course certs that have a verify link.
+    const totalCerts = (certs ? certs.length : 0) + (courseCerts || []).length;
+    const awsCertsDone = Object.keys(certLinks || {}).filter(k => k.startsWith("aws-")).length;
+    const courseCertsDoneCount = (courseCerts || []).filter(c => c.link && c.link.trim()).length;
+    const certsDone = awsCertsDone + courseCertsDoneCount;
     const layerStats = layers.map((layer) => {
       const lSteps = steps.filter((x) => x.layer === layer.id);
       const lDone = lSteps.filter((x) => done.has(x.num)).length;
@@ -2487,7 +2547,7 @@ export default function App() {
     const currentLayer = layerStats.find((l) => l.pct < 100) || layerStats[layerStats.length - 1];
     const maxStep = doneSteps.length ? Math.max(...doneSteps.map((x) => x.num)) : 0;
     return { steps: stepCount, days: maxDay, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct, layersStarted, currentLayerPct: currentLayer.pct, currentLayerName: currentLayer.name, currentLayerId: currentLayer.id };
-  }, [done, certLinks]);
+  }, [done, certLinks, courseCerts]);
 
   // Wire up browser history so back/forward buttons navigate within the site
   useEffect(() => {
@@ -2540,7 +2600,7 @@ export default function App() {
         {page === "myprojects" && <MyProjects openProject={openProject} links={links} stats={stats} />}
         {page === "commits" && <Commits stats={stats} />}
         {page === "versions" && <Versions openProject={openProject} />}
-        {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} />}
+        {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} courseCerts={courseCerts} addCert={addCert} updateCert={updateCert} removeCert={removeCert} />}
         {page === "contact" && <Contact />}
         {page === "techstack" && <TechStack stats={stats} />}
         {page === "layerprogress" && <LayerProjectProgress go={go} stats={stats} done={done} />}
