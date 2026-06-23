@@ -1610,6 +1610,29 @@ function Journey({ progress }) {
   );
 }
 
+// ============ AWS STATUS HOOK ============
+const AWS_STATUS_KEY = "dharun-aws-status-v1";
+const AWS_STATUS_CYCLE = ["planned", "in-progress", "earned"];
+function useAwsStatus() {
+  const [awsStatus, setAwsStatus] = useState({});
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(AWS_STATUS_KEY);
+      if (stored) setAwsStatus(JSON.parse(stored));
+    } catch(e) {}
+  }, []);
+  useEffect(() => {
+    try { localStorage.setItem(AWS_STATUS_KEY, JSON.stringify(awsStatus)); } catch(e) {}
+  }, [awsStatus]);
+  const cycleStatus = (name) => setAwsStatus(prev => {
+    const cur = prev[name] || "planned";
+    const next = AWS_STATUS_CYCLE[(AWS_STATUS_CYCLE.indexOf(cur) + 1) % AWS_STATUS_CYCLE.length];
+    return { ...prev, [name]: next };
+  });
+  const getStatus = (name) => awsStatus[name] || "planned";
+  return { getStatus, cycleStatus };
+}
+
 // ============ COURSE CERT STORAGE HOOK ============
 const COURSE_CERTS_KEY = "dharun-course-certs-v1";
 function useCourseCerts() {
@@ -1720,12 +1743,19 @@ function CourseCertCard({ cert, admin, onUpdate, onRemove }) {
   );
 }
 
-function Certs({ admin, certLinks, setCertLink, stats, courseCerts, addCert, updateCert, removeCert }) {
+function Certs({ admin, certLinks, setCertLink, stats, courseCerts, addCert, updateCert, removeCert, getAwsStatus, cycleAwsStatus }) {
   const earned = (stats && stats.certs) || 0;
   const total = (stats && stats.totalCerts) || 0;
   const visibleCourseCerts = admin ? courseCerts : (courseCerts || []).filter(c => c.image);
   const certCount = (courseCerts || []).length;
   const certLabel = certCount === 1 ? "1 Certificate" : certCount + " Certificates";
+
+  const STATUS_CFG = {
+    "planned":     { dot: "●", dotColor: "#fbbf24", label: "Planned",     textColor: "#fbbf24" },
+    "in-progress": { dot: "●", dotColor: "#22c55e", label: "In Progress", textColor: "#86efac" },
+    "earned":      { dot: "🏆", dotColor: null,     label: "Earned",      textColor: "#fbbf24" },
+  };
+
   return (
     <div style={s.shell}>
       <div style={s.sec}>
@@ -1739,19 +1769,45 @@ function Certs({ admin, certLinks, setCertLink, stats, courseCerts, addCert, upd
           </div>
         </div>
 
-        {/* AWS Certifications */}
+        {/* AWS Certification Roadmap */}
         <div style={{ marginBottom: 8 }}>
-          <h3 style={{ ...s.secTitle, fontSize: 24 }}>3 AWS Certifications</h3>
+          <h3 style={{ ...s.secTitle, fontSize: 24 }}>AWS Certification Roadmap</h3>
         </div>
         <div style={s.certGrid}>
           {certs.map((c) => {
             const ck = "aws-" + c.name;
             const url = certLinks ? certLinks[ck] : "";
             const done = !!url;
+            const status = getAwsStatus(c.name);
+            const cfg = STATUS_CFG[status];
+            const isEarned = status === "earned";
+            const cardExtra = isEarned
+              ? { border: "1px solid rgba(251,191,36,.7)", boxShadow: "0 0 22px rgba(251,191,36,.25), inset 0 0 16px rgba(251,191,36,.06)" }
+              : done
+              ? { border: "1px solid rgba(34,197,94,.55)" }
+              : {};
             return (
-              <div key={c.name} style={{ ...s.certCard, ...(done ? { border: "1px solid rgba(34,197,94,.55)" } : {}) }} className="hoverlift">
+              <div key={c.name} style={{ ...s.certCard, ...cardExtra, transition: "box-shadow .4s, border-color .4s" }} className="hoverlift">
                 <span className="shine" />
-                <Crest icon="award" color={done ? C.green : C.gold} size={56} iconSize={28} />
+                {/* Status badge — top of card */}
+                <div style={{ position: "relative", marginBottom: 14 }}>
+                  <button
+                    onClick={() => admin && cycleAwsStatus(c.name)}
+                    title={admin ? "Click to change status" : undefined}
+                    style={{ background: "none", border: "none", padding: 0, cursor: admin ? "pointer" : "default" }}
+                  >
+                    <span style={{
+                      display: "inline-flex", alignItems: "center", gap: 6,
+                      background: isEarned ? "rgba(251,191,36,.15)" : status === "in-progress" ? "rgba(34,197,94,.13)" : "rgba(251,191,36,.10)",
+                      border: `1px solid ${isEarned ? "rgba(251,191,36,.45)" : status === "in-progress" ? "rgba(34,197,94,.4)" : "rgba(251,191,36,.3)"}`,
+                      borderRadius: 100, padding: "5px 13px", transition: "all .25s", fontFamily: FB,
+                    }}>
+                      <span style={{ fontSize: cfg.dot === "🏆" ? 13 : 9, color: cfg.dotColor || undefined, lineHeight: 1 }}>{cfg.dot}</span>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: cfg.textColor }}>{cfg.label}</span>
+                    </span>
+                  </button>
+                </div>
+                <Crest icon="award" color={isEarned ? C.gold : done ? C.green : C.gold} size={56} iconSize={28} />
                 <div style={s.certName}>{c.name}</div>
                 <div style={s.certMeta}>{c.layer} · Day {c.day}</div>
                 {done && (
@@ -2504,6 +2560,7 @@ export default function App() {
   const done = progress.done;
   const { certLinks, setCertLink } = useCertLinks();
   const { courseCerts, addCert, updateCert, removeCert } = useCourseCerts();
+  const { getStatus: getAwsStatus, cycleStatus: cycleAwsStatus } = useAwsStatus();
 
   const stats = useMemo(() => {
     const doneSteps = steps.filter((x) => done.has(x.num));
@@ -2600,7 +2657,7 @@ export default function App() {
         {page === "myprojects" && <MyProjects openProject={openProject} links={links} stats={stats} />}
         {page === "commits" && <Commits stats={stats} />}
         {page === "versions" && <Versions openProject={openProject} />}
-        {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} courseCerts={courseCerts} addCert={addCert} updateCert={updateCert} removeCert={removeCert} />}
+        {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} courseCerts={courseCerts} addCert={addCert} updateCert={updateCert} removeCert={removeCert} getAwsStatus={getAwsStatus} cycleAwsStatus={cycleAwsStatus} />}
         {page === "contact" && <Contact />}
         {page === "techstack" && <TechStack stats={stats} />}
         {page === "layerprogress" && <LayerProjectProgress go={go} stats={stats} done={done} />}
