@@ -1649,20 +1649,20 @@ function CourseCertCard({ cert, admin, onUpdate, onRemove }) {
   const cardBorder = image ? "1px solid rgba(99,102,241,.55)" : "1px solid " + C.border;
   return (
     <div
-      style={{ position: "relative", ...glossyJS("#4f46e5"), borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", height: 250, cursor: (!admin && link) ? "pointer" : "default", border: cardBorder }}
+      style={{ position: "relative", ...glossyJS("#4f46e5"), borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", cursor: (!admin && link) ? "pointer" : "default", border: cardBorder }}
       className="hoverlift"
       onClick={handleClick}
     >
       <span className="shine" />
-      {/* Image area */}
+      {/* Image area — no fixed height; grows to show full certificate */}
       <div
-        style={{ flex: 1, position: "relative", background: "rgba(0,0,0,.35)", overflow: "hidden" }}
+        style={{ position: "relative", background: "rgba(0,0,0,.35)" }}
         onMouseEnter={() => admin && setHoverImg(true)}
         onMouseLeave={() => admin && setHoverImg(false)}
       >
         {image
-          ? <img src={image} alt={name || "Certificate"} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-          : <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10 }}>
+          ? <img src={image} alt={name || "Certificate"} style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
+          : <div style={{ minHeight: 200, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10 }}>
               <Icon name="image" size={36} color={C.dim2} />
               {admin && <span style={{ fontSize: 11.5, color: C.dim2, fontWeight: 600 }}>No image yet</span>}
             </div>
