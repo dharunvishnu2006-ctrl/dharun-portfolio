@@ -3,6 +3,29 @@ import PROFILE_IMG from './j.dharun vishnu potho.jpeg';
 import CSX_LOGO from './CLOUDSHIELD X.jpeg';
 import AMX_LOGO from './AUTOPILOT ML X.jpeg';
 import SAI_LOGO from './SENTINAL AI.jpeg';
+import IMG_AWS from './AWS.jpeg';
+import IMG_CLOUD_COMPUTING from './Cloud Computing.jpeg';
+import IMG_CYBER_SECURITY from './Cyber Security.jpeg';
+import IMG_DSA from './DSA & Algorithms.jpeg';
+import IMG_DOCKER from './Docker.jpeg';
+import IMG_FASTAPI from './FastAPI.jpeg';
+import IMG_GIT from './Git & GitHup.jpeg';
+import IMG_KUBERNETES from './Kubernetes.jpeg';
+import IMG_LINUX from './Linux.jpeg';
+import IMG_MLOPS from './MLOps Production.jpeg';
+import IMG_MLFLOW from './MLflow.jpeg';
+import IMG_MATH_ML from './Maths for ML.jpeg';
+import IMG_MONITORING from './Monitoring & Observability.jpeg';
+import IMG_NUMPY from './Numpy & pandas.jpeg';
+import IMG_OPENSOURCE from './Open Sourse.jpeg';
+import IMG_POSTGRESQL from './PostgreSQL.jpeg';
+import IMG_PYTORCH from './PyTorch.jpeg';
+import IMG_PYTHON from './Python & oop.jpeg';
+import IMG_RAG from './RAG.jpeg';
+import IMG_REDIS from './Redis.jpeg';
+import IMG_STREAMLIT from './Streamlit.jpeg';
+import IMG_TERRAFORM from './Terraform.jpeg';
+import IMG_SYSTEM_DESIGN from './Sistem Design.jpeg';
 
 // Supabase client
 const SUPABASE_URL = "https://imfqvebduwnojmbbivrk.supabase.co";
@@ -42,28 +65,32 @@ const DATA = {"layers":[{"id":1,"name":"Python for Everybody","steps":"1–80","
 const { layers, steps, projects, courses, certs, tech, skillmap, milestones, events } = DATA;
 const PROJECT_LOGOS = { CSX: CSX_LOGO, AMX: AMX_LOGO, SAI: SAI_LOGO };
 
-// ===== TARGET TECH-STACK TO UNLOCK =====
-// each pill is one technology Dharun will master across the one-year mission.
-// `day` = the roadmap day by which it is reached; left → right order.
-// (first two are Python-course skills, then the target stack from the plan)
-const targetSkills = [
-  { name: "Python & OOP", color: "#3b82f6", day: 13 },
-  { name: "NumPy & Pandas", color: "#6366f1", day: 19 },
-  { name: "DSA & Algorithms", color: "#818cf8", day: 74 },
-  { name: "Maths for ML", color: "#a855f7", day: 140 },
-  { name: "PostgreSQL", color: "#3b82f6", day: 94 },
-  { name: "PyTorch Deep Learning", color: "#f43f5e", day: 217 },
-  { name: "AWS", color: "#475569", day: 193 },
-  { name: "Docker", color: "#22d3ee", day: 177 },
-  { name: "Kubernetes", color: "#60a5fa", day: 309 },
-  { name: "Streamlit", color: "#fb7185", day: 31 },
-  { name: "Cyber Security", color: "#ef4444", day: 240 },
-  { name: "RAG Legal Medical", color: "#c4b5fd", day: 282 },
-  { name: "Terraform", color: "#a78bfa", day: 318 },
-  { name: "MLflow", color: "#22d3ee", day: 168 },
-  { name: "FastAPI", color: "#34d399", day: 175 },
-  { name: "MLOps Production", color: "#22c55e", day: 346 },
-  { name: "Open Source MIT", color: "#64748b", day: 365 },
+// ===== 23 TECH SKILLS — logo cards with completion tracking =====
+// day = roadmap day by which this skill is unlocked (auto-completes when maxDay >= day)
+const SKILLS = [
+  { name: "Python & OOP",               img: IMG_PYTHON,         day: 13  },
+  { name: "Git & GitHub",               img: IMG_GIT,            day: 5   },
+  { name: "Linux",                       img: IMG_LINUX,          day: 8   },
+  { name: "Numpy & Pandas",             img: IMG_NUMPY,          day: 19  },
+  { name: "Streamlit",                   img: IMG_STREAMLIT,      day: 31  },
+  { name: "DSA & Algorithms",           img: IMG_DSA,            day: 74  },
+  { name: "PostgreSQL",                  img: IMG_POSTGRESQL,     day: 94  },
+  { name: "Math for ML",                img: IMG_MATH_ML,        day: 140 },
+  { name: "MLflow",                      img: IMG_MLFLOW,         day: 168 },
+  { name: "FastAPI",                     img: IMG_FASTAPI,        day: 175 },
+  { name: "Docker",                      img: IMG_DOCKER,         day: 177 },
+  { name: "AWS",                         img: IMG_AWS,            day: 193 },
+  { name: "Cloud Computing",            img: IMG_CLOUD_COMPUTING, day: 195 },
+  { name: "PyTorch",                     img: IMG_PYTORCH,        day: 217 },
+  { name: "Cyber Security",             img: IMG_CYBER_SECURITY,  day: 240 },
+  { name: "RAG",                         img: IMG_RAG,            day: 282 },
+  { name: "Kubernetes",                  img: IMG_KUBERNETES,     day: 309 },
+  { name: "Terraform",                   img: IMG_TERRAFORM,      day: 318 },
+  { name: "Redis",                       img: IMG_REDIS,          day: 330 },
+  { name: "MLOps Production",           img: IMG_MLOPS,          day: 346 },
+  { name: "Monitoring & Observability", img: IMG_MONITORING,     day: 350 },
+  { name: "System Design",              img: IMG_SYSTEM_DESIGN,  day: 358 },
+  { name: "Open Source",                img: IMG_OPENSOURCE,     day: 365 },
 ];
 
 // ============ STYLES v2 — Bright · Glossy · World-Class ============
@@ -499,6 +526,13 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   .card-glow-amx .pu-card-name { color: #8b5cf6 !important; -webkit-text-fill-color: #8b5cf6 !important; }
   .card-glow-sai .pu-card-name { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
   [data-monthabsolute] { color: #8b949e !important; -webkit-text-fill-color: #8b949e !important; background: none !important; }
+}
+.skill-card { cursor: default; transition: transform .18s, box-shadow .18s; }
+.skill-card-admin { cursor: pointer; }
+.skill-card-admin:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 12px 32px rgba(59,130,246,.3) !important; }
+.skill-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 767px) {
+  .skill-card { width: calc(50% - 6px) !important; height: auto !important; aspect-ratio: 1 !important; }
 }
 `;
 
@@ -1100,39 +1134,79 @@ function QuickRow({ go }) {
 }
 
 // ============ TECH STACK ============
-function TechStack({ stats }) {
-  const maxDay = (stats && stats.maxDay) || 0;
-  const doneCount = targetSkills.filter((sk) => maxDay >= sk.day).length;
+function TechStack({ skillsDone, toggleSkillDone, admin }) {
+  const sd = skillsDone || new Set();
+  const completedSkills = SKILLS.filter(sk => sd.has(sk.name));
+  const toLearnSkills = SKILLS.filter(sk => !sd.has(sk.name));
+
+  const SkillCard = ({ sk }) => {
+    const done = sd.has(sk.name);
+    return (
+      <div
+        className={"skill-card" + (admin ? " skill-card-admin" : "")}
+        onClick={() => admin && toggleSkillDone && toggleSkillDone(sk.name)}
+        title={sk.name + (admin ? (done ? " — click to mark incomplete" : " — click to mark complete") : "")}
+        style={{
+          position: "relative", width: 110, height: 110,
+          borderRadius: 14, overflow: "hidden", flexShrink: 0,
+          border: done ? "2px solid #22c55e" : "1px solid rgba(120,150,255,0.18)",
+          background: "rgba(10,14,30,0.55)",
+          boxShadow: done ? "0 0 14px rgba(34,197,94,0.28)" : "none",
+        }}
+      >
+        <img src={sk.img} alt={sk.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        {done && (
+          <div style={{
+            position: "absolute", top: 6, right: 6, width: 22, height: 22, borderRadius: "50%",
+            background: "#16a34a", display: "grid", placeItems: "center",
+            boxShadow: "0 2px 8px rgba(34,197,94,0.6)",
+          }}>
+            <Icon name="check" size={13} color="#fff" />
+          </div>
+        )}
+        {admin && !done && (
+          <div style={{
+            position: "absolute", inset: 0, background: "rgba(0,0,0,0)", transition: "background .15s",
+            display: "grid", placeItems: "center",
+          }} />
+        )}
+      </div>
+    );
+  };
+
   return (
     <div style={s.techPanel} className="fadeup">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8, flexWrap: "wrap", gap: 8 }}>
-        <div style={s.techTitle}>TARGET TECH-STACK TO UNLOCK</div>
-        <div style={{ fontFamily: FD, fontSize: 14, fontWeight: 800, color: C.green }}>{doneCount} / {targetSkills.length} unlocked</div>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4, flexWrap: "wrap", gap: 8 }}>
+        <div style={s.techTitle}>TECH STACK · 23 SKILLS</div>
+        <div style={{ fontFamily: FD, fontSize: 14, fontWeight: 800, color: C.green }}>
+          {completedSkills.length} / {SKILLS.length} Unlocked
+        </div>
       </div>
-      <div style={{ color: "#fff", fontFamily: FD, fontWeight: 800, fontSize: 17, fontStyle: "italic", letterSpacing: "-0.3px", marginBottom: 18, lineHeight: 1.35 }}>
-        These are the skills I will master by the end of my one-year mission.
+      <div style={{ fontFamily: FD, fontWeight: 700, fontSize: 15, fontStyle: "italic", letterSpacing: "-0.2px", marginBottom: 22, lineHeight: 1.35, color: C.dim }}>
+        Skills I will master across my one-year mission.{admin && " (Admin: click any card to toggle completion)"}
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 11 }}>
-        {targetSkills.map((sk) => {
-          const done = maxDay >= sk.day;
-          return (
-            <span
-              key={sk.name}
-              style={{
-                display: "inline-flex", alignItems: "center",
-                background: done ? "#16a34a" : "rgba(26,26,46,0.6)",
-                border: done ? "1px solid #22c55e" : "1px solid rgba(120,150,255,0.2)",
-                boxShadow: done ? "0 6px 18px rgba(34,197,94,0.3), inset 0 1px 0 rgba(255,255,255,.15)" : "none",
-                borderRadius: 12, padding: "10px 16px",
-                fontFamily: FD, fontWeight: 800, fontSize: 14, color: "#fff",
-                letterSpacing: ".2px", whiteSpace: "nowrap",
-              }}
-            >
-              {sk.name}
-            </span>
-          );
-        })}
-      </div>
+
+      {completedSkills.length > 0 && (
+        <div style={{ marginBottom: 24 }}>
+          <div style={{ fontFamily: FD, fontSize: 11.5, fontWeight: 800, letterSpacing: "1.2px", color: C.green, marginBottom: 14, textTransform: "uppercase", display: "flex", alignItems: "center", gap: 7 }}>
+            <Icon name="check" size={13} color={C.green} /> Skills Completed ({completedSkills.length})
+          </div>
+          <div className="skill-grid">
+            {completedSkills.map(sk => <SkillCard key={sk.name} sk={sk} />)}
+          </div>
+        </div>
+      )}
+
+      {toLearnSkills.length > 0 && (
+        <div>
+          <div style={{ fontFamily: FD, fontSize: 11.5, fontWeight: 800, letterSpacing: "1.2px", color: C.dim2, marginBottom: 14, textTransform: "uppercase", display: "flex", alignItems: "center", gap: 7 }}>
+            <Icon name="target" size={13} color={C.dim2} /> Skills To Learn ({toLearnSkills.length})
+          </div>
+          <div className="skill-grid">
+            {toLearnSkills.map(sk => <SkillCard key={sk.name} sk={sk} />)}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1210,7 +1284,7 @@ function GitHubGrid({ stats }) {
   );
 }
 // ============ HOME ============
-function Home({ go, stats, openProject, admin, repos, setRepos }) {
+function Home({ go, stats, openProject, admin, repos, setRepos, skillsDone }) {
   const [animate, setAnimate] = useState(false);
   useEffect(() => { const t = setTimeout(() => setAnimate(true), 250); return () => clearTimeout(t); }, []);
   return (
@@ -1222,7 +1296,7 @@ function Home({ go, stats, openProject, admin, repos, setRepos }) {
         <MyRepos />
       </div>
       {/* Target Tech Stack — full width */}
-      <div style={{ marginTop: 8 }}><TechStack stats={stats} /></div>
+      <div style={{ marginTop: 8 }}><TechStack skillsDone={skillsDone} admin={false} /></div>
      
       <div style={{ height: 20 }} />
     </div>
@@ -2234,6 +2308,32 @@ function useProgress() {
   return { done, toggle, setLayerDone };
 }
 
+function useSkillsDone() {
+  const [skillsDone, setSkillsDone] = useState(() => new Set());
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    sbGet("dharun-skills-done").then(r => {
+      if (r && r.value) setSkillsDone(new Set(JSON.parse(r.value)));
+      setLoaded(true);
+    });
+  }, []);
+  const save = (next) => sbSet("dharun-skills-done", JSON.stringify([...next]));
+  const toggleSkillDone = (name) => setSkillsDone(prev => {
+    const next = new Set(prev);
+    if (next.has(name)) next.delete(name); else next.add(name);
+    save(next);
+    return next;
+  });
+  const markSkillDone = (name) => setSkillsDone(prev => {
+    if (prev.has(name)) return prev;
+    const next = new Set(prev);
+    next.add(name);
+    save(next);
+    return next;
+  });
+  return { skillsDone, toggleSkillDone, markSkillDone, loaded };
+}
+
 // ============ LAYER & PROJECT PROGRESS ============
 function LayerProjectProgress({ go, stats, done }) {
   const [animate, setAnimate] = useState(false);
@@ -2562,6 +2662,7 @@ export default function App() {
   const { certLinks, setCertLink } = useCertLinks();
   const { courseCerts, addCert, updateCert, removeCert } = useCourseCerts();
   const { getStatus: getAwsStatus, cycleStatus: cycleAwsStatus } = useAwsStatus();
+  const { skillsDone, toggleSkillDone, markSkillDone, loaded: skillsLoaded } = useSkillsDone();
 
   const stats = useMemo(() => {
     const doneSteps = steps.filter((x) => done.has(x.num));
@@ -2604,6 +2705,13 @@ export default function App() {
     const maxStep = doneSteps.length ? Math.max(...doneSteps.map((x) => x.num)) : 0;
     return { steps: stepCount, days: maxDay, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct, layersStarted, currentLayerPct: currentLayer.pct, currentLayerName: currentLayer.name, currentLayerId: currentLayer.id };
   }, [done, certLinks, courseCerts]);
+
+  // Sync roadmap progress → skills: auto-mark skills whose day threshold is reached
+  useEffect(() => {
+    if (!skillsLoaded) return;
+    const maxDay = stats.maxDay;
+    SKILLS.forEach(sk => { if (sk.day && maxDay >= sk.day) markSkillDone(sk.name); });
+  }, [stats.maxDay, skillsLoaded]);
 
   // Wire up browser history so back/forward buttons navigate within the site
   useEffect(() => {
@@ -2649,7 +2757,7 @@ export default function App() {
       )}
 
       <main>
-        {page === "home" && <Home go={go} stats={stats} openProject={openProject} admin={admin} repos={repos} setRepos={setRepos} />}
+        {page === "home" && <Home go={go} stats={stats} openProject={openProject} admin={admin} repos={repos} setRepos={setRepos} skillsDone={skillsDone} />}
         {page === "journey" && <Journey progress={progress} />}
         {page === "roadmap" && <Roadmap progress={progress} admin={admin} openLogin={() => setShowLogin(true)} />}
         {page === "projects" && <Projects openProject={openProject} />}
@@ -2658,7 +2766,7 @@ export default function App() {
         {page === "versions" && <Versions openProject={openProject} />}
         {page === "certs" && <Certs admin={admin} certLinks={certLinks} setCertLink={setCertLink} stats={stats} courseCerts={courseCerts} addCert={addCert} updateCert={updateCert} removeCert={removeCert} getAwsStatus={getAwsStatus} cycleAwsStatus={cycleAwsStatus} />}
         {page === "contact" && <Contact />}
-        {page === "techstack" && <TechStack stats={stats} />}
+        {page === "techstack" && <TechStack skillsDone={skillsDone} toggleSkillDone={toggleSkillDone} admin={admin} />}
         {page === "layerprogress" && <LayerProjectProgress go={go} stats={stats} done={done} />}
       </main>
 
