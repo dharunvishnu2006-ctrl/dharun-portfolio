@@ -1485,6 +1485,9 @@ function Roadmap({ progress, admin, openLogin }) {
 // ============ PROJECTS ============
 function Projects({ openProject }) {
   const pc = { CSX: C.blue, AMX: C.purple, SAI: C.green, AX: C.green };
+  const nameColor = { CSX: "#3b82f6", AMX: "#8b5cf6", SAI: "#22c55e", AX: "#22c55e" };
+  // gallery-only subtitles (AX uses its own desc)
+  const subtitle = { CSX: "Enterprise Cloud Security & CSPM Platform", AMX: "Self-Healing MLOps Platform", SAI: "Multi-Agent Command Centre" };
   return (
     <div style={s.shell}>
       <div style={s.sec}>
@@ -1502,8 +1505,9 @@ function Projects({ openProject }) {
                 <div style={s.projTop}>
                   <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: pc[p.code] || C.gold, border: `1px solid ${pc[p.code] || C.gold}88` }}>{p.tag}</span>
                 </div>
-                <div style={{ ...s.projName, color: { CSX: "#3b82f6", AMX: "#8b5cf6", SAI: "#22c55e", AX: "#22c55e" }[p.code] || "#fff" }}>{p.name}</div>
-                {!PROJECT_LOGOS[p.code] && <div style={{ ...s.projDesc, color: "#22c55e" }}>{p.desc}</div>}
+                <div style={{ ...s.projName, color: nameColor[p.code] || "#fff" }}>{p.name}</div>
+                {/* minHeight reserves 2 lines (14px * 1.5) so all cards stay equal height when a subtitle wraps */}
+                <div style={{ ...s.projDesc, color: nameColor[p.code] || "#fff", minHeight: 42, overflowWrap: "anywhere" }}>{subtitle[p.code] || p.desc}</div>
                 <div style={s.projFoot}><Icon name="arrow" size={13} color={p.accent} style={{ marginLeft: "auto" }} /></div>
               </div>
             </div>
