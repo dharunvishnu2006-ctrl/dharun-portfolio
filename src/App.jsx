@@ -83,6 +83,9 @@ const DATA = {"layers":[{"id":1,"name":"Python for Everybody","steps":"1–80","
 
 const { layers, steps, projects, courses, tech, skillmap, milestones, events } = DATA;
 const PROJECT_LOGOS = { CSX: CSX_LOGO, AMX: AMX_LOGO, SAI: SAI_LOGO, AX: AX_LOGO };
+// title text colour overrides; projects not listed use their accent (borders/dots always use accent)
+const PROJECT_TITLE_COLORS = { SAI: "#FF4526" };
+const titleColor = (p) => PROJECT_TITLE_COLORS[p.code] || p.accent;
 
 // ===== 23 TECH SKILLS — logo cards with completion tracking =====
 // day = roadmap day by which this skill is unlocked (auto-completes when maxDay >= day)
@@ -551,7 +554,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   .pu-title-text { color: #fff !important; -webkit-text-fill-color: #fff !important; background: none !important; }
   .card-glow-csx .pu-card-name { color: #3b82f6 !important; -webkit-text-fill-color: #3b82f6 !important; }
   .card-glow-amx .pu-card-name { color: #e040fb !important; -webkit-text-fill-color: #e040fb !important; }
-  .card-glow-sai .pu-card-name { color: #f97316 !important; -webkit-text-fill-color: #f97316 !important; }
+  .card-glow-sai .pu-card-name { color: #FF4526 !important; -webkit-text-fill-color: #FF4526 !important; }
   .card-glow-ax .pu-card-name { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
   [data-monthabsolute] { color: #8b949e !important; -webkit-text-fill-color: #8b949e !important; background: none !important; }
 }
@@ -1532,9 +1535,9 @@ function Projects({ openProject }) {
                 <div style={s.projTop}>
                   <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: pc[p.code] || C.gold, border: `1px solid ${pc[p.code] || C.gold}88` }}>{p.tag}</span>
                 </div>
-                <div style={{ ...s.projName, color: p.accent }}>{p.name}</div>
+                <div style={{ ...s.projName, color: titleColor(p) }}>{p.name}</div>
                 {/* minHeight reserves 2 lines (14px * 1.5) so all cards stay equal height when a subtitle wraps */}
-                <div style={{ ...s.projDesc, color: p.accent, minHeight: 42, overflowWrap: "anywhere" }}>{subtitle[p.code] || p.desc}</div>
+                <div style={{ ...s.projDesc, color: titleColor(p), minHeight: 42, overflowWrap: "anywhere" }}>{subtitle[p.code] || p.desc}</div>
                 <div style={s.projFoot}><Icon name="arrow" size={13} color={p.accent} style={{ marginLeft: "auto" }} /></div>
               </div>
             </div>
@@ -1666,7 +1669,7 @@ function Versions({ openProject }) {
               <span className="shine" />
               {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", display: "block", borderRadius: "20px 20px 0 0" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", borderRadius: "20px 20px 0 0", fontSize: 64 }}>{p.emoji}</div>}
               <div style={{ padding: "16px 22px 20px" }}>
-                <div style={{ ...s.verName, color: p.accent }}>{p.name}</div>
+                <div style={{ ...s.verName, color: titleColor(p) }}>{p.name}</div>
                 <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 10, position: "relative" }}>
                   {(p.versions || []).map((v, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
