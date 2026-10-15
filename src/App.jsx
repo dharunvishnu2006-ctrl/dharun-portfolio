@@ -84,12 +84,12 @@ const DATA = {"layers":[{"id":1,"name":"Python for Everybody","steps":"1–80","
 const { layers, steps, projects, courses, tech, skillmap, milestones, events } = DATA;
 const PROJECT_LOGOS = { CSX: CSX_LOGO, AMX: AMX_LOGO, SAI: SAI_LOGO, AX: AX_LOGO };
 // per-project text/badge/dot theming; projects not listed fall back to their accent (borders always use accent)
-const SAI_GRADIENT = "linear-gradient(90deg, #22C55E 0%, #FFC107 50%, #E63B1E 100%)";
 const PROJECT_TEXT_CLASS = { SAI: "title-grad-sai" }; // gradient title + subtitle, see .title-grad-* CSS
 const PROJECT_BADGE_STYLES = {
-  SAI: { background: SAI_GRADIENT, color: "#0B0B14", border: "1px solid transparent" },
+  SAI: { background: "transparent", border: "1px solid #F7802E" }, // gradient ring + text via .badge-grad-sai CSS
   AMX: { background: "#e040fb33", color: "#e040fb", border: "1px solid #e040fb88" },
 };
+const PROJECT_BADGE_CLASS = { SAI: "badge-grad-sai" };
 const PROJECT_DOT_COLORS = { SAI: ["#22C55E", "#A3C940", "#FFC107", "#F7802E", "#E63B1E"] };
 const versionDotColor = (p, i) => (PROJECT_DOT_COLORS[p.code] || [])[i] || p.accent;
 function ProjectText({ p, children }) {
@@ -415,7 +415,15 @@ body { margin: 0; background: #000000; }
 .card-glow-ax  { animation: cardGlowSAI 5.5s ease-in-out infinite; }
 /* SentinelAI title mirrors its logo; solid fallback where background-clip:text is unsupported */
 .title-grad-sai { color: #FF7043; display: inline-block; padding-right: .12em; margin-right: -.12em; }
+/* SentinelAI badge: gradient outline ring (masked so the pill keeps its radius) + gradient text; solid fallbacks */
+.badge-grad-sai { position: relative; }
+.badge-grad-sai .badge-text { color: #FFC107; }
+@supports ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+  .badge-grad-sai { border-color: transparent !important; }
+  .badge-grad-sai::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: linear-gradient(90deg, #22C55E 0%, #FFC107 50%, #E63B1E 100%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+}
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .badge-grad-sai .badge-text { background: linear-gradient(90deg, #22C55E 0%, #FFC107 50%, #E63B1E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
   .title-grad-sai { background: linear-gradient(90deg, #22C55E 0%, #FFC107 50%, #E63B1E 100%); background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 }
 @keyframes dashGlowCycle {
@@ -1551,7 +1559,7 @@ function Projects({ openProject }) {
               {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", display: "block", borderRadius: "20px 20px 0 0" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", borderRadius: "20px 20px 0 0", fontSize: 64 }}>{p.emoji}</div>}
               <div style={{ padding: "16px 22px 20px" }}>
                 <div style={s.projTop}>
-                  <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: pc[p.code] || C.gold, border: `1px solid ${pc[p.code] || C.gold}88`, ...PROJECT_BADGE_STYLES[p.code] }}>{p.tag}</span>
+                  <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: pc[p.code] || C.gold, border: `1px solid ${pc[p.code] || C.gold}88`, ...PROJECT_BADGE_STYLES[p.code] }} className={PROJECT_BADGE_CLASS[p.code]}>{PROJECT_BADGE_CLASS[p.code] ? <span className="badge-text">{p.tag}</span> : p.tag}</span>
                 </div>
                 <div style={{ ...s.projName, color: p.accent }}><ProjectTitle p={p} /></div>
                 {/* minHeight reserves 2 lines (14px * 1.5) so all cards stay equal height when a subtitle wraps */}
