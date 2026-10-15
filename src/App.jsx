@@ -83,13 +83,21 @@ const DATA = {"layers":[{"id":1,"name":"Python for Everybody","steps":"1–80","
 
 const { layers, steps, projects, courses, tech, skillmap, milestones, events } = DATA;
 const PROJECT_LOGOS = { CSX: CSX_LOGO, AMX: AMX_LOGO, SAI: SAI_LOGO, AX: AX_LOGO };
-// title/subtitle text overrides; projects not listed use their accent (borders/dots always use accent)
-const PROJECT_TITLE_CLASS = { SAI: "title-grad-sai" }; // gradient titles, see .title-grad-* CSS
-const PROJECT_SUBTITLE_COLORS = { SAI: "#FF7043" };
-const subtitleColor = (p) => PROJECT_SUBTITLE_COLORS[p.code] || p.accent;
+// per-project text/badge/dot theming; projects not listed fall back to their accent (borders always use accent)
+const SAI_GRADIENT = "linear-gradient(90deg, #22C55E 0%, #FFC107 50%, #E63B1E 100%)";
+const PROJECT_TEXT_CLASS = { SAI: "title-grad-sai" }; // gradient title + subtitle, see .title-grad-* CSS
+const PROJECT_BADGE_STYLES = {
+  SAI: { background: SAI_GRADIENT, color: "#0B0B14", border: "1px solid transparent" },
+  AMX: { background: "#e040fb33", color: "#e040fb", border: "1px solid #e040fb88" },
+};
+const PROJECT_DOT_COLORS = { SAI: ["#22C55E", "#A3C940", "#FFC107", "#F7802E", "#E63B1E"] };
+const versionDotColor = (p, i) => (PROJECT_DOT_COLORS[p.code] || [])[i] || p.accent;
+function ProjectText({ p, children }) {
+  const cls = PROJECT_TEXT_CLASS[p.code];
+  return cls ? <span className={cls}>{children}</span> : children;
+}
 function ProjectTitle({ p }) {
-  const cls = PROJECT_TITLE_CLASS[p.code];
-  return cls ? <span className={cls}>{p.name}</span> : p.name;
+  return <ProjectText p={p}>{p.name}</ProjectText>;
 }
 
 // ===== 23 TECH SKILLS — logo cards with completion tracking =====
@@ -1543,11 +1551,11 @@ function Projects({ openProject }) {
               {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", display: "block", borderRadius: "20px 20px 0 0" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", borderRadius: "20px 20px 0 0", fontSize: 64 }}>{p.emoji}</div>}
               <div style={{ padding: "16px 22px 20px" }}>
                 <div style={s.projTop}>
-                  <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: pc[p.code] || C.gold, border: `1px solid ${pc[p.code] || C.gold}88` }}>{p.tag}</span>
+                  <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: pc[p.code] || C.gold, border: `1px solid ${pc[p.code] || C.gold}88`, ...PROJECT_BADGE_STYLES[p.code] }}>{p.tag}</span>
                 </div>
                 <div style={{ ...s.projName, color: p.accent }}><ProjectTitle p={p} /></div>
                 {/* minHeight reserves 2 lines (14px * 1.5) so all cards stay equal height when a subtitle wraps */}
-                <div style={{ ...s.projDesc, color: subtitleColor(p), minHeight: 42, overflowWrap: "anywhere" }}>{subtitle[p.code] || p.desc}</div>
+                <div style={{ ...s.projDesc, color: p.accent, minHeight: 42, overflowWrap: "anywhere" }}><ProjectText p={p}>{subtitle[p.code] || p.desc}</ProjectText></div>
                 <div style={s.projFoot}><Icon name="arrow" size={13} color={p.accent} style={{ marginLeft: "auto" }} /></div>
               </div>
             </div>
@@ -1683,7 +1691,7 @@ function Versions({ openProject }) {
                 <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 10, position: "relative" }}>
                   {(p.versions || []).map((v, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <span style={{ width: 9, height: 9, borderRadius: 100, background: p.accent, boxShadow: `0 0 8px ${p.accent}`, flexShrink: 0 }} />
+                      <span style={{ width: 9, height: 9, borderRadius: 100, background: versionDotColor(p, i), boxShadow: `0 0 8px ${versionDotColor(p, i)}`, flexShrink: 0 }} />
                       <span style={{ fontSize: 13.5, color: "#eaf0ff", fontFamily: FM, fontWeight: 500 }}>{vLabel(v)}</span>
                     </div>
                   ))}
