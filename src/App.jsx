@@ -396,6 +396,7 @@ body { margin: 0; background: #000000; }
 .card-glow-csx { animation: cardGlowCSX 6s ease-in-out infinite; }
 .card-glow-amx { animation: cardGlowAMX 7s ease-in-out infinite; }
 .card-glow-sai { animation: cardGlowSAI 5s ease-in-out infinite; }
+.card-glow-ax  { animation: cardGlowSAI 5.5s ease-in-out infinite; }
 @keyframes dashGlowCycle {
   0%   { box-shadow: 0 0 0 1px rgba(59,130,246,.45), 0 0 14px rgba(59,130,246,.18); }
   33%  { box-shadow: 0 0 0 1px rgba(139,92,246,.45), 0 0 14px rgba(139,92,246,.18); }
@@ -435,6 +436,9 @@ button:hover { filter: brightness(1.12); }
 input:focus { border-color: rgba(120,150,255,.65) !important; }
 @media (min-width: 1081px) {
   [data-pustandalone] { display: none !important; }
+  [data-axcaption] { display: none !important; }
+  /* exactly two col-3 logo cards tall (2 x (180px img + 2px border)) */
+  [data-dashblock] { height: 364px; }
 }
 @media (min-width: 861px) and (max-width: 1023px) {
   [data-col2divider] { display: block !important; }
@@ -442,9 +446,13 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   [data-col2connect] { display: flex !important; flex-direction: column; flex: 1; }
   [data-sidetags] { display: none !important; }
 }
-@media (min-width: 861px) and (max-width: 1080px) {
+@media (max-width: 1080px) {
   [data-pustandalone] { order: 2; }
   [data-dashcol4] { order: 3; }
+  [data-dashspacer], [data-dashzonegap] { display: none !important; }
+  [data-dashzone] { gap: 14px !important; }
+  /* line the AAROGYA X card up with the standalone Project Universe cards above it */
+  [data-dashzone] > .card-glow-ax { margin: -30px 2px 0 10px; }
 }
 @media (max-width: 1080px) {
   [data-herotop] { grid-template-columns: 1fr !important; }
@@ -544,6 +552,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   .card-glow-csx .pu-card-name { color: #3b82f6 !important; -webkit-text-fill-color: #3b82f6 !important; }
   .card-glow-amx .pu-card-name { color: #8b5cf6 !important; -webkit-text-fill-color: #8b5cf6 !important; }
   .card-glow-sai .pu-card-name { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
+  .card-glow-ax .pu-card-name { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
   [data-monthabsolute] { color: #8b949e !important; -webkit-text-fill-color: #8b949e !important; background: none !important; }
 }
 .skill-card { cursor: default; transition: transform .18s, box-shadow .18s; }
@@ -707,7 +716,6 @@ function Nav({ page, go, admin, openLogin, logout }) {
 
 // ============ HERO ============
 function Hero({ go, stats, animate, openProject }) {
-  const days = useCountUp(stats.days, animate);
   const miles = useCountUp(stats.maxStep, animate);
   const projs = useCountUp(stats.projects, animate);
   const majorProjs = useCountUp(projects.filter(p => p.code !== "AX").length, animate);
@@ -757,10 +765,8 @@ function Hero({ go, stats, animate, openProject }) {
     { major: majorProjs, mini: miniProjs, c: "#8b5cf6", page: "projects" },
     { n: crt, l: "Certificates", c: "#e040fb", page: "certs" },
   ];
-  const rightCards = [
-    { n: `${days}/365`, l: "Days Completed", c: "#3b82f6" },
-    { n: `${miles}/600`, l: "Milestones", c: "#22d3ee" },
-  ];
+  const aarogya = projects.find((p) => p.code === "AX");
+  const tilePad = "14px 15px";
   return (
     <section style={s.hero}>
       <div style={{ ...s.globe, display: "none" }} data-globe><div style={s.globeRings} /><div style={{ ...s.globeRings, transform: "rotate(60deg)", animationDuration: "44s" }} /></div>
@@ -871,54 +877,75 @@ function Hero({ go, stats, animate, openProject }) {
           </div>
         </div>
 
-        {/* COL 4: Journey Dashboard */}
+        {/* COL 4: AAROGYA X logo (top third) + Journey Dashboard (bottom two-thirds) */}
         <div data-dashcol4 style={{ ...s.dash, background: "transparent", border: "none", boxShadow: "none", backdropFilter: "none", padding: 14, gap: 0, marginRight: 8 }} className="dash-calm">
-          <div style={{ ...s.dashHead, marginBottom: 10, flexShrink: 0 }}>
-            <div style={{ ...s.dashTitle, whiteSpace: "nowrap", color: "#fff" }}>JOURNEY DASHBOARD</div>
-            <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
+          {/* invisible replica of the PROJECT UNIVERSE heading row so the logo cards share one top line */}
+          <div data-dashspacer aria-hidden="true" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexShrink: 0, visibility: "hidden" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Icon name="rocket" size={14} color={C.cyan} />
+              <span style={{ fontFamily: FD, fontSize: 14.5, fontWeight: 800, letterSpacing: ".5px", color: "#fff" }}>PROJECT UNIVERSE</span>
+            </div>
+            <button tabIndex={-1} style={{ ...s.puLink, fontSize: 12 }}>View All <Icon name="arrow" size={11} /></button>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, justifyContent: "space-evenly" }} data-dashgrid>
-            {leftCards.map((d, i) => (
-              <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
-                style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-                className={`hoverlift ${i === 0 ? "dash-glow-1" : "dash-glow-2"}`}>
-                <span className="shine" />
-                {d.major != null ? (
-                  <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
-                    <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                      <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.major} · Flagship Projects</span>
-                      <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
-                    </span>
-                    <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.mini} · Hospital AI Platform</span>
-                  </span>
-                ) : (
-                  <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                    <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.n} · {d.l}</span>
-                    <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
-                  </span>
-                )}
-              </button>
-            ))}
-            {rightCards.map((d, i) => (
-              <div key={d.l} style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className={i === 0 ? "dash-glow-3" : "dash-glow-4"}>
-                <span className="shine" />
-                <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i + 2] }}>{d.n} · {d.l}</span>
+          {/* mirrors col 3's card stack (same gap + space-evenly, 3 children, block = 2 card heights) */}
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly", gap: 8 }} data-dashzone>
+            <div
+              style={{ ...glossyJS(aarogya.accent), display: "flex", flexDirection: "column", borderRadius: 14, padding: 0, cursor: "pointer", transition: ".2s", border: `1px solid ${aarogya.accent}40`, overflow: "hidden", flexShrink: 0 }}
+              className="hoverlift card-glow-ax"
+              onClick={() => openProject(aarogya)}>
+              <img src={PROJECT_LOGOS.AX} alt={aarogya.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", flexShrink: 0, background: "#0a0a1a" }} />
+              <div data-axcaption style={{ padding: "14px 18px 16px" }}>
+                <div className="pu-card-name" style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{aarogya.name}</div>
               </div>
-            ))}
-            <button onClick={() => go("layerprogress")}
-              style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }}
-              className="hoverlift dash-glow-5">
-              <span className="shine" />
-              <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[4] }}>Layer &amp; Project Progress</span>
-                <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[4] }}>→</span>
-              </span>
-            </button>
-            <div style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "26px 15px" }} className="dash-glow-6">
-              <span className="shine" />
-              <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[5] }}>
-                {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
-              </span>
+            </div>
+            <div data-dashzonegap />
+            <div data-dashblock style={{ display: "flex", flexDirection: "column", flexShrink: 0 }}>
+              <div style={{ ...s.dashHead, marginBottom: 8, flexShrink: 0 }}>
+                <div style={{ ...s.dashTitle, whiteSpace: "nowrap", color: "#fff" }}>JOURNEY DASHBOARD</div>
+                <span style={s.liveBadge}><span style={s.liveDot} /> LIVE</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6, flex: 1 }} data-dashgrid>
+                {leftCards.map((d, i) => (
+                  <button key={d.major != null ? "projects" : d.l} onClick={() => go(d.page)}
+                    style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: tilePad, flex: "1 0 auto" }}
+                    className={`hoverlift ${i === 0 ? "dash-glow-1" : "dash-glow-2"}`}>
+                    <span className="shine" />
+                    {d.major != null ? (
+                      <span style={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center", width: "100%" }}>
+                        <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                          <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.major} · Flagship Projects</span>
+                          <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
+                        </span>
+                        <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.mini} · Hospital AI Platform</span>
+                      </span>
+                    ) : (
+                      <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                        <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[i] }}>{d.n} · {d.l}</span>
+                        <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[i] }}>→</span>
+                      </span>
+                    )}
+                  </button>
+                ))}
+                <div style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: tilePad, flex: "1 0 auto" }} className="dash-glow-4">
+                  <span className="shine" />
+                  <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[3] }}>{miles}/600 · Milestones</span>
+                </div>
+                <button onClick={() => go("layerprogress")}
+                  style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", cursor: "pointer", width: "100%", font: "inherit", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: tilePad, flex: "1 0 auto" }}
+                  className="hoverlift dash-glow-5">
+                  <span className="shine" />
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                    <span style={{ flex: 1, textAlign: "center", fontSize: 17, fontWeight: 700, ...DASH_GRADS[4] }}>Layer &amp; Project Progress</span>
+                    <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1, ...DASH_GRADS[4] }}>→</span>
+                  </span>
+                </button>
+                <div style={{ ...s.dashCard, background: "rgba(0,0,0,0.25)", border: "none", boxShadow: "none", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: tilePad, flex: "1 0 auto" }} className="dash-glow-6">
+                  <span className="shine" />
+                  <span style={{ fontSize: 17, fontWeight: 700, ...DASH_GRADS[5] }}>
+                    {ghCommitsErr ? "N/A" : ghCommits !== null ? ghCommits.toLocaleString() : "…"} · Git Commits
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2690,7 +2717,7 @@ export default function App() {
     const layersStarted = layerStats.filter((l) => l.started).length;
     const currentLayer = layerStats.find((l) => l.pct < 100) || layerStats[layerStats.length - 1];
     const maxStep = doneSteps.length ? Math.max(...doneSteps.map((x) => x.num)) : 0;
-    return { steps: stepCount, days: maxDay, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct, layersStarted, currentLayerPct: currentLayer.pct, currentLayerName: currentLayer.name, currentLayerId: currentLayer.id };
+    return { steps: stepCount, maxStep, projects: projects.length, certs: certsDone, totalCerts, commits: stepCount * 3, pct: Math.round((stepCount / 600) * 100), maxDay, layer1Pct, layersStarted, currentLayerPct: currentLayer.pct, currentLayerName: currentLayer.name, currentLayerId: currentLayer.id };
   }, [done, courseCerts]);
 
   // Sync roadmap progress → skills: auto-mark skills whose day threshold is reached
