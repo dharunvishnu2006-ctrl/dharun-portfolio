@@ -83,9 +83,14 @@ const DATA = {"layers":[{"id":1,"name":"Python for Everybody","steps":"1–80","
 
 const { layers, steps, projects, courses, tech, skillmap, milestones, events } = DATA;
 const PROJECT_LOGOS = { CSX: CSX_LOGO, AMX: AMX_LOGO, SAI: SAI_LOGO, AX: AX_LOGO };
-// title text colour overrides; projects not listed use their accent (borders/dots always use accent)
-const PROJECT_TITLE_COLORS = { SAI: "#FF4526" };
-const titleColor = (p) => PROJECT_TITLE_COLORS[p.code] || p.accent;
+// title/subtitle text overrides; projects not listed use their accent (borders/dots always use accent)
+const PROJECT_TITLE_CLASS = { SAI: "title-grad-sai" }; // gradient titles, see .title-grad-* CSS
+const PROJECT_SUBTITLE_COLORS = { SAI: "#FF7043" };
+const subtitleColor = (p) => PROJECT_SUBTITLE_COLORS[p.code] || p.accent;
+function ProjectTitle({ p }) {
+  const cls = PROJECT_TITLE_CLASS[p.code];
+  return cls ? <span className={cls}>{p.name}</span> : p.name;
+}
 
 // ===== 23 TECH SKILLS — logo cards with completion tracking =====
 // day = roadmap day by which this skill is unlocked (auto-completes when maxDay >= day)
@@ -400,6 +405,11 @@ body { margin: 0; background: #000000; }
 .card-glow-amx { animation: cardGlowAMX 7s ease-in-out infinite; }
 .card-glow-sai { animation: cardGlowSAI 5s ease-in-out infinite; }
 .card-glow-ax  { animation: cardGlowSAI 5.5s ease-in-out infinite; }
+/* SentinelAI title mirrors its logo; solid fallback where background-clip:text is unsupported */
+.title-grad-sai { color: #FF7043; display: inline-block; padding-right: .12em; margin-right: -.12em; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .title-grad-sai { background: linear-gradient(90deg, #22C55E 0%, #FFC107 50%, #E63B1E 100%); background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+}
 @keyframes dashGlowCycle {
   0%   { box-shadow: 0 0 0 1px rgba(59,130,246,.45), 0 0 14px rgba(59,130,246,.18); }
   33%  { box-shadow: 0 0 0 1px rgba(139,92,246,.45), 0 0 14px rgba(139,92,246,.18); }
@@ -554,7 +564,7 @@ input:focus { border-color: rgba(120,150,255,.65) !important; }
   .pu-title-text { color: #fff !important; -webkit-text-fill-color: #fff !important; background: none !important; }
   .card-glow-csx .pu-card-name { color: #3b82f6 !important; -webkit-text-fill-color: #3b82f6 !important; }
   .card-glow-amx .pu-card-name { color: #e040fb !important; -webkit-text-fill-color: #e040fb !important; }
-  .card-glow-sai .pu-card-name { color: #FF4526 !important; -webkit-text-fill-color: #FF4526 !important; }
+  .card-glow-sai .pu-card-name { color: #FF7043 !important; -webkit-text-fill-color: #FF7043 !important; }
   .card-glow-ax .pu-card-name { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
   [data-monthabsolute] { color: #8b949e !important; -webkit-text-fill-color: #8b949e !important; background: none !important; }
 }
@@ -1141,7 +1151,7 @@ function ProjectUniverse({ go, openProject }) {
             <span className="shine" />
             {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 180, objectFit: "contain", display: "block", background: "#0a0a1a" }} /> : <div style={{ width: "100%", height: 140, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", fontSize: 52 }}>{p.emoji}</div>}
             <div style={{ padding: "14px 18px 16px" }}>
-              <div className="pu-card-name" style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic" }}>{p.name}</div>
+              <div className="pu-card-name" style={{ fontFamily: FD, fontSize: 17, fontWeight: 800, color: "#fff", fontStyle: "italic" }}><ProjectTitle p={p} /></div>
             </div>
           </div>
         ))}
@@ -1535,9 +1545,9 @@ function Projects({ openProject }) {
                 <div style={s.projTop}>
                   <span style={{ ...s.projTag, background: (pc[p.code] || C.gold) + "33", color: pc[p.code] || C.gold, border: `1px solid ${pc[p.code] || C.gold}88` }}>{p.tag}</span>
                 </div>
-                <div style={{ ...s.projName, color: titleColor(p) }}>{p.name}</div>
+                <div style={{ ...s.projName, color: p.accent }}><ProjectTitle p={p} /></div>
                 {/* minHeight reserves 2 lines (14px * 1.5) so all cards stay equal height when a subtitle wraps */}
-                <div style={{ ...s.projDesc, color: titleColor(p), minHeight: 42, overflowWrap: "anywhere" }}>{subtitle[p.code] || p.desc}</div>
+                <div style={{ ...s.projDesc, color: subtitleColor(p), minHeight: 42, overflowWrap: "anywhere" }}>{subtitle[p.code] || p.desc}</div>
                 <div style={s.projFoot}><Icon name="arrow" size={13} color={p.accent} style={{ marginLeft: "auto" }} /></div>
               </div>
             </div>
@@ -1669,7 +1679,7 @@ function Versions({ openProject }) {
               <span className="shine" />
               {PROJECT_LOGOS[p.code] ? <img src={PROJECT_LOGOS[p.code]} alt={p.name} style={{ width: "100%", height: 160, objectFit: "cover", display: "block", borderRadius: "20px 20px 0 0" }} /> : <div style={{ width: "100%", height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: p.accent + "22", borderRadius: "20px 20px 0 0", fontSize: 64 }}>{p.emoji}</div>}
               <div style={{ padding: "16px 22px 20px" }}>
-                <div style={{ ...s.verName, color: titleColor(p) }}>{p.name}</div>
+                <div style={{ ...s.verName, color: p.accent }}><ProjectTitle p={p} /></div>
                 <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 10, position: "relative" }}>
                   {(p.versions || []).map((v, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
